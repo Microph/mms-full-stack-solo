@@ -9,5 +9,5 @@
 | 5731001821 | Kanokpon Thongchaijareonsiri | [npingnk](https://github.com/npingnk) |
 | 5731036821 | Nattapat Boonprakong         | [nattapatboon](https://github.com/nattapatboon) |
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) |
-| 5731087821 | Pakpoom Thaweesitthichat     |                 |
+| 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) |
 | 5731111121 | Athip Intaraphirom           | [Felizk-Int](https://github.com/Felizk-Int) |
