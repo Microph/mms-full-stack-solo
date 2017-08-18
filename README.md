@@ -1,0 +1,1 @@
+# mms-full-stack-solo
