@@ -1,4 +1,4 @@
-# mms-full-stack-solo
+# Full Stack Solo
 ### Section 1
 ## Team Members
 | Student ID | Name                         | Github Username |
