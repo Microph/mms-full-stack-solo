@@ -1,4 +1,4 @@
-# Full Stack Solo
+# Tutorium
 ### Section 1
 ## Team Members
 | Student ID | Name                         | Github Username |
