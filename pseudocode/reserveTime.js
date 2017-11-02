@@ -8,10 +8,20 @@ func reserveTime() {
     
     if userInput.reserveTime is not in availableTime {
         print("Tutor is not avaiable at your selected time")
+        getInputReserveTime()
         return
+    } else if userInput.payViaBankAccount {
+        payDownSuccess = payDownBankAccount()
+    } else {
+        payDownSuccess = payDownCreditCard()
     }
 
-    payDownPayment()
+    if not payDownSuccess {
+        print("Payment transaction is failed, please try again")
+        return
+    }
+    
     queryInsertBooking()
+    notifyTutor()
     return
 }
