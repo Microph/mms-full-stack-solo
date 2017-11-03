@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-plugin-css-modules-transform": "^1.2.7",
     "bootstrap": "3",
+    "express": "^4.16.2",
+    "http-proxy": "^1.16.2",
+    "nodemon": "^1.12.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
