@@ -1,4 +1,4 @@
-func cancelReservation(studentID, courseID, reserveID) {
+func cancelReservation(studentID, reserveID) {
     reservation = SELECT *
                     FROM 'Reservation'
                     WHERE reserveID = 'reserveID'
@@ -12,7 +12,7 @@ func cancelReservation(studentID, courseID, reserveID) {
     deleteReservation = DELETE FROM 'Reservation'
                         WHERE reserveID = 'reserveID'
                             AND studentID = 'studentID'
-                            
+
 
     return
 }
