@@ -5,7 +5,7 @@ func addAvailableTime(tutorID, date, startTime, endTime) {
                         AND date = 'date'
                         AND startTime = 'startTime'
                         AND endTime = 'endTime'
-    if count(reservation) > 0 {
+    if reservation != empty {
         print("คุณมีนัดหมายกับนักเรียนในช่วงเวลานี้แล้ว กรุณาเลือกช่วงเวลาอื่น")
         return
     }
@@ -15,5 +15,6 @@ func addAvailableTime(tutorID, date, startTime, endTime) {
                                 date = 'date', 
                                 startTime = 'startTime', 
                                 endTime = 'endTime')
-    
+                                
+    return
 }

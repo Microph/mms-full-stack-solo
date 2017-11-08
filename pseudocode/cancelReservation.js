@@ -1,13 +1,18 @@
-func cancelReservation() {
-    if is not students {
-        print("This area is only for the student.")
-        return
-    } else if is not booking {
-        print("There is no any reservation to cancel.")
+func cancelReservation(studentID, courseID, reserveID) {
+    reservation = SELECT *
+                    FROM 'Reservation'
+                    WHERE reserveID = 'reserveID'
+                        AND studentID = 'studentID'
+    
+    if reservation == empty {
+        print("คุณไม่มีการนัดหมายในช่วงเวลานี้")
         return
     }
 
-    bookingID = userInput.bookingID
-    queryDeleteBooking()
+    deleteReservation = DELETE FROM 'Reservation'
+                        WHERE reserveID = 'reserveID'
+                            AND studentID = 'studentID'
+                            
+
     return
 }
