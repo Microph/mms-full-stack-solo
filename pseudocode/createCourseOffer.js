@@ -1,9 +1,9 @@
 func createCourseOffer(tutorID, subject, price, description, level) {
     if tutorID == empty || subject == empty || price == empty || description == empty || level = empty {
-        print("กรุณากรอกข้อมูลให้ครบถ้วน")
+        print("ข้อมูลที่กรอกไม่ถูกต้อง กรุณากรอกข้อมูลให้ครบถ้วน")
         return
     } else if price < 150 {
-        print("กรุณากรอกราคามากกว่า 150 บาท/ชั่วโมง")
+        print("ข้อมูลที่กรอกไม่ถูกต้อง กรุณากรอกราคามากกว่า 150 บาท/ชั่วโมง")
         return
     }
     
