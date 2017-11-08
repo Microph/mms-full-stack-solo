@@ -1,9 +1,4 @@
-func searchTutor() {
-    if is not tutor {
-        print("This area is only for tutors")
-        return
-    }
-
-    students = querySelectStudent(userInput.filter)
+func searchTutor(filter) {
+    students = querySelectStudent(filter)
     return students
 }
