@@ -1,13 +1,19 @@
-func addAvailableTime() {
-    if is not Tutor {
-        print("This area is only for tutors")
+func addAvailableTime(tutorID, date, startTime, endTime) {
+    reservation = SELECT * 
+                    FROM 'Reservation' 
+                    WHERE tutorID = 'tutorID'
+                        AND date = 'date'
+                        AND startTime = 'startTime'
+                        AND endTime = 'endTime'
+    if count(reservation) > 0 {
+        print("คุณมีนัดหมายกับนักเรียนในช่วงเวลานี้แล้ว กรุณาเลือกช่วงเวลาอื่น")
         return
     }
 
-    date = userInput.date
-    start_time = userInput.start_time
-    start_time = userInput.end_time
-
-    queryInsertAvailableTime()
-    return
+    addAvailableTime = INSERT INTO 'AvailableTime'
+                        VALUES (tutorID = 'tutorID',
+                                date = 'date', 
+                                startTime = 'startTime', 
+                                endTime = 'endTime')
+    
 }
