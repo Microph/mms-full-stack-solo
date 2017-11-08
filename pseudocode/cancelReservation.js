@@ -1,5 +1,5 @@
 func cancelReservation(studentID, reserveID) {
-    reservation = SELECT *
+    reservation =   SELECT *
                     FROM 'Reservation'
                     WHERE reserveID = 'reserveID'
                         AND studentID = 'studentID'

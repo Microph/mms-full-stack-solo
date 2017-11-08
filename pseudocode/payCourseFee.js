@@ -6,7 +6,7 @@ func payCourseFee(studentID, paymentMethod, price) {
 
         success = bankTransferPaymentRequest(bankAccountNo, price)
     } else {
-        creditCardNo = SELECT 'creditCardNo'
+        creditCardNo =  SELECT 'creditCardNo'
                         FROM 'CreditCardPayment'
                         WHERE studentID = 'studentID'
 

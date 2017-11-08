@@ -1,27 +1,24 @@
-func reserveTime() {
-    if is not student {
-        print("This area is only for students.")
+func reserveTime(studentID, tutorID, date, startTime, endTime) {
+    if !(date in available.date && startTime in available.startTime && endTime in available.endTime) {
+        print("ติวเตอร์ไม่ว่างในช่วงเวลาที่คุณเลือก")
         return
     }
 
-    availableTime = getAvailableTime(Matching.tutorID)
+    paySuccess = payCourseFee()
     
-    if userInput.reserveTime is not in availableTime {
-        print("Tutor is not avaiable at your selected time")
-        getInputReserveTime()
+    if paySuccess == false {
+        print("การชำระเงินมัดจำไม่สมบูรณ์ กรุณาทำรายการใหม่อีกครั้ง")
         return
-    } else if userInput.payViaBankAccount {
-        payDownSuccess = payDownBankAccount()
-    } else {
-        payDownSuccess = payDownCreditCard()
     }
 
-    if not payDownSuccess {
-        print("Payment transaction is failed, please try again")
-        return
-    }
+    reservation =   INSERT INTO 'Reservation'
+                    VALUES(tutorID = 'tutorID',
+                            studentID = 'studentID',
+                            date = 'date',
+                            startTime = 'startTime',
+                            endTime = 'endTime')
+
+    notifyTutor(tutorID)
     
-    queryInsertBooking()
-    notifyTutor()
     return
 }

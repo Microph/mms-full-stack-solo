@@ -4,10 +4,10 @@ func login(loginType, username, password) {
     } else if loginType == 'line' {
         token, id = performLineLogin()
     } else {
-        id = SELECT username
-                FROM 'Admin'
-                WHERE username = 'username'
-                    AND password = 'password'
+        id= SELECT username
+            FROM 'Admin'
+            WHERE username = 'username'
+                AND password = 'password'
     }
 
     SESSIONS['token'], SESSION['id'] = token, id 

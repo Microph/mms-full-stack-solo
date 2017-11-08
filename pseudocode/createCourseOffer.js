@@ -7,7 +7,7 @@ func createCourseOffer(tutorID, subject, price, description, level) {
         return
     }
     
-    createCourse = INSERT INTO 'Course'
+    createCourse =  INSERT INTO 'Course'
                     VALUES(tutorID = 'tutorID',
                             subject = 'subject',
                             price = 'price',

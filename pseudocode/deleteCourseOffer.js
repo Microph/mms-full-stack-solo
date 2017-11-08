@@ -8,7 +8,7 @@ func deleteCourseOffer(tutorID, courseID) {
         return
     }
 
-    deleteCourse = DELETE FROM 'Course'
+    deleteCourse =  DELETE FROM 'Course'
                     WHERE CourseID = 'courseID'
                         AND tutorID = 'tutorID'
     

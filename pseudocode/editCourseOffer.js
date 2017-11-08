@@ -1,5 +1,5 @@
 func editCourseOffer(tutorID, courseID, subject, price, description, level) {
-    course = SELECT *
+    course =    SELECT *
                 FROM 'Course'
                 WHERE CourseID = 'courseID'
 
@@ -13,7 +13,7 @@ func editCourseOffer(tutorID, courseID, subject, price, description, level) {
         print("กรุณากรอกราคามากกว่า 150 บาท/ชั่วโมง")
         return
     }
-    updateCourse = UPDATE 'Course'
+    updateCourse =  UPDATE 'Course'
                     SET subject = 'subject',
                         price = 'price',
                         description = 'description',
