@@ -1,15 +1,13 @@
-func sendCourseRequest() {
-    if is not student {
-        print("This area is only for students")
-        return
+func sendCourseRequest(studentID, tutorID, subject, level) {
+    courseRequest = INSERT INTO 'CourseRequest'
+                    VALUES(studentID = 'studentID',
+                            tutorID = 'tutorID',
+                            subject = 'subject',
+                            level = 'level')
+
+    if courseRequest != empty {
+        notifyTutor(studentID, tutorID)
     }
-
-    selectedTutor = userInput.selectedTutor
-    subject = userInput.subject
-    price = userInput.price
-
-    queryInsertMatching()
-    notifyTutor()
 
     return
 }
