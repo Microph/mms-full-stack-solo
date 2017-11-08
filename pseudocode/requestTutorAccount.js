@@ -1,12 +1,13 @@
-func requestTutorAccount() {
-    if is not student {
-        print("This area is only for students.")
+func requestTutorAccount(studentID, detail, proofDocument) {
+    if proofDocument == empty {
+        print("กรุณาแนบเอกสารยืนยันก่อนสมัครเป็นติวเตอร์")
         return
     }
 
-    tutorDetails = userInput.tutorDetails
-    proofDocuments = userInput.fileUploads.proofDocuments
+    request =   INSERT INTO 'TutorRequest'
+                VALUES(studentID = 'studentID',
+                        detail = 'detail'
+                        proof = 'proofDocument')
 
-    queryInsertRequestTutorApprove()
     return
 }
