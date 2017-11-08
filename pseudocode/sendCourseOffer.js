@@ -1,15 +1,9 @@
-func sendCourseOffer() {
-    if is not tutor {
-        print("This area is only for tutors")
-        return
-    }
+func sendCourseOffer(courseID, studentID) {
+    course= SELECT *
+            FROM 'Course'
+            WHERE CourseID = 'courseID'
 
-    selectedStudent = userInput.selectedStudent
-    subject = userInput.subject
-    price = userInput.price
-    
-    queryInsertMatching()
-    notifyStudent()
+    notifyOfferToStudent(course, studentID)
     
     return
 }
