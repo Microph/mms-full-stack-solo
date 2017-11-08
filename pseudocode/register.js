@@ -1,19 +1,38 @@
-func register() {
-    name = userInput.name
-    surname = userInput.surname
-    gender = userInput.gender
-    address = userInput.address
-    birthDate = userInput.birthDate
-    bankAccount = userInput.bankAccount
-
-    if facebookAuthen {
-        id = facebook.userID
-        IAccountType = FacebookAccount()
-    } else {
-        id = line.userID
-        IAccountType = LineAccount()
+func register(conditionAccept, registerType, title, name, surname, birthdate, description) {
+    if conditionAccept == false {
+        print("กรุณายอมรับเงื่อนไขการใช้งานก่อนสมัครใช้งาน")
+        return
     }
 
-    queryInsertUserAccount()
+    if registerType = 'Line' {
+        accountID = lineLogin()
+
+        registerSuccess =   INSERT INTO 'Student'
+                            VALUES(AccountType = 'registerType',
+                                    AccountID = 'accountID',
+                                    title = 'title',
+                                    name = 'name',
+                                    surname = 'surname',
+                                    birthdate = 'birthdate',
+                                    description = 'description')
+        
+    } else {
+        accountID = facebookLogin()
+        
+        registerSuccess =   INSERT INTO 'Student'
+                            VALUES(AccountType = 'registerType',
+                                    AccountID = 'accountID',
+                                    title = 'title',
+                                    name = 'name',
+                                    surname = 'surname',
+                                    birthdate = 'birthdate',
+                                    description = 'description')
+    }
+
+    if registerSuccess == false {
+        print("การลงทะเบียนล้มเหลว โปรดลองใหม่อีกครั้ง")
+        return
+    }
+
     return
 }
