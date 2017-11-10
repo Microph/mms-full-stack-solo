@@ -1,0 +1,15 @@
+version: '2'
+services:
+  backend:
+    build: ./tutorium/backend
+    container_name: backend
+    ports:
+     - "8123:8123"
+    links:
+      - database:database
+    depends_on:
+     - database
+    environment:
+     - DATABASE_HOST=database
+  database:
+    build: ./tutorium/database
