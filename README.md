@@ -1,5 +1,16 @@
 # Full Stack Solo
 ### Section 1
+
+## Installation
+run the command up to your scenario in the root folder
+### Build
+`docker-compose build`
+### Run
+`docker-compose up -d`
+### Shutdown
+`docker-compose down`
+
+
 ## Team Members
 | Student ID | Name                         | Github Username |
 | :------------: | --------------------------------- | ------------------ |
