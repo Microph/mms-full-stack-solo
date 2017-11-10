@@ -1,5 +1,4 @@
-# Full Stack Solo
-### Section 1
+# Full Stack Solo [Section 1]
 
 ## Installation
 run the command up to your scenario in the root folder
