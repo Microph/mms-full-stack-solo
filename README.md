@@ -20,4 +20,4 @@ run the command up to your scenario in the root folder
 | 5731036821 | Nattapat Boonprakong         | [nattapatboon](https://github.com/nattapatboon) |
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) |
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) |
-| 5731111121 | Athip Intaraphirom           | [Felizk-Int](https://github.com/athip-int) |
+| 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) |
