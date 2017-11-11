@@ -1,5 +1,15 @@
-# Full Stack Solo
-### Section 1
+# Full Stack Solo [Section 1]
+
+## Installation
+run the command up to your scenario in the root folder
+### Build
+`docker-compose build`
+### Run
+`docker-compose up -d`
+### Shutdown
+`docker-compose down`
+
+
 ## Team Members
 | Student ID | Name                         | Github Username |
 | :------------: | --------------------------------- | ------------------ |
@@ -10,4 +20,4 @@
 | 5731036821 | Nattapat Boonprakong         | [nattapatboon](https://github.com/nattapatboon) |
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) |
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) |
-| 5731111121 | Athip Intaraphirom           | [Felizk-Int](https://github.com/Felizk-Int) |
+| 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) |
