@@ -1,6 +1,7 @@
 //  server.js
 
 var express = require('express');
+var bodyParser = require("body-parser");
 var morgan = require('morgan');
 
 module.exports.start = (options) => {
@@ -13,10 +14,12 @@ module.exports.start = (options) => {
 
     //  Create the app, add some logging.
     var app = express();
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
     app.use(morgan('dev'));
 
     //  Add the APIs to the app.
-    require('../api/users')(app, options);
+    require('../api/user')(app, options);
 
     //  Start the app, creating a running server which we return.
     var server = app.listen(options.port, () => {
