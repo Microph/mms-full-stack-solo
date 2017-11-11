@@ -1,15 +1,5 @@
 # Full Stack Solo [Section 1]
 
-## Installation
-run the command up to your scenario in the root folder
-### Build
-`docker-compose build`
-### Run
-`docker-compose up -d`
-### Shutdown
-`docker-compose down`
-
-
 ## Team Members
 | Student ID | Name                         | Github Username |
 | :------------: | --------------------------------- | ------------------ |
@@ -21,3 +11,25 @@ run the command up to your scenario in the root folder
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) |
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) |
 | 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) |
+
+## Build & Run Project
+Run the command up to your scenario in the root folder.
+### Build & Run
+Show process on terminal `docker-compose build && docker-compose up` or
+Run process in background `docker-compose build && docker-compose up -d`
+### Shutdown
+`docker-compose down`
+
+## API Reference
+### Login
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| loginType | String | 'facebook' or 'line'| Yes |
+| id | String | user id get from line or facebook API | Yes |
+| accessToken | String | token get from line or facebook | Optional |
+#### Return value
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | login success |
+| | | false | login fail |
