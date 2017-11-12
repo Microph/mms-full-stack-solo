@@ -14,6 +14,26 @@ class Repository {
     this.connection = mysql.createConnection(this.connectionSettings);
   }
 
+  registerByFacebook(userInfo) {
+    return new Promise((resolve, reject) => {
+      resolve({
+        studentID: 's-123456',
+        accountType: 'facebook',
+        accountID: '123456'
+      })
+    })
+  }
+  
+  registerByLine(userInfo) {
+    return new Promise((resolve, reject) => {
+      resolve({
+        studentID: 's-123456',
+        accountType: 'line',
+        accountID: '123456'
+      })
+    })
+  }
+
   getUserByFacebook(id) {
     return new Promise((resolve, reject) => {
       if(id == '123456') {
