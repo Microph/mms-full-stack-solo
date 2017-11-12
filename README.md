@@ -21,15 +21,50 @@ Run process in background `docker-compose build && docker-compose up -d`
 `docker-compose down`
 
 ## API Reference
-### Login
+
+### Register (POST method)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| agree | Bool | true on accept our condition or false on otherwise | Yes |
+| registerType | String | 'facebook' or 'line' | Yes |
+| id | String | account id provide by line or facebook API | Yes |
+| name | String | | Yes |
+| surname | String | | Yes |
+| educationLevel | String | 'pratom' or 'matthayomton' or 'matthayomplai' | Yes |
+| facebookUrl | String | | Optional |
+| lineID | String | | Optional |
+| email | String | | Optional |
+| mobile | String | | Yes |
+#### Return value on success
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | login success |
+| studentID | String | | student id generate by tutorium system |
+| accountType | String | 'line' or 'facebook'| |
+| accountID | String | | account id provide by facebook or line |
+#### Return value on failure
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | register incomplete |
+| msg | String | | error message |
+
+### Login (POST method)
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | loginType | String | 'facebook' or 'line'| Yes |
-| id | String | user id get from line or facebook API | Yes |
+| id | String | account id provide by line or facebook API | Yes |
 | accessToken | String | token get from line or facebook | Optional |
-#### Return value
+#### Return value on success
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | login success |
-| | | false | login fail |
+| studentID | String | | student id generate by tutorium system |
+| accountType | String | 'line' or 'facebook'| |
+| accountID | String | | account id provide by facebook or line |
+#### Return value on failure
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | login incomplete |
+| msg | String | | error message |
