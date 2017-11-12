@@ -22,7 +22,8 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 ## API Reference
 
-### Register (POST method)
+### Register ( /api/register via POST method)
+
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -49,7 +50,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 | success | Bool | false | register incomplete |
 | msg | String | | error message |
 
-### Login (POST method)
+### Login ( /api/login via POST method)
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
