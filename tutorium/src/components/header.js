@@ -9,6 +9,7 @@ import {
   TextField
 } from "material-ui";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const logo = require("../resources/Tutorium_icon.png");
 
@@ -34,7 +35,65 @@ class Header extends Component {
     this.setState({ searchLable: text });
   }
 
+  renderContentIsAuth = () => {
+    switch (this.props.auth[0]) {
+      case null:
+        return;
+      case false:
+        return [
+          <FlatButton
+            onClick={this.handleSigninButtonClicked}
+            style={{ color: "#fff" }}
+            label="ลงชื่อเข้าใช้"
+          />,
+          <FlatButton
+            onClick={this.handleSignupButtonClicked}
+            style={{ color: "#fff" }}
+            label="สมัครสมาชิก"
+          />
+        ];
+      default:
+        return [
+          <FlatButton
+            onClick={null}
+            style={{ color: "#fff" }}
+            label="คอร์สเรียน"
+          />,
+          <FlatButton
+            onClick={null}
+            style={{ color: "#fff" }}
+            label="รูปโปรไฟล์"
+          />
+        ];
+    }
+  };
+
+  renderContentIsAuthMobile() {
+    switch (this.props.auth[0]) {
+      case null:
+        return;
+      case false:
+        return [
+          <ListItem
+            onClick={this.handleSigninButtonClicked}
+            style={{ color: "#fff" }}
+            primaryText="ลงชื่อเข้าใช้"
+          />,
+          <ListItem
+            onClick={this.handleSignupButtonClicked}
+            style={{ color: "#fff" }}
+            primaryText="สมัครสมาชิก"
+          />
+        ];
+      default:
+        return [
+          <ListItem style={{ color: "#fff" }} primaryText="คอร์สเรียน" />
+        ];
+    }
+  }
+
   render() {
+    console.log(this.props.auth);
     return (
       <div>
         <AppBar
@@ -69,16 +128,7 @@ class Header extends Component {
                   style={{ color: "#fff" }}
                   label="ฉันเป็นติวเตอร์"
                 />
-                <FlatButton
-                  onClick={this.handleSigninButtonClicked}
-                  style={{ color: "#fff" }}
-                  label="ลงชื่อเข้าใช้"
-                />
-                <FlatButton
-                  onClick={this.handleSignupButtonClicked}
-                  style={{ color: "#fff" }}
-                  label="สมัครสมาชิก"
-                />
+                {this.renderContentIsAuth()}
               </div>
             </div>
           }
@@ -89,7 +139,7 @@ class Header extends Component {
           }}
         />
         <div
-          className={this.state.mobileMenu ? "visible-mg hidden-lg" : "hidden"}
+          className={this.state.mobileMenu ? "hidden-lg" : "hidden"}
           style={{
             width: "100%",
             backgroundColor: "#0f1531"
@@ -106,20 +156,11 @@ class Header extends Component {
           />
           <Divider />
           <List>
+            {this.renderContentIsAuthMobile()}
             <ListItem
               onClick={this.handleSigninButtonClicked}
               style={{ color: "#fff" }}
               primaryText="ฉันเป็นติวเตอร์"
-            />
-            <ListItem
-              onClick={this.handleSigninButtonClicked}
-              style={{ color: "#fff" }}
-              primaryText="ลงชื่อเข้าใช้"
-            />
-            <ListItem
-              onClick={this.handleSignupButtonClicked}
-              style={{ color: "#fff" }}
-              primaryText="สมัครสมาชิก"
             />
           </List>
         </div>
@@ -128,4 +169,8 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Header);

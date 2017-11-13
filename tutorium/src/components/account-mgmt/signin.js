@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { FlatButton } from "material-ui";
 
 class SignIn extends Component {
-    render() {
-        return (
-            <h1>Sign in</h1>
-        );
-    }
+
+  render() {
+    return <FlatButton label="login" />;
+  }
 }
 
 export default SignIn;

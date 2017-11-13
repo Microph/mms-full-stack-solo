@@ -5,10 +5,21 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 
+import { reducer } from "./reducers/authReducer";
+
 import "./index.css";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<MuiThemeProvider><App /></MuiThemeProvider>, document.getElementById("root"));
+const store = createStore(reducer);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
