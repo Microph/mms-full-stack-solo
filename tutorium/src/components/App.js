@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Header from "./header";
@@ -11,9 +11,12 @@ import SignUp from "./account-mgmt/signup";
 import { actionCreators } from "../reducers/authReducer";
 
 class App extends Component {
-
   componentDidMount() {
-    this.props.fetchUser(true);
+    this.props.dispatch(actionCreators.fetchUser(true));
+  }
+
+  checkIfRouteDenied() {
+    if (this.props.auth[0]) window.location.href = "/";
   }
 
   render() {
@@ -22,12 +25,16 @@ class App extends Component {
         <div>
           <Header />
           <Route exact path="/" component={Home} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route exact path="/signin" component={this.props.auth[0] ? () => <Redirect to="/" /> : SignIn} />
+          <Route exact path="/signup" component={this.props.auth[0] ? () => <Redirect to="/" /> : SignUp} />
         </div>
       </BrowserRouter>
     );
   }
 }
 
-export default connect(null, actionCreators)(App);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(App);
