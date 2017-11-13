@@ -1,0 +1,54 @@
+<head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+   <div class="container">
+      <div class="row"><h2>รายงานปัญหา</h2></div> 
+      
+      <div class="row">
+         <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1">
+            <h4 align="right">ประเภท</h4>
+         </div>
+         <div class="col-sm-8 col-md-8">
+            <label class="radio-inline" >
+               <input type="radio" name="report_type" value="regular">
+               <h4>ปัญหาทั่วไป</h4>
+            </label>
+            <label class="radio-inline" >
+               <input type="radio" name="report_type" value="user" checked>
+               <h4>รายงานผู้ใช้</h4>
+            </label>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1">
+            <h4 align="right">ชื่อผู้ใช้ที่ต้องการรายงาน</h4>
+         </div>
+         <div class="col-sm-8 col-md-8">
+            <input type="text" class="form-control">
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1">
+            <h4 align="right">รายละเอียด</h4>
+         </div>
+         <div class="col-sm-8 col-md-8">
+            <textarea class="form-control" rows="5"></textarea>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-sm-12 col-md-12">
+            <div align="right">
+               <a href="#" class="btn btn-primary" role="button">ยืนยัน</a>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</body>
