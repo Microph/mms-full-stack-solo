@@ -1,15 +1,5 @@
 # Full Stack Solo [Section 1]
 
-## Installation
-run the command up to your scenario in the root folder
-### Build
-`docker-compose build`
-### Run
-`docker-compose up -d`
-### Shutdown
-`docker-compose down`
-
-
 ## Team Members
 | Student ID | Name                         | Github Username |
 | :------------: | --------------------------------- | ------------------ |
@@ -20,4 +10,62 @@ run the command up to your scenario in the root folder
 | 5731036821 | Nattapat Boonprakong         | [nattapatboon](https://github.com/nattapatboon) |
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) |
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) |
-| 5731111121 | Athip Intaraphirom           | [Felizk-Int](https://github.com/Felizk-Int) |
+| 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) |
+
+## Build & Run Project
+Run the command up to your scenario in the root folder.
+### Build & Run
+Show process on terminal `docker-compose build && docker-compose up` or
+Run process in background `docker-compose build && docker-compose up -d`
+### Shutdown
+`docker-compose down`
+
+## API Reference
+
+### Register ( /api/register via POST method)
+
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| agree | Bool | true on accept our condition or false on otherwise | Yes |
+| registerType | String | 'facebook' or 'line' | Yes |
+| id | String | account id provide by line or facebook API | Yes |
+| name | String | | Yes |
+| surname | String | | Yes |
+| educationLevel | String | 'pratom' or 'matthayomton' or 'matthayomplai' | Yes |
+| facebookUrl | String | | Optional |
+| lineID | String | | Optional |
+| email | String | | Optional |
+| mobile | String | | Yes |
+#### Return value on success
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | login success |
+| studentID | String | | student id generate by tutorium system |
+| accountType | String | 'line' or 'facebook'| |
+| accountID | String | | account id provide by facebook or line |
+#### Return value on failure
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | register incomplete |
+| msg | String | | error message |
+
+### Login ( /api/login via POST method)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| loginType | String | 'facebook' or 'line'| Yes |
+| id | String | account id provide by line or facebook API | Yes |
+| accessToken | String | token get from line or facebook | Optional |
+#### Return value on success
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | login success |
+| studentID | String | | student id generate by tutorium system |
+| accountType | String | 'line' or 'facebook'| |
+| accountID | String | | account id provide by facebook or line |
+#### Return value on failure
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | login incomplete |
+| msg | String | | error message |
