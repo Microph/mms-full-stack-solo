@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Header from "./header";
@@ -15,9 +15,13 @@ import ToBeTutor from "./tobetutor";
 
 import { actionCreators } from "../reducers/authReducer";
 
+const tohome = () => {
+  return <Redirect to="/" />;
+};
+
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(actionCreators.fetchUser(true));
+    this.props.dispatch(actionCreators.fetchUser(false));
   }
 
   checkIfRouteDenied() {
@@ -26,23 +30,42 @@ class App extends Component {
 
   render() {
     return (
+      <BrowserRouter>
         <div>
           <Header />
-          <Route exact path="/" component={Home} />
-          <Route
-            path="/signin"
-            component={this.props.auth[0] ? () => <Redirect to="/" /> : SignIn}
-          />
-          <Route
-            path="/signup"
-            component={this.props.auth[0] ? () => <Redirect to="/" /> : SignUp}
-          />
-          <Route path="/myprofile" component={Profile} />
-          <Route path="/report" component={UserReport} />
-          <Route path="/mycourses" component={MyCourses} />
-          <Route path="/myoffers" component={MyOffers} />
-          <Route path="/iamtutor" component={ToBeTutor} />
+          <div className="container">
+            <Route exact path="/" component={Home} />
+            <Route
+              path="/signin"
+              component={this.props.auth[0] ? tohome : SignIn}
+            />
+            <Route
+              path="/signup"
+              component={this.props.auth[0] ? tohome : SignUp}
+            />
+            <Route
+              path="/myprofile"
+              component={this.props.auth[0] ? tohome : Profile}
+            />
+            <Route
+              path="/report"
+              component={this.props.auth[0] ? tohome : UserReport}
+            />
+            <Route
+              path="/mycourses"
+              component={this.props.auth[0] ? tohome : MyCourses}
+            />
+            <Route
+              path="/myoffers"
+              component={this.props.auth[0] ? tohome : MyOffers}
+            />
+            <Route
+              path="/iamtutor"
+              component={this.props.auth[0] ? tohome : ToBeTutor}
+            />
+          </div>
         </div>
+      </BrowserRouter>
     );
   }
 }
