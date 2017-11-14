@@ -90,7 +90,7 @@ class Header extends Component {
         <nav className="navbar header">
           <div className="container">
             <div className="pull-left">
-              <Link to={"/"}>
+              <Link to={"/"} style={{ textDecoration: "none" }}>
                 <span style={{ fontSize: 30, color: "#fff" }}>
                   <img className="logo logo-header" src={logo} alt="Tutorium" />
                   Tutorium
