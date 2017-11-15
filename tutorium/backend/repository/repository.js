@@ -45,11 +45,11 @@ class Repository {
         let studentID = results.insertId
         let sql = "INSERT INTO student (studentID, name, surname, gender, educationLevel, facebookURL, lineID, email, mobile) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
-        this.connection.query(sql, [studentID, userInput.name, userInput.surname, userInput.gender, userInput.educationLevel, userInput.facebookURL, userInput.lineID, userInput.email, userInput.mobile], (err, results) => {
+        this.connection.query(sql, [studentID, userInput.name, userInput.surname, userInput.gender, userInput.educationLevel, userInput.facebookURL, userInput.lineID, userInput.email, userInput.mobile]
+          , (err, results) => {
           if(err) {
             return reject(new Error('An error occured getting the users: ' + err));
           }
-          
           resolve();
         });
       });

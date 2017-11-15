@@ -52,6 +52,10 @@ module.exports = (app, passport, options) => {
     }
   );
 
+  app.get('/api/current-login', (req,res,next) => {
+    res.status(200).send({registStatus: false, accountType: 'facebook', accountID:'123456789'})
+  });
+
   app.post('/api/register', function (req, res, next) {
     if(req.body.agree) {
       var userInfo = {accountType: req.body.accountType,
