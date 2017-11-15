@@ -18,7 +18,7 @@ class Header extends Component {
     // console.log(this.props.auth[0].user.registStatus );
     if (
       !this.props.auth[0].user.registStatus &&
-      this.props.location.pathname != "/signup"
+      this.props.location.pathname !== "/signup"
     ) {
       this.handleSignupButtonClicked();
     }
