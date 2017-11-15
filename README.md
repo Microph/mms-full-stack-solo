@@ -30,6 +30,19 @@ Run process in background `docker-compose build && docker-compose up -d`
 | accountType | String | 'facebook' or 'line' |  |
 | accountID | String | id provided by facebook or line API |  |
 
+### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
+#### Return value on can get login session data
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | |
+| user | Object | { "registStatus": Bool,<br> "accountType": String,<br> "accountID": String } | current login user info |
+
+#### Return value on can not get login session data (user did not login)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | |
+| msg | String |  | false cause |
+
 ### Register ( /api/register via POST method)
 
 #### Input Parameters
