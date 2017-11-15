@@ -22,6 +22,14 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 ## API Reference
 
+### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
+#### Return value
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| registStatus | Bool | true or false | our system register status |
+| accountType | String | 'facebook' or 'line' |  |
+| accountID | String | id provided by facebook or line API |  |
+
 ### Register ( /api/register via POST method)
 
 #### Input Parameters
@@ -48,24 +56,4 @@ Run process in background `docker-compose build && docker-compose up -d`
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register incomplete |
-| msg | String | | error message |
-
-### Login ( /api/login via POST method)
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| loginType | String | 'facebook' or 'line'| Yes |
-| id | String | account id provide by line or facebook API | Yes |
-| accessToken | String | token get from line or facebook | Optional |
-#### Return value on success
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | login success |
-| studentID | String | | student id generate by tutorium system |
-| accountType | String | 'line' or 'facebook'| |
-| accountID | String | | account id provide by facebook or line |
-#### Return value on failure
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | login incomplete |
 | msg | String | | error message |
