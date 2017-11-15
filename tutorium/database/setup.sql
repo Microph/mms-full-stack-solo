@@ -23,11 +23,10 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `account` (
-  `account_studentID` int(11) NOT NULL,
+  `account_studentID` int(11) NOT NULL AUTO_INCREMENT,
   `accountType` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `accountID` varchar(200) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`account_studentID`),
-  CONSTRAINT `account_studentID` FOREIGN KEY (`account_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`account_studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -289,7 +288,7 @@ DROP TABLE IF EXISTS `education`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `education` (
   `educationID` int(11) NOT NULL AUTO_INCREMENT,
-  `education_studentID` int(11) NOT NULL,
+  `education_tutorID` int(11) NOT NULL,
   `schoolName` varchar(100) NOT NULL,
   `faculty` varchar(100) DEFAULT NULL,
   `department` varchar(100) DEFAULT NULL,
@@ -297,8 +296,8 @@ CREATE TABLE `education` (
   `gpax` double NOT NULL,
   `info` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`educationID`),
-  KEY `education_studentID_idx` (`education_studentID`),
-  CONSTRAINT `education_studentID` FOREIGN KEY (`education_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `education_studentID_idx` (`education_tutorID`),
+  CONSTRAINT `education_studentID` FOREIGN KEY (`education_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -407,12 +406,14 @@ DROP TABLE IF EXISTS `student`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student` (
   `studentID` int(11) NOT NULL,
-  `title` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `surname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `birthdate` date NOT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `educationLevel` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `gender` enum('male','female','others') COLLATE utf8_unicode_ci NOT NULL,
+  `educationLevel` enum('pratom','matthayomton','matthayomplai','bachelor','master','doctor') COLLATE utf8_unicode_ci NOT NULL,
+  `facebookURL` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lineID` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mobile` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -517,4 +518,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-14 16:02:59
+-- Dump completed on 2017-11-15 21:36:47
