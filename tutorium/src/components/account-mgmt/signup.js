@@ -7,10 +7,13 @@ import {
   RadioButton,
   SelectField,
   MenuItem,
-  FlatButton
+  FlatButton,
+  Checkbox
 } from "material-ui";
 import { connect } from "react-redux";
 import axios from "axios";
+
+const querystring = require("querystring");
 
 window.axios = axios;
 
@@ -35,28 +38,42 @@ class SignUp extends Component {
       lineid: "",
       email: "",
       phone: "",
-      gender: "",
-      edlvl: ""
+      gender: "male",
+      edlvl: "pratom",
+      agreement: false,
+      formerr: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit() {
+  handleSubmit = async () => {
     const user = await axios.get("/api/current-login-session");
-    const res = await axios.post("/api/register", {
-      accountType: user.data.user.accountType,
-      accountID: user.data.user.accountID,
-      name: this.state.name,
-      surname: this.state.lastname,
-      gender: this.state.gender,
-      educationLevel: this.state.edlvl,
-      facebookUrl: this.state.fburl,
-      lineID: this.state.lineid,
-      email: this.state.email,
-      mobile: this.state.phone
+    const res = await axios({
+      method: "POST",
+      url: "/api/register",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      },
+      data: querystring.stringify({
+        accountType: user.data.user.accountType,
+        accountID: user.data.user.accountID,
+        name: this.state.name,
+        surname: this.state.lastname,
+        gender: this.state.gender,
+        educationLevel: this.state.edlvl,
+        facebookUrl: this.state.fburl,
+        lineID: this.state.lineid,
+        email: this.state.email,
+        mobile: this.state.phone,
+        agree: this.state.agreement
+      })
     });
-    console.log(res);
-  }
+    if (res.data.success) {
+      window.location.href = "/";
+    } else {
+      this.setState({ formerr: true });
+    }
+  };
 
   render() {
     return (
@@ -81,7 +98,7 @@ class SignUp extends Component {
           <Divider />
           <SelectField
             floatingLabelText="เพศ"
-            value="male"
+            value={this.state.gender}
             required
             style={{ marginLeft: 20 }}
             onChange={(event, key, gender) => this.setState({ gender })}
@@ -94,7 +111,7 @@ class SignUp extends Component {
           <SelectField
             style={{ marginLeft: 20 }}
             floatingLabelText="ระดับการศึกษา"
-            value="pratom"
+            value={this.state.edlvl}
             required
             onChange={(event, key, edlvl) => this.setState({ edlvl })}
           >
@@ -136,7 +153,14 @@ class SignUp extends Component {
             onChange={(event, phone) => this.setState({ phone })}
           />
           <Divider />
+          <Checkbox
+            label="ฉันได้อ่านและยอมรับเงื่อนไขในการให้บริการแล้ว"
+            style={{ marginLeft: 20 }}
+            onCheck={(event, agreement) => this.setState({ agreement })}
+          />
+          <Divider />
           <FlatButton
+            disabled={!this.state.agreement}
             onClick={this.handleSubmit}
             style={{ color: "#000", margin: "auto" }}
             label="ยืนยัน"
@@ -147,15 +171,6 @@ class SignUp extends Component {
     );
   }
 }
-
-const styles = {
-  block: {
-    maxWidth: 250
-  },
-  radioButton: {
-    marginBottom: 16
-  }
-};
 
 // export default SignUp;
 function mapStateToProps({ auth }) {
