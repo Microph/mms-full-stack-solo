@@ -26,8 +26,8 @@ module.exports = (app, passport, options) => {
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(() => {
-        options.repository.findUserByID(profile.id, 'facebook').then((studentID) => {
-          if(studentID) {
+        options.repository.findUserByID(profile.id, 'facebook').then((result) => {
+          if(result) {
             return done(null, {registStatus: true, accountType: 'facebook', accountID:profile.id})
           } else {
             return done(null, {registStatus: false, accountType: 'facebook', accountID:profile.id})
@@ -61,8 +61,8 @@ module.exports = (app, passport, options) => {
       let accountID = decoded.payload.sub
 
       process.nextTick(() => {
-        options.repository.findUserByID(profile.id, 'line').then((studentID) => {
-          if(studentID) {
+        options.repository.findUserByID(profile.id, 'line').then((result) => {
+          if(result) {
             return done(null, {registStatus: true, accountType: 'line', accountID:accountID})
           } else {
             return done(null, {registStatus: false, accountType: 'line', accountID:accountID})
@@ -108,6 +108,7 @@ module.exports = (app, passport, options) => {
                       mobile: req.body.mobile}
 
       options.repository.register(userInfo).then(() => {
+        req.session.passport.user.registStatus = true;
         res.status(200).send({ success: true })
       })
       .catch(next);
