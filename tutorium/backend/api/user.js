@@ -52,8 +52,12 @@ module.exports = (app, passport, options) => {
     }
   );
 
-  app.get('/api/current-login', (req,res,next) => {
-    res.status(200).send({registStatus: false, accountType: 'facebook', accountID:'123456789'})
+  app.get('/api/current-login-session', (req,res,next) => {
+    if(req.user) {
+      res.status(200).send({ success: true, user: req.user}) 
+    } else {
+      res.status(200).send({ success: false, msg: 'User is not login, yet'})
+    }
   });
 
   app.post('/api/register', function (req, res, next) {
