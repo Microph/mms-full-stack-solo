@@ -98,18 +98,20 @@ class Header extends Component {
               </Link>
             </div>
             {/* Search */}
-            {/* <div className="input-group stylish-input-group hidden-xs">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="ค้นหาคอร์สเรียน"
-              />
-              <span class="input-group-addon">
-                <button type="submit">
-                  <span className="glyphicon glyphicon-search" />
-                </button>
-              </span>
-            </div> */}
+            <div className="pull-left search-header visible-lg">
+              <div className="input-group stylish-input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="ค้นหาคอร์สเรียน"
+                />
+                <span className="input-group-addon">
+                  <button>
+                    <span class="glyphicon glyphicon-search" />
+                  </button>
+                </span>
+              </div>
+            </div>
             {/* Menu Large screen */}
             <div className="pull-right hidden-xs">
               <FlatButton
@@ -143,7 +145,6 @@ class Header extends Component {
           }}
         >
           <List>
-            {/* Search */}
             {/* Menu */}
             {this.renderContentIsAuthMobile()}
             <ListItem
@@ -153,15 +154,16 @@ class Header extends Component {
             />
           </List>
         </div>
-        <div className="search-xs visible-xs">
-          <div className="input-group stylish-input-group">
+        {/* Search mobile */}
+        <div className="search-xs hidden-lg">
+          <div className="container input-group stylish-input-group">
             <input
               type="text"
               className="form-control"
               placeholder="ค้นหาคอร์สเรียน"
             />
             <span className="input-group-addon">
-              <button type="submit">
+              <button>
                 <span class="glyphicon glyphicon-search" />
               </button>
             </span>
