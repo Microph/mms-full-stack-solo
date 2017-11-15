@@ -20,7 +20,12 @@ class Header extends Component {
       !this.props.auth[0].user.registStatus &&
       this.props.location.pathname !== "/signup"
     ) {
+      this.setState({ auth: false });
       this.handleSignupButtonClicked();
+    } else if (!this.props.auth[0].user.registStatus){
+      this.setState({ auth: false });
+    } else {
+      this.setState({ auth: true });
     }
   }
 
@@ -32,8 +37,10 @@ class Header extends Component {
     super(props);
     this.state = {
       mobileMenu: false,
-      searchLable: ""
+      searchLable: "",
+      auth: false
     };
+    this.getCurrentUser = this.getCurrentUser.bind(this);
   }
 
   handleTitleClicked = () => (window.location.href = "/");
@@ -55,7 +62,7 @@ class Header extends Component {
   }
 
   renderContentIsAuth = () => {
-    switch (this.props.auth[0]) {
+    switch (this.state.auth) {
       case null:
         return;
       case false:
@@ -83,7 +90,7 @@ class Header extends Component {
   };
 
   renderContentIsAuthMobile() {
-    switch (this.props.auth[0]) {
+    switch (this.state.auth) {
       case null:
         return;
       case false:
