@@ -42,12 +42,7 @@ class Header extends Component {
           <FlatButton
             onClick={this.handleSigninButtonClicked}
             style={{ color: "#fff" }}
-            label="ลงชื่อเข้าใช้"
-          />,
-          <FlatButton
-            onClick={this.handleSignupButtonClicked}
-            style={{ color: "#fff" }}
-            label="สมัครสมาชิก"
+            label="ลงชื่อเข้าใช้ / สมัครสมาชิก"
           />
         ];
       default:
@@ -75,12 +70,7 @@ class Header extends Component {
           <ListItem
             onClick={this.handleSigninButtonClicked}
             style={{ color: "#fff" }}
-            primaryText="ลงชื่อเข้าใช้"
-          />,
-          <ListItem
-            onClick={this.handleSignupButtonClicked}
-            style={{ color: "#fff" }}
-            primaryText="สมัครสมาชิก"
+            primaryText="ลงชื่อเข้าใช้ / สมัครสมาชิก"
           />
         ];
       default:

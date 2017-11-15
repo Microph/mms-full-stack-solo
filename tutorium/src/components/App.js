@@ -21,7 +21,7 @@ const tohome = () => {
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(actionCreators.fetchUser(true));
+    this.props.dispatch(actionCreators.fetchUser(false));
   }
 
   render() {
