@@ -10,7 +10,7 @@
 | 5731036821 | Nattapat Boonprakong         | [nattapatboon](https://github.com/nattapatboon) | System Analyst |
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) | Project Manager & System Analyst|
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) | Technical Lead & Back-end Developer|
-| 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) | Front-end Developer |
+| 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) | Designer & Front-end Developer |
 
 ## Build & Run Project
 Run the command up to your scenario in the root folder.
