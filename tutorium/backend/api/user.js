@@ -1,4 +1,6 @@
 const FacebookStrategy = require('passport-facebook').Strategy;
+const OAuth2Strategy = require('passport-oauth2').Strategy;
+var jwt = require('jsonwebtoken')
 
 //  users.js
 //
@@ -12,15 +14,9 @@ module.exports = (app, passport, options) => {
   passport.serializeUser((user, done) => {
     done(null, user);
   });
-
+  
   passport.deserializeUser((user, done) => {
-    options.repository.findUserByID(user.id, 'facebook').then((studentID) => {
-      if(studentID) {
-        return done(null, {registStatus: true, accountType: 'facebook', accountID:user.accountID})
-      } else {
-        return done(null, {registStatus: false, accountType: 'facebook', accountID:user.accountID})
-      }
-    })
+    done(null, user)
   });
 
   passport.use(new FacebookStrategy({
@@ -50,6 +46,39 @@ module.exports = (app, passport, options) => {
       res.redirect(options.homePage);
     }
   );
+
+  passport.use(new OAuth2Strategy({
+      authorizationURL: options.lineConfig.authorizationURL,
+      tokenURL: options.lineConfig.tokenURL,
+      clientID: options.lineConfig.clientID,
+      clientSecret: options.lineConfig.clientSecret,
+      state: options.lineConfig.state,
+      scope: options.lineConfig.scope,
+      callbackURL: options.lineConfig.callbackURL
+    },
+    function(accessToken, refreshToken, profile, _, done) {
+      var decoded = jwt.decode(profile.id_token, {complete: true});
+      let accountID = decoded.payload.sub
+
+      process.nextTick(() => {
+        options.repository.findUserByID(profile.id, 'line').then((studentID) => {
+          if(studentID) {
+            return done(null, {registStatus: true, accountType: 'line', accountID:accountID})
+          } else {
+            return done(null, {registStatus: false, accountType: 'line', accountID:accountID})
+          }
+        })
+      })
+    }
+  ));
+
+  app.get('/api/auth/line', passport.authenticate('oauth2'));
+
+  app.get('/api/auth/line/callback', 
+    passport.authenticate('oauth2', { failureRedirect: options.homePage})
+    ,(req, res) => {
+      res.redirect(options.homePage);
+    });
 
   app.get('/api/current-login-session', (req, res, next) => {
     if(req.user) {
