@@ -15,7 +15,7 @@
 ## Build & Run Project
 Run the command up to your scenario in the root folder.
 ### Build & Run
-Show process on terminal `docker-compose build && docker-compose up` or
+Show process on terminal `docker-compose build docker-compose up` or <br>
 Run process in background `docker-compose build && docker-compose up -d`
 ### Shutdown
 `docker-compose down`
