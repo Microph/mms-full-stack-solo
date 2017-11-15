@@ -22,7 +22,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 ## API Reference
 
-### Facebook Authentication ( /api/auth/facebook using GET method )
+### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
 #### Return value
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
