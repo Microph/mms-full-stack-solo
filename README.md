@@ -24,9 +24,11 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 ### Table of Contents
 [Facebook Authen](#faceAuth)
+[Current Login Session Data](#currLog)
+[Logout](#logout)
+[Reigster](#regist)
 
-<a name="faceAuth"/>
-
+<a name="faceAuth"></a>
 ### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
 #### Return value
 | Field Name | Type | Value | Description |
@@ -37,6 +39,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 <p align="center">.................................................</p>
 
+<a name="currLog"></a>
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
 #### Return value on can get login session data
 | Field Name | Type | Value | Description |
@@ -52,11 +55,13 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 <p align="center">.................................................</p>
 
+<a name="logout"></a>
 ### Logout ( Access via GET method on '/api/logout' )
 Performs logout will clear all session then redirect to the home page
 
 <p align="center">.................................................</p>
 
+<a name="regist"></a>
 ### Register ( /api/register via POST method)
 
 #### Input Parameters
