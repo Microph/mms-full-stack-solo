@@ -36,7 +36,23 @@ class Repository {
 
   register(userInput) {
     return new Promise((resolve, reject) => {
-      var sql = "INSERT INTO account () VALUES"
+      let sql = "INSERT INTO account (accountType, accountID) VALUES(?, ?)";
+      this.connection.query(sql, [userInput.accountType, userInput.accountID], (err, results) => {
+        if(err) {
+          return reject(new Error('An error occured getting the users: ' + err));
+        }
+        
+        let studentID = results.insertId
+        let sql = "INSERT INTO student (studentID, name, surname, gender, educationLevel, facebookURL, lineID, email, mobile) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+        this.connection.query(sql, [studentID, userInput.name, userInput.surname, userInput.gender, userInput.educationLevel, userInput.facebookURL, userInput.lineID, userInput.email, userInput.mobile], (err, results) => {
+          if(err) {
+            return reject(new Error('An error occured getting the users: ' + err));
+          }
+          
+          resolve();
+        });
+      });
     });
   }
 

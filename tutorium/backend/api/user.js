@@ -64,83 +64,48 @@ module.exports = (app, passport, options) => {
                       email: req.body.email,
                       mobile: req.body.mobile}
 
-      options.repository.register(userInfo).then((success) => {
-
+      options.repository.register(userInfo).then(() => {
+        res.status(200).send({ success: true })
       })
       .catch(next);
-      // if(req.body.registerType == 'facebook') {
-      //   options.repository.registerByFacebook(userInfo).then((user) => {
-      //     if(!user) { 
-      //       res.status(200).send({
-      //         success: false,
-      //         msg: 'register incomplete'
-      //       });
-      //     } else {
-      //       res.status(200).send({
-      //         success: true,
-      //         studentID: 's-123456',
-      //         accountType: 'facebook',
-      //         accountID: '123456'
-      //       });
-      //     }
-      //   })
-      //   .catch(next);
-      // } else {
-      //   options.repository.registerByLine(userInfo).then((user) => {
-      //     if(!user) { 
-      //       res.status(200).send({
-      //         success: false,
-      //         msg: 'register incomplete'
-      //       });
-      //     } else {
-      //       res.status(200).send({
-      //         success: true,
-      //         studentID: 's-123456',
-      //         accountType: 'line',
-      //         accountID: '654321'
-      //       });
-      //     }
-      //   })
-      //   .catch(next);
-      // }
     }
   })
   
-  app.post('/api/login', function (req, res, next) {
-    if(req.body.loginType == "facebook") {
-      options.repository.getUserByFacebook(req.body.id).then((user) => {
-        if(!user) { 
-          res.status(200).send({
-            success: false,
-            msg: 'login incomplete'
-          });
-        } else {
-          res.status(200).send({
-            success: true,
-            studentID: 's-123456',
-            accountType: 'facebook',
-            accountID: '123456'
-          });
-        }
-      })
-      .catch(next);
-    } else {
-      options.repository.getUserByLine(req.body.id).then((user) => {
-        if(!user) { 
-          res.status(200).send({
-            success: false,
-            msg: 'login incomplete'
-          });
-        } else {
-          res.status(200).send({
-            success: true,
-            studentID: 's-123456',
-            accountType: 'line',
-            accountID: '654321'
-          });
-        }
-      })
-      .catch(next);
-    }
-  })
+  // app.post('/api/login', function (req, res, next) {
+  //   if(req.body.loginType == "facebook") {
+  //     options.repository.getUserByFacebook(req.body.id).then((user) => {
+  //       if(!user) { 
+  //         res.status(200).send({
+  //           success: false,
+  //           msg: 'login incomplete'
+  //         });
+  //       } else {
+  //         res.status(200).send({
+  //           success: true,
+  //           studentID: 's-123456',
+  //           accountType: 'facebook',
+  //           accountID: '123456'
+  //         });
+  //       }
+  //     })
+  //     .catch(next);
+  //   } else {
+  //     options.repository.getUserByLine(req.body.id).then((user) => {
+  //       if(!user) { 
+  //         res.status(200).send({
+  //           success: false,
+  //           msg: 'login incomplete'
+  //         });
+  //       } else {
+  //         res.status(200).send({
+  //           success: true,
+  //           studentID: 's-123456',
+  //           accountType: 'line',
+  //           accountID: '654321'
+  //         });
+  //       }
+  //     })
+  //     .catch(next);
+  //   }
+  // })
 };
