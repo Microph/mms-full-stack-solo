@@ -24,6 +24,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 ### Table of Contents
 [Facebook Authen](#faceAuth)<br>
+[Line Authen](#lineAuth)<br>
 [Current Login Session Data](#currLog)<br>
 [Logout](#logout)<br>
 [Reigster](#regist)<br>
@@ -34,8 +35,19 @@ Run process in background `docker-compose build && docker-compose up -d`
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | registStatus | Bool | true or false | our system register status |
-| accountType | String | 'facebook' or 'line' |  |
-| accountID | String | id provided by facebook or line API |  |
+| accountType | String | 'facebook'' |  |
+| accountID | String | id provided by facebook API |  |
+
+<p align="center">.................................................</p>
+
+<a name="lineAuth"></a>
+### Line Authentication ( Access via GET method on '/api/auth/line' )
+#### Return value
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| registStatus | Bool | true or false | our system register status |
+| accountType | String | 'line' |  |
+| accountID | String | id provided by line API |  |
 
 <p align="center">.................................................</p>
 
