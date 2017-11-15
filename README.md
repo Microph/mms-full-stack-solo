@@ -47,6 +47,11 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 <p align="center">.................................................</p>
 
+### Logout ( Access via GET method on '/api/logout' )
+Performs logout will clear all session then redirect to the home page
+
+<p align="center">.................................................</p>
+
 ### Register ( /api/register via POST method)
 
 #### Input Parameters
@@ -72,3 +77,5 @@ Run process in background `docker-compose build && docker-compose up -d`
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
 | msg | String | | false cause |
+
+<p align="center">.................................................</p>
