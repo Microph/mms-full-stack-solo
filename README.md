@@ -23,10 +23,10 @@ Run process in background `docker-compose build && docker-compose up -d`
 ## API Reference
 
 ### Table of Contents
-[Facebook Authen](#faceAuth)
-[Current Login Session Data](#currLog)
-[Logout](#logout)
-[Reigster](#regist)
+[Facebook Authen](#faceAuth)<br>
+[Current Login Session Data](#currLog)<br>
+[Logout](#logout)<br>
+[Reigster](#regist)<br>
 
 <a name="faceAuth"></a>
 ### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
