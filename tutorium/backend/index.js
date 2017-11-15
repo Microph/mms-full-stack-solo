@@ -31,6 +31,7 @@ repository.connect({
     port: config.port,
     repository: repo,
     facebookConfig: config.facebookStrategy,
+    lineConfig: config.lineStrategy,
     homePage: config.homePage
   });
 
