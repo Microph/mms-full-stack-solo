@@ -24,9 +24,9 @@ module.exports = (app, passport, options) => {
   });
 
   passport.use(new FacebookStrategy({
-      clientID: '1585083688215887',
-      clientSecret: 'ee917ac7f9a30c4feda943772380509b',
-      callbackURL: "http://localhost:8123/api/auth/facebook/callback"
+      clientID: options.facebookConfig.clientID,
+      clientSecret: options.facebookConfig.clientSecret,
+      callbackURL: options.facebookConfig.callbackURL,
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(() => {
@@ -44,21 +44,26 @@ module.exports = (app, passport, options) => {
   app.get('/api/auth/facebook', passport.authenticate('facebook'));
 
   app.get('/api/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    passport.authenticate('facebook', { failureRedirect: options.homePage }),
     (req, res) => {
       // Successful authentmote resource at https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8123%2Fapi%2Fauth%2Ffacebook%2Fcallback&client_id=1585083688215887. (Reason: CORS header ‘Access-Control-Allow-Origin’ missing).ication
-      // res.status(200).send(req.user)
-      res.redirect('http://localhost:3000/');
+      res.redirect(options.homePage);
     }
   );
 
-  app.get('/api/current-login-session', (req,res,next) => {
+  app.get('/api/current-login-session', (req, res, next) => {
     if(req.user) {
       res.status(200).send({ success: true, user: req.user}) 
     } else {
       res.status(200).send({ success: false, msg: 'User is not login, yet'})
     }
   });
+
+  app.get('/api/logout', (req, res, next) => {
+    req.session.destroy((err) => {
+      res.redirect(options.homePage);
+    })
+  })
 
   app.post('/api/register', function (req, res, next) {
     if(req.body.agree) {
@@ -79,42 +84,4 @@ module.exports = (app, passport, options) => {
       .catch(next);
     }
   })
-  
-  // app.post('/api/login', function (req, res, next) {
-  //   if(req.body.loginType == "facebook") {
-  //     options.repository.getUserByFacebook(req.body.id).then((user) => {
-  //       if(!user) { 
-  //         res.status(200).send({
-  //           success: false,
-  //           msg: 'login incomplete'
-  //         });
-  //       } else {
-  //         res.status(200).send({
-  //           success: true,
-  //           studentID: 's-123456',
-  //           accountType: 'facebook',
-  //           accountID: '123456'
-  //         });
-  //       }
-  //     })
-  //     .catch(next);
-  //   } else {
-  //     options.repository.getUserByLine(req.body.id).then((user) => {
-  //       if(!user) { 
-  //         res.status(200).send({
-  //           success: false,
-  //           msg: 'login incomplete'
-  //         });
-  //       } else {
-  //         res.status(200).send({
-  //           success: true,
-  //           studentID: 's-123456',
-  //           accountType: 'line',
-  //           accountID: '654321'
-  //         });
-  //       }
-  //     })
-  //     .catch(next);
-  //   }
-  // })
 };

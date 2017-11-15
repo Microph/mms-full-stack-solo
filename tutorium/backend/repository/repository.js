@@ -56,54 +56,6 @@ class Repository {
     });
   }
 
-  registerByFacebook(userInfo) {
-    return new Promise((resolve, reject) => {
-      resolve({
-        studentID: 's-123456',
-        accountType: 'facebook',
-        accountID: '123456'
-      })
-    })
-  }
-  
-  registerByLine(userInfo) {
-    return new Promise((resolve, reject) => {
-      resolve({
-        studentID: 's-123456',
-        accountType: 'line',
-        accountID: '123456'
-      })
-    })
-  }
-
-  getUserByFacebook(id) {
-    return new Promise((resolve, reject) => {
-      if(id == '123456') {
-        resolve({
-          studentID: 's-123456',
-          accountType: 'facebook',
-          accountID: '123456'
-        })
-      } else {
-        resolve(undefined)
-      }
-    })
-  }
-
-  getUserByLine(id) {
-    return new Promise((resolve, reject) => {
-      if(id == '654321') {
-        resolve({
-          studentID: 's-123456',
-          accountType: 'line',
-          accountID: '654321'
-        })
-      } else {
-        resolve(undefined)
-      }
-    })
-  }
-
   disconnect() {
     this.connection.end();
   }

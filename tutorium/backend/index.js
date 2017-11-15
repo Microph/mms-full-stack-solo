@@ -29,7 +29,9 @@ repository.connect({
 
   return server.start({
     port: config.port,
-    repository: repo
+    repository: repo,
+    facebookConfig: config.facebookStrategy,
+    homePage: config.homePage
   });
 
 }).then((app) => {
