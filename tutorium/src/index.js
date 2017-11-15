@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 
@@ -18,9 +17,7 @@ const store = createStore(reducer);
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById("root")
