@@ -73,7 +73,7 @@ Performs logout will clear all session then redirect to the home page
 | name | String | | Yes |
 | surname | String | | Yes |
 | gender | String | 'male', 'female', 'others' | Yes|
-| educationLevel | String | 'pratom' or 'matthayomton' or 'matthayomplai' | Yes |
+| educationLevel | String | 'pratom', 'matthayomton', 'matthayomplai', 'bachelor', 'master', 'doctor' | Yes |
 | facebookUrl | String | | Optional |
 | lineID | String | | Optional |
 | email | String | | Yes |
