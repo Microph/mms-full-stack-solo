@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { FlatButton } from "material-ui";
-import { axios } from "axios";
+import axios from "axios";
 
+window.axios = axios;
 const fb_logo = require("../../resources/fb-white.png");
-const proxy = require("../../config/proxy");
 
 class SignIn extends Component {
-  handleLogin = async () => {
-    const res = await axios.get('/api/auth/facebook', proxy);
-    alert(res);
+  handleLogin = () => {
+    window.location.href = "/api/auth/facebook"
   };
 
   render() {
