@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   FlatButton,
   Card,
@@ -10,6 +11,7 @@ import {
 } from "material-ui";
 
 class Home extends Component {
+
   render() {
     var tutorList = [];
     tutor.map(item => {
@@ -27,4 +29,9 @@ const tutor = [
   { subject: "eng", name: ['เมพขิง จิงกาเบล', 'ติวเตอร์ หมายเลขห้า', 'เก่ง ไปหมด'] }
 ];
 
-export default Home;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Home);
+

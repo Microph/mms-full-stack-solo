@@ -20,45 +20,28 @@ const tohome = () => {
 };
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(actionCreators.fetchUser(false));
-  }
+  
 
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Header />
+        <Route render={(props) => {
+                  // console.log(props.location)
+                  return (
+                    <Header {...props} />
+                  )
+                }} />
+          
           <div className="container">
             <Route exact path="/" component={Home} />
-            <Route
-              path="/signin"
-              component={this.props.auth[0] ? tohome : SignIn}
-            />
-            <Route
-              path="/signup"
-              component={this.props.auth[0] ? tohome : SignUp}
-            />
-            <Route
-              path="/iamtutor"
-              component={this.props.auth[0] ? ToBeTutor : SignIn}
-            />
-            <Route
-              path="/myprofile"
-              component={this.props.auth[0] ? Profile : SignIn}
-            />
-            <Route
-              path="/report"
-              component={this.props.auth[0] ? UserReport : SignIn}
-            />
-            <Route
-              path="/mycourses"
-              component={this.props.auth[0] ? MyCourses : SignIn}
-            />
-            <Route
-              path="/myoffers"
-              component={this.props.auth[0] ? MyOffers : SignIn}
-            />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/iamtutor" component={ToBeTutor} />
+            <Route path="/myprofile" component={Profile} />
+            <Route path="/report" component={UserReport} />
+            <Route path="/mycourses" component={MyCourses} />
+            <Route path="/myoffers" component={MyOffers} />
           </div>
         </div>
       </BrowserRouter>

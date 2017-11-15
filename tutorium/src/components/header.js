@@ -3,10 +3,31 @@ import { FlatButton, List, ListItem, Divider, Drawer } from "material-ui";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { MenuItem } from "material-ui/DropDownMenu";
+import axios from "axios";
 
+import { actionCreators } from "../reducers/authReducer";
+
+window.axios = axios;
 const logo = require("../resources/Tutorium_icon.png");
 
 class Header extends Component {
+  // check if now has user logged in
+  async getCurrentUser() {
+    const user = await axios("/api/current-login-session");
+    this.props.dispatch(actionCreators.fetchUser(user.data));
+    // console.log(this.props.auth[0].user.registStatus );
+    if (
+      !this.props.auth[0].user.registStatus &&
+      this.props.location.pathname != "/signup"
+    ) {
+      this.handleSignupButtonClicked();
+    }
+  }
+
+  componentDidMount() {
+    this.getCurrentUser();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -75,9 +96,21 @@ class Header extends Component {
         ];
       default:
         return [
-          <ListItem style={{ color: "#fff" }} onClick={this.handleProfileClicked} primaryText="โปรไฟล์ของฉัน" />,
-          <ListItem style={{ color: "#fff" }} onClick={this.handleCoursesClicked} primaryText="คอร์สเรียนของฉัน" />,
-          <ListItem style={{ color: "#fff" }} onClick={this.handleOffersClicked} primaryText="ข้อเสนอคอร์สเรียน" />
+          <ListItem
+            style={{ color: "#fff" }}
+            onClick={this.handleProfileClicked}
+            primaryText="โปรไฟล์ของฉัน"
+          />,
+          <ListItem
+            style={{ color: "#fff" }}
+            onClick={this.handleCoursesClicked}
+            primaryText="คอร์สเรียนของฉัน"
+          />,
+          <ListItem
+            style={{ color: "#fff" }}
+            onClick={this.handleOffersClicked}
+            primaryText="ข้อเสนอคอร์สเรียน"
+          />
         ];
     }
   }
