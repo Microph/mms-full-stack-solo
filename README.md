@@ -30,6 +30,8 @@ Run process in background `docker-compose build && docker-compose up -d`
 | accountType | String | 'facebook' or 'line' |  |
 | accountID | String | id provided by facebook or line API |  |
 
+<p align="center">.................................................</p>
+
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
 #### Return value on can get login session data
 | Field Name | Type | Value | Description |
@@ -43,30 +45,30 @@ Run process in background `docker-compose build && docker-compose up -d`
 | success | Bool | false | |
 | msg | String |  | false cause |
 
+<p align="center">.................................................</p>
+
 ### Register ( /api/register via POST method)
 
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | agree | Bool | true on accept our condition or false on otherwise | Yes |
-| registerType | String | 'facebook' or 'line' | Yes |
-| id | String | account id provide by line or facebook API | Yes |
+| accountType | String | 'facebook' or 'line' provided by login session | Yes |
+| accountID | String | account id provided by login session | Yes |
 | name | String | | Yes |
 | surname | String | | Yes |
+| gender | String | 'male', 'female', 'others' | Yes|
 | educationLevel | String | 'pratom' or 'matthayomton' or 'matthayomplai' | Yes |
 | facebookUrl | String | | Optional |
 | lineID | String | | Optional |
-| email | String | | Optional |
+| email | String | | Yes |
 | mobile | String | | Yes |
-#### Return value on success
+#### Return value on register successful
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | login success |
-| studentID | String | | student id generate by tutorium system |
-| accountType | String | 'line' or 'facebook'| |
-| accountID | String | | account id provide by facebook or line |
-#### Return value on failure
+| success | Bool | true | register successful |
+#### Return value on register unsuccessful
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | register incomplete |
-| msg | String | | error message |
+| success | Bool | false | register unsuccessful |
+| msg | String | | false cause |
