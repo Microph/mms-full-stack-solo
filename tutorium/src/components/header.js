@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { FlatButton, List, ListItem } from "material-ui";
-import { Link } from "react-router-dom";
+import { FlatButton, List, ListItem, Divider, Drawer } from "material-ui";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { MenuItem } from "material-ui/DropDownMenu";
 
 const logo = require("../resources/Tutorium_icon.png");
 
@@ -17,6 +18,11 @@ class Header extends Component {
   handleTitleClicked = () => (window.location.href = "/");
   handleSigninButtonClicked = () => (window.location.href = "/signin");
   handleSignupButtonClicked = () => (window.location.href = "/signup");
+  handleToBeTutorClicked = () => (window.location.href = "/iamtutor");
+  handleReportClicked = () => (window.location.href = "/report");
+  handleProfileClicked = () => (window.location.href = "/myprofile");
+  handleCoursesClicked = () => (window.location.href = "/mycourses");
+  handleOffersClicked = () => (window.location.href = "/myoffers");
 
   toggleMobileMenu = () => {
     var { mobileMenu } = this.state;
@@ -79,7 +85,9 @@ class Header extends Component {
         ];
       default:
         return [
-          <ListItem style={{ color: "#fff" }} primaryText="คอร์สเรียน" />
+          <ListItem style={{ color: "#fff" }} onClick={this.handleProfileClicked} primaryText="โปรไฟล์ของฉัน" />,
+          <ListItem style={{ color: "#fff" }} onClick={this.handleCoursesClicked} primaryText="คอร์สเรียนของฉัน" />,
+          <ListItem style={{ color: "#fff" }} onClick={this.handleOffersClicked} primaryText="ข้อเสนอคอร์สเรียน" />
         ];
     }
   }
@@ -115,7 +123,7 @@ class Header extends Component {
             {/* Menu Large screen */}
             <div className="pull-right hidden-xs">
               <FlatButton
-                onClick={this.handleSigninButtonClicked}
+                onClick={this.handleToBeTutorClicked}
                 style={{ color: "#fff" }}
                 label="ฉันเป็นติวเตอร์"
               />
@@ -136,24 +144,38 @@ class Header extends Component {
             </div>
           </div>
         </nav>
-        <div
-          className={this.state.mobileMenu ? "visible-xs" : "hidden"}
-          style={{
-            width: "100%",
-            backgroundColor: "#0f1531",
-            marginTop: -20
-          }}
+        {/* Drawer mobile */}
+        <Drawer
+          openSecondary
+          docked={false}
+          width={"60%"}
+          open={this.state.mobileMenu}
+          className="hidden-lg"
+          containerStyle={{ backgroundColor: "#0f1531" }}
+          onRequestChange={this.toggleMobileMenu}
         >
+          <MenuItem onClick={this.toggleMobileMenu} style={{ color: "#fff" }}>
+            ย้อนกลับ
+          </MenuItem>
           <List>
             {/* Menu */}
             {this.renderContentIsAuthMobile()}
             <ListItem
-              onClick={this.handleSigninButtonClicked}
+              onClick={this.handleToBeTutorClicked}
               style={{ color: "#fff" }}
               primaryText="ฉันเป็นติวเตอร์"
             />
+            <ListItem
+              style={{ color: "#fff" }}
+              onClick={this.handleReportClicked}
+              primaryText="รายงานปํญหา"
+            />
+            <Divider style={{ backgroundColor: "#0f203e" }} />
+            <ListItem style={{ color: "#fff" }} primaryText="ออกจากระบบ" />
+            <Divider style={{ backgroundColor: "#0f203e" }} />
           </List>
-        </div>
+        </Drawer>
+
         {/* Search mobile */}
         <div className="search-xs hidden-lg">
           <div className="container input-group stylish-input-group">

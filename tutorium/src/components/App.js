@@ -21,11 +21,7 @@ const tohome = () => {
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(actionCreators.fetchUser(false));
-  }
-
-  checkIfRouteDenied() {
-    if (this.props.auth[0]) window.location.href = "/";
+    this.props.dispatch(actionCreators.fetchUser(true));
   }
 
   render() {
@@ -44,24 +40,24 @@ class App extends Component {
               component={this.props.auth[0] ? tohome : SignUp}
             />
             <Route
+              path="/iamtutor"
+              component={this.props.auth[0] ? ToBeTutor : SignIn}
+            />
+            <Route
               path="/myprofile"
-              component={this.props.auth[0] ? tohome : Profile}
+              component={this.props.auth[0] ? Profile : SignIn}
             />
             <Route
               path="/report"
-              component={this.props.auth[0] ? tohome : UserReport}
+              component={this.props.auth[0] ? UserReport : SignIn}
             />
             <Route
               path="/mycourses"
-              component={this.props.auth[0] ? tohome : MyCourses}
+              component={this.props.auth[0] ? MyCourses : SignIn}
             />
             <Route
               path="/myoffers"
-              component={this.props.auth[0] ? tohome : MyOffers}
-            />
-            <Route
-              path="/iamtutor"
-              component={this.props.auth[0] ? tohome : ToBeTutor}
+              component={this.props.auth[0] ? MyOffers : SignIn}
             />
           </div>
         </div>
