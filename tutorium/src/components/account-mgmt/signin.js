@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { FlatButton } from "material-ui";
-import axios from "axios";
 
-window.axios = axios;
 const fb_logo = require("../../resources/fb-white.png");
 
 class SignIn extends Component {
