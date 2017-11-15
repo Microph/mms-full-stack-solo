@@ -3,6 +3,7 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var morgan = require('morgan');
+const passport = require('passport')
 
 module.exports.start = (options) => {
 
@@ -17,9 +18,13 @@ module.exports.start = (options) => {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
+    app.use(require('cookie-parser')());
+    app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     //  Add the APIs to the app.
-    require('../api/user')(app, options);
+    require('../api/user')(app, passport, options);
 
     //  Start the app, creating a running server which we return.
     var server = app.listen(options.port, () => {

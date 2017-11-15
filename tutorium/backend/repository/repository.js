@@ -14,6 +14,32 @@ class Repository {
     this.connection = mysql.createConnection(this.connectionSettings);
   }
 
+  findUserByID(id, loginType) {
+    return new Promise((resolve, reject) => {
+      var sql = "SELECT account_studentID FROM account WHERE accountID = ? AND accountType = ?"
+
+      this.connection.query(sql, [id, loginType], (err, results) => {
+        if(err) {
+          return reject(new Error('An error occured getting the users: ' + err));
+        }
+
+        if(results.length === 0) {
+          resolve(undefined);
+        } else {
+          resolve({
+            studentID: results[0].account_studentID,
+          });
+        }
+      })
+    });
+  }
+
+  register(userInput) {
+    return new Promise((resolve, reject) => {
+      var sql = "INSERT INTO account () VALUES"
+    });
+  }
+
   registerByFacebook(userInfo) {
     return new Promise((resolve, reject) => {
       resolve({
