@@ -46,8 +46,9 @@ module.exports = (app, passport, options) => {
   app.get('/api/auth/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     (req, res) => {
-      // Successful authentication
-      res.status(200).send(req.user)
+      // Successful authentmote resource at https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8123%2Fapi%2Fauth%2Ffacebook%2Fcallback&client_id=1585083688215887. (Reason: CORS header ‘Access-Control-Allow-Origin’ missing).ication
+      // res.status(200).send(req.user)
+      res.redirect('http://localhost:3000/');
     }
   );
 
