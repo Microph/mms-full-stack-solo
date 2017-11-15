@@ -13,3 +13,5 @@ services:
      - DATABASE_HOST=database
   database:
     build: ./tutorium/database
+    ports:
+     - "3306:3306"
