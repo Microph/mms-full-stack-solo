@@ -63,7 +63,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | |
-| user | Object | { "registStatus": Bool,<br> "accountType": String,<br> "accountID": String } | current login user info |
+| user | Object | { "registStatus": Bool,<br> "accountType": String,<br> "accountID": String,<br> "displayName": String } | current login user info |
 
 #### Return value on can not get login session data (user did not login)
 | Field Name | Type | Value | Description |
@@ -77,6 +77,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 | registStatus | Bool | true, false | return true when user already regist |
 | accountType | String | 'admin', 'line', 'facebook' |  |
 | accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
+| displayName | String |  | name provided by Facebook or Line API (username if accountType is admin)
 
 <p align="center">.................................................</p>
 
