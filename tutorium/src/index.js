@@ -3,16 +3,21 @@ import "bootstrap/dist/css/bootstrap-theme.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import reduxThunk from "redux-thunk";
 
-import { reducer } from "./reducers/authReducer";
+import reducers from "./reducers";
+
+import axios from "axios";
 
 import "./index.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 
-const store = createStore(reducer);
+window.axios = axios;
+
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
