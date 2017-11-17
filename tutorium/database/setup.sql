@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `admin`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin` (
   `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -59,6 +59,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES ('tutorium','8f7dd0890f92a2b12497f2009ac7bab80e9110898d45a281c0221adf66168c2b');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -518,4 +519,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-15 21:36:47
+-- Dump completed on 2017-11-18  1:24:19
