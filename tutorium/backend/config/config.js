@@ -24,5 +24,6 @@ module.exports = {
     scope: ['profile', 'openid'],
     callbackURL: 'http://localhost:8123/api/auth/line/callback'
   },
-  homePage: 'http://localhost:3000/'
+  homepage: 'http://localhost:3000/',
+  adminHomepage: 'http://localhost:3000/admin/dashboard'
 };

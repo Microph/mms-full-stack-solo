@@ -32,7 +32,8 @@ repository.connect({
     repository: repo,
     facebookConfig: config.facebookStrategy,
     lineConfig: config.lineStrategy,
-    homePage: config.homePage
+    homepage: config.homepage,
+    adminHomepage: config.adminHomepage
   });
 
 }).then((app) => {

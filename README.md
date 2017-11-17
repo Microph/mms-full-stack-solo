@@ -13,12 +13,12 @@
 | 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) | Designer & Front-end Developer |
 
 ## Build & Run Project
-Run the command up to your scenario in the root folder.
+* Run the command up to your scenario in the root folder.
 ### Build & Run
-Show process on terminal `docker-compose build docker-compose up` or <br>
-Run process in background `docker-compose build && docker-compose up -d`
+* Show process on terminal `docker-compose build docker-compose up` or <br>
+* Run process in background `docker-compose build && docker-compose up -d`
 ### Shutdown
-`docker-compose down`
+* `docker-compose down`
 
 ## Database Details
 * SHA256 algorithm used to hash 'password' field on 'admin' table
@@ -41,7 +41,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 | username | String | username is 'tutorium' on demo database | Yes |
 | password | String | username is 'tutorium' on demo database| Yes |
 
-* On success saving SESSION to cookies and redirect to homepage
+* On success saving SESSION to cookies and redirect to admin homepage
 * Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
@@ -83,7 +83,7 @@ Run process in background `docker-compose build && docker-compose up -d`
 
 <a name="logout"></a>
 ### Logout ( Access via GET method on '/api/logout' )
-Performs logout will clear all session then redirect to the home page
+* Performs logout will clear all session then redirect to the home page
 
 <p align="center">.................................................</p>
 
