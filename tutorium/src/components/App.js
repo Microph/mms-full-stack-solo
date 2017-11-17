@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import * as actions from "../actions";
 
 import Header from "./header";
 import Home from "./home";
@@ -13,26 +14,20 @@ import MyCourses from "./student/mycourses";
 import MyOffers from "./student/myoffers";
 import ToBeTutor from "./tobetutor";
 
-import { actionCreators } from "../reducers/authReducer";
-
-const tohome = () => {
-  return <Redirect to="/" />;
-};
-
 class App extends Component {
-  
+  componentDidMount() {
+    this.props.fetchUser();
+  }
 
   render() {
     return (
       <BrowserRouter>
         <div>
-        <Route render={(props) => {
-                  // console.log(props.location)
-                  return (
-                    <Header {...props} />
-                  )
-                }} />
-          
+          <Route
+            render={props => {
+              return <Header {...props} />;
+            }}
+          />
           <div className="container">
             <Route exact path="/" component={Home} />
             <Route path="/signin" component={SignIn} />
@@ -49,8 +44,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect(null, actions)(App);

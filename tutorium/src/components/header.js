@@ -1,46 +1,22 @@
 import React, { Component } from "react";
 import { FlatButton, List, ListItem, Divider, Drawer } from "material-ui";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { MenuItem } from "material-ui/DropDownMenu";
 import axios from "axios";
 
-import { actionCreators } from "../reducers/authReducer";
+// import { actionCreators } from "../reducers/authReducer";
 
 window.axios = axios;
 const logo = require("../resources/Tutorium_icon.png");
 
 class Header extends Component {
-  // check if now has user logged in
-  async getCurrentUser() {
-    const user = await axios("/api/current-login-session");
-    this.props.dispatch(actionCreators.fetchUser(user.data));
-    // console.log(this.props.auth[0].user.registStatus );
-    if (
-      !this.props.auth[0].user.registStatus &&
-      this.props.location.pathname !== "/signup"
-    ) {
-      this.setState({ auth: false });
-      this.handleSignupButtonClicked();
-    } else if (!this.props.auth[0].user.registStatus){
-      this.setState({ auth: false });
-    } else {
-      this.setState({ auth: true });
-    }
-  }
-
-  componentDidMount() {
-    this.getCurrentUser();
-  }
-
   constructor(props) {
     super(props);
     this.state = {
       mobileMenu: false,
-      searchLable: "",
-      auth: false
+      searchLable: ""
     };
-    this.getCurrentUser = this.getCurrentUser.bind(this);
   }
 
   handleTitleClicked = () => (window.location.href = "/");
@@ -62,67 +38,95 @@ class Header extends Component {
   }
 
   renderContentIsAuth = () => {
-    switch (this.state.auth) {
-      case null:
-        return;
-      case false:
-        return [
-          <FlatButton
-            onClick={this.handleSigninButtonClicked}
-            style={{ color: "#fff" }}
-            label="ลงชื่อเข้าใช้ / สมัครสมาชิก"
-          />
-        ];
-      default:
-        return [
-          <FlatButton
-            onClick={null}
-            style={{ color: "#fff" }}
-            label="คอร์สเรียน"
-          />,
-          <FlatButton
-            onClick={null}
-            style={{ color: "#fff" }}
-            label="รูปโปรไฟล์"
-          />
-        ];
-    }
+    if (this.props.auth == null) return;
+    if (
+      this.props.auth.success &&
+      !this.props.auth.user.registStatus &&
+      this.props.location.pathname !== "/signup"
+    )
+      return this.handleSignupButtonClicked();
+    if (
+      !this.props.auth.success ||
+      (this.props.auth.success && !this.props.auth.user.registStatus)
+    )
+      return [
+        <FlatButton
+          onClick={this.handleSigninButtonClicked}
+          style={{ color: "#fff" }}
+          label="ลงชื่อเข้าใช้ / สมัครสมาชิก"
+        />
+      ];
+    if (this.props.auth.success && this.props.auth.user.registStatus)
+      return [
+        <FlatButton
+          onClick={null}
+          style={{ color: "#fff" }}
+          label="คอร์สเรียน"
+        />,
+        <FlatButton
+          onClick={null}
+          style={{ color: "#fff" }}
+          label="รูปโปรไฟล์"
+        />
+      ];
   };
 
   renderContentIsAuthMobile() {
-    switch (this.state.auth) {
-      case null:
-        return;
-      case false:
-        return [
-          <ListItem
-            onClick={this.handleSigninButtonClicked}
-            style={{ color: "#fff" }}
-            primaryText="ลงชื่อเข้าใช้ / สมัครสมาชิก"
-          />
-        ];
-      default:
-        return [
-          <ListItem
-            style={{ color: "#fff" }}
-            onClick={this.handleProfileClicked}
-            primaryText="โปรไฟล์ของฉัน"
-          />,
-          <ListItem
-            style={{ color: "#fff" }}
-            onClick={this.handleCoursesClicked}
-            primaryText="คอร์สเรียนของฉัน"
-          />,
-          <ListItem
-            style={{ color: "#fff" }}
-            onClick={this.handleOffersClicked}
-            primaryText="ข้อเสนอคอร์สเรียน"
-          />
-        ];
-    }
+    if (this.props.auth == null) return;
+    if (
+      this.props.auth.success &&
+      !this.props.auth.user.registStatus &&
+      this.props.location.pathname !== "/signup"
+    )
+      return this.handleSignupButtonClicked();
+    if (
+      !this.props.auth.success ||
+      (this.props.auth.success && !this.props.auth.user.registStatus)
+    )
+      return [
+        <ListItem
+          onClick={this.handleSigninButtonClicked}
+          style={{ color: "#fff" }}
+          primaryText="ลงชื่อเข้าใช้ / สมัครสมาชิก"
+        />
+      ];
+    if (this.props.auth.success && this.props.auth.user.registStatus)
+      return [
+        <ListItem
+          style={{ color: "#fff" }}
+          onClick={this.handleProfileClicked}
+          primaryText="โปรไฟล์ของฉัน"
+        />,
+        <ListItem
+          style={{ color: "#fff" }}
+          onClick={this.handleCoursesClicked}
+          primaryText="คอร์สเรียนของฉัน"
+        />,
+        <ListItem
+          style={{ color: "#fff" }}
+          onClick={this.handleOffersClicked}
+          primaryText="ข้อเสนอคอร์สเรียน"
+        />
+      ];
+  }
+
+  renderContentIsAuthMobile_bottom() {
+    if (this.props.auth == null) return;
+    if (this.props.auth.success && this.props.auth.user.registStatus)
+      return [
+        <ListItem
+          style={{ color: "#fff" }}
+          onClick={this.handleReportClicked}
+          primaryText="รายงานปํญหา"
+        />,
+        <Divider style={{ backgroundColor: "#0f203e" }} />,
+        <ListItem style={{ color: "#fff" }} primaryText="ออกจากระบบ" />,
+        <Divider style={{ backgroundColor: "#0f203e" }} />
+      ];
   }
 
   render() {
+    console.log(this.props.auth);
     return (
       <div>
         <nav className="navbar header">
@@ -178,14 +182,19 @@ class Header extends Component {
         <Drawer
           openSecondary
           docked={false}
-          width={"60%"}
+          width={"100%"}
           open={this.state.mobileMenu}
           className="hidden-lg"
-          containerStyle={{ backgroundColor: "#0f1531" }}
+          containerStyle={{ backgroundColor: "#0f1531", textAlign: "center" }}
           onRequestChange={this.toggleMobileMenu}
         >
-          <MenuItem onClick={this.toggleMobileMenu} style={{ color: "#fff" }}>
-            ย้อนกลับ
+          <MenuItem style={{ margin: 50 }}>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+              <span style={{ fontSize: 30, color: "#fff" }}>
+                <img className="logo logo-header" src={logo} alt="Tutorium" />
+                Tutorium
+              </span>
+            </Link>
           </MenuItem>
           <List>
             {/* Menu */}
@@ -195,14 +204,13 @@ class Header extends Component {
               style={{ color: "#fff" }}
               primaryText="ฉันเป็นติวเตอร์"
             />
-            <ListItem
-              style={{ color: "#fff" }}
-              onClick={this.handleReportClicked}
-              primaryText="รายงานปํญหา"
-            />
-            <Divider style={{ backgroundColor: "#0f203e" }} />
-            <ListItem style={{ color: "#fff" }} primaryText="ออกจากระบบ" />
-            <Divider style={{ backgroundColor: "#0f203e" }} />
+            {this.renderContentIsAuthMobile_bottom()}
+            <MenuItem
+              onClick={this.toggleMobileMenu}
+              style={{ color: "#fff", margin: 20 }}
+            >
+              ย้อนกลับ
+            </MenuItem>
           </List>
         </Drawer>
 

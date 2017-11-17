@@ -1,35 +1,12 @@
-export const types = {
-  FETCH_USER: "FETCH_USER"
-};
+import { FETCH_USER } from "../actions/types";
 
-export const actionCreators = {
-  fetchUser: user => {
-    return { type: types.FETCH_USER, payload: user };
-  }
-};
-
-const initialState = {
-  auth: false
-};
-
-export const reducer = (state = initialState, action) => {
-  const { auth } = state;
-  const { type, payload } = action;
-
-  switch (type) {
-    case types.FETCH_USER: {
-      return {
-        ...state,
-        auth: [payload, ...auth]
-      };
+export default function(state = null, action) {
+  switch (action.type) {
+    case FETCH_USER: {
+      return action.payload;
     }
     default: {
-      return {
-        ...state,
-        auth: [payload, ...auth]
-      };
+      return state;
     }
   }
-
-  //   return state;
-};
+}

@@ -3,8 +3,6 @@ import {
   Paper,
   TextField,
   Divider,
-  RadioButtonGroup,
-  RadioButton,
   SelectField,
   MenuItem,
   FlatButton,
@@ -16,17 +14,6 @@ import axios from "axios";
 const querystring = require("querystring");
 
 window.axios = axios;
-
-// {accountType: req.body.accountType,
-//     accountID: req.body.accountID,
-//     name: req.body.name,
-//     surname: req.body.surname,
-//     gender: req.body.gender,
-//     educationLevel: req.body.educationLevel,
-//     facebookUrl: req.body.facebookUrl,
-//     lineID: req.body.lineID,
-//     email: req.body.email,
-//     mobile: req.body.mobile}
 
 class SignUp extends Component {
   constructor(props) {
@@ -78,29 +65,43 @@ class SignUp extends Component {
   render() {
     return (
       <div>
-        <h2>สมัครสมาชิก</h2>
-        <Paper zDepth={2}>
+        <Paper
+          zDepth={2}
+          style={{
+            padding: 30,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <span style={{ fontSize: 30, alignSelf: "flex-start" }}>
+            สมัครสมาชิก
+          </span>
           <TextField
-            hintText="ชื่อจริง"
-            style={{ marginLeft: 20 }}
+            fullWidth
+            hintText="กรุณากรอกชื่อของคุณ"
+            floatingLabelText="ชื่อ"
             underlineShow={false}
-            required
+            // required
             onChange={(event, name) => this.setState({ name })}
+            value={this.state.name}
           />
           <Divider />
           <TextField
-            hintText="นามสกุล"
-            style={{ marginLeft: 20 }}
+            fullWidth
+            hintText="กรุณากรอกนามสกุลของคุณ"
+            floatingLabelText="นามสกุล"
             underlineShow={false}
-            required
+            // required
             onChange={(event, lastname) => this.setState({ lastname })}
+            value={this.state.lastname}
           />
           <Divider />
           <SelectField
+            fullWidth
             floatingLabelText="เพศ"
             value={this.state.gender}
             required
-            style={{ marginLeft: 20 }}
             onChange={(event, key, gender) => this.setState({ gender })}
           >
             <MenuItem value="male" primaryText="ชาย" />
@@ -109,7 +110,7 @@ class SignUp extends Component {
           </SelectField>
           <Divider />
           <SelectField
-            style={{ marginLeft: 20 }}
+            fullWidth
             floatingLabelText="ระดับการศึกษา"
             value={this.state.edlvl}
             required
@@ -124,48 +125,64 @@ class SignUp extends Component {
           </SelectField>
           <Divider />
           <TextField
-            hintText="Facebook URL"
-            style={{ marginLeft: 20 }}
+            fullWidth
+            hintText="กรุณากรอก Facebook URL ของคุณ ตัวอย่าง www.facebook.com/yourUrl"
+            floatingLabelText="Facebook URL"
             underlineShow={false}
+            // required
             onChange={(event, fburl) => this.setState({ fburl })}
+            value={this.state.fburl}
           />
           <Divider />
           <TextField
-            hintText="Line ID"
-            style={{ marginLeft: 20 }}
+            fullWidth
+            hintText="กรุณากรอก Line ID ของคุณ"
+            floatingLabelText="Line ID"
             underlineShow={false}
+            // required
             onChange={(event, lineid) => this.setState({ lineid })}
+            value={this.state.lineid}
           />
           <Divider />
           <TextField
-            hintText="อีเมลล์"
-            style={{ marginLeft: 20 }}
+            fullWidth
+            hintText="กรุณากรอกอีเมลล์ของคุณ"
+            floatingLabelText="อีเมลล์"
             underlineShow={false}
-            required
+            // required
             onChange={(event, email) => this.setState({ email })}
+            value={this.state.email}
           />
           <Divider />
           <TextField
-            hintText="หมายเลขโทรศัพท์"
-            style={{ marginLeft: 20 }}
+            fullWidth
+            hintText="กรุณากรอกหมายเลขโทรศัพท์ของคุณ"
+            floatingLabelText="หมายเลขโทรศัพท์"
             underlineShow={false}
-            required
+            // required
             onChange={(event, phone) => this.setState({ phone })}
+            value={this.state.phone}
           />
           <Divider />
           <Checkbox
             label="ฉันได้อ่านและยอมรับเงื่อนไขในการให้บริการแล้ว"
-            style={{ marginLeft: 20 }}
+            style={{ marginTop: 30 }}
             onCheck={(event, agreement) => this.setState({ agreement })}
           />
           <Divider />
           <FlatButton
             disabled={!this.state.agreement}
             onClick={this.handleSubmit}
-            style={{ color: "#000", margin: "auto" }}
+            style={{
+              color: "#fff",
+              margin: "auto",
+              marginTop: 30,
+              marginBottom: 20,
+              backgroundColor: "limegreen"
+            }}
+            labelStyle={{ fontSize: 15, fontWeight: 700 }}
             label="ยืนยัน"
           />
-          <Divider />
         </Paper>
       </div>
     );

@@ -20,35 +20,41 @@ Run process in background `docker-compose build && docker-compose up -d`
 ### Shutdown
 `docker-compose down`
 
+## Database Details
+* SHA256 algorithm used to hash 'password' field on 'admin' table
+
 ## API Reference
 
 ### Table of Contents
+[Admin Authen](#adminAuth)<br>
 [Facebook Authen](#faceAuth)<br>
 [Line Authen](#lineAuth)<br>
 [Current Login Session Data](#currLog)<br>
 [Logout](#logout)<br>
 [Reigster](#regist)<br>
 
+<a name="adminAuth"></a>
+### Admin Authentication ( Access via POST method on '/api/auth/admin' )
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| username | String | username is 'tutorium' on demo database | Yes |
+| password | String | username is 'tutorium' on demo database| Yes |
+
+* On success saving SESSION to cookies and redirect to homepage
+* Access session data on '/api/current-login-session'
+<p align="center">.................................................</p>
+
 <a name="faceAuth"></a>
 ### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
-#### Return value
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| registStatus | Bool | true or false | our system register status |
-| accountType | String | 'facebook'' |  |
-| accountID | String | id provided by facebook API |  |
-
+* On success saving SESSION to cookies and redirect to homepage
+* Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
 <a name="lineAuth"></a>
 ### Line Authentication ( Access via GET method on '/api/auth/line' )
-#### Return value
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| registStatus | Bool | true or false | our system register status |
-| accountType | String | 'line' |  |
-| accountID | String | id provided by line API |  |
-
+* On success saving SESSION to cookies and redirect to homepage
+* Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
 <a name="currLog"></a>
@@ -64,6 +70,13 @@ Run process in background `docker-compose build && docker-compose up -d`
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | |
 | msg | String |  | false cause |
+
+#### Possible value inside value field
+| Field Name | Type | Value | Description |
+| :--------: | :--: | :---: | :---------: |
+| registStatus | Bool | true, false | return true when user already regist |
+| accountType | String | 'admin', 'line', 'facebook' |  |
+| accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
 
 <p align="center">.................................................</p>
 
