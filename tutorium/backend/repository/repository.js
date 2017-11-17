@@ -4,7 +4,7 @@
 //  a connected repository. Call 'disconnect' on this object when you're done.
 'use strict';
 
-var mysql = require('mysql');
+let mysql = require('mysql');
 
 //  Class which holds an open connection to a repository
 //  and exposes some simple functions for accessing data.
@@ -14,9 +14,33 @@ class Repository {
     this.connection = mysql.createConnection(this.connectionSettings);
   }
 
+  adminLogin(username, password) {
+    return new Promise((resolve, reject) => {
+      let passHash = require('crypto')
+                      .createHash('sha256')
+                      .update(password)
+                      .digest("hex");
+      let sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
+
+      this.connection.query(sql, [username, passHash], (err, results) => {
+        if(err) {
+          return reject(new Error('An error occured getting the users: ' + err));
+        }
+
+        if(results.length === 0) {
+          resolve(undefined);
+        } else {
+          resolve({
+            username: results[0].username
+          });
+        }
+      });
+    });
+  }
+
   findUserByID(id, loginType) {
     return new Promise((resolve, reject) => {
-      var sql = "SELECT account_studentID FROM account WHERE accountID = ? AND accountType = ?"
+      let sql = "SELECT account_studentID FROM account WHERE accountID = ? AND accountType = ?"
 
       this.connection.query(sql, [id, loginType], (err, results) => {
         if(err) {
