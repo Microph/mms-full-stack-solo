@@ -41,17 +41,23 @@ Run process in background `docker-compose build && docker-compose up -d`
 | username | String | username is 'tutorium' on demo database | Yes |
 | password | String | username is 'tutorium' on demo database| Yes |
 
-#### On done redirect to homepage
+* On success saving SESSION to cookies
+* redirect to homepage
+* Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
 <a name="faceAuth"></a>
 ### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
-#### On done redirect to homepage
+* On success saving SESSION to cookies
+* redirect to homepage
+* Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
 <a name="lineAuth"></a>
 ### Line Authentication ( Access via GET method on '/api/auth/line' )
-#### On done redirect to homepage
+* On success saving SESSION to cookies
+* redirect to homepage
+* Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
 <a name="currLog"></a>
