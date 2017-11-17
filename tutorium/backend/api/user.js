@@ -41,10 +41,10 @@ module.exports = (app, passport, options) => {
   app.get('/api/auth/facebook', passport.authenticate('facebook'));
 
   app.get('/api/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: options.homePage }),
+    passport.authenticate('facebook', { failureRedirect: options.homepage }),
     (req, res) => {
       // Successful authentmote resource at https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8123%2Fapi%2Fauth%2Ffacebook%2Fcallback&client_id=1585083688215887. (Reason: CORS header ‘Access-Control-Allow-Origin’ missing).ication
-      res.redirect(options.homePage);
+      res.redirect(options.homepage);
     }
   );
 
@@ -58,15 +58,16 @@ module.exports = (app, passport, options) => {
       callbackURL: options.lineConfig.callbackURL
     },
     function(accessToken, refreshToken, profile, _, done) {
-      var decoded = jwt.decode(profile.id_token, {complete: true});
+      let decoded = jwt.decode(profile.id_token, {complete: true});
       let accountID = decoded.payload.sub
+      let displayName = decoded.payload.name
 
       process.nextTick(() => {
         options.repository.findUserByID(profile.id, 'line').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'line', accountID:accountID})
+            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName})
           } else {
-            return done(null, {registStatus: false, accountType: 'line', accountID:accountID})
+            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName})
           }
         })
       })
@@ -76,9 +77,9 @@ module.exports = (app, passport, options) => {
   app.get('/api/auth/line', passport.authenticate('oauth2'));
 
   app.get('/api/auth/line/callback', 
-    passport.authenticate('oauth2', { failureRedirect: options.homePage})
+    passport.authenticate('oauth2', { failureRedirect: options.homepage})
     ,(req, res) => {
-      res.redirect(options.homePage);
+      res.redirect(options.homepage);
     });
 
   passport.use(new LocalStrategy(
@@ -87,7 +88,7 @@ module.exports = (app, passport, options) => {
         if(username && password) {
           options.repository.adminLogin(username, password).then((admin) => {
             if(admin) {
-              return done(null, {registStatus: true, accountType: 'admin', accountID: admin.username});
+              return done(null, {registStatus: true, accountType: 'admin', accountID: admin.username, displayName: admin.username});
             } else {
               return done(null, false, { message: 'username or password was wrong' });
             }
@@ -100,9 +101,9 @@ module.exports = (app, passport, options) => {
   ));
 
   app.post('/api/auth/admin',
-    passport.authenticate('local', { failureRedirect: options.homePage })
+    passport.authenticate('local', { failureRedirect: options.adminHomepage })
     ,(req, res) => {
-      res.redirect(options.homePage);
+      res.redirect(options.adminHomepage);
     }
   );
 
@@ -129,7 +130,7 @@ module.exports = (app, passport, options) => {
 
   app.get('/api/logout', (req, res, next) => {
     req.session.destroy((err) => {
-      res.redirect(options.homePage);
+      res.redirect(options.homepage);
     })
   })
 
