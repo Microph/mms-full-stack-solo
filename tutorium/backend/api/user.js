@@ -1,6 +1,7 @@
 const FacebookStrategy = require('passport-facebook').Strategy;
 const OAuth2Strategy = require('passport-oauth2').Strategy;
-var jwt = require('jsonwebtoken')
+const LocalStrategy = require('passport-local').Strategy;
+let jwt = require('jsonwebtoken');
 
 //  users.js
 //
@@ -80,19 +81,30 @@ module.exports = (app, passport, options) => {
       res.redirect(options.homePage);
     });
 
-  app.get('/api/current-login-session', (req, res, next) => {
-    if(req.user) {
-      res.status(200).send({ success: true, user: req.user}) 
-    } else {
-      res.status(200).send({ success: false, msg: 'User is not login, yet'})
+  passport.use(new LocalStrategy(
+    function(username, password, done) {
+      process.nextTick(() => {
+        if(username && password) {
+          options.repository.adminLogin(username, password).then((admin) => {
+            if(admin) {
+              return done(null, {registStatus: true, accountType: 'admin', accountID: admin.username});
+            } else {
+              return done(null, false, { message: 'username or password was wrong' });
+            }
+          })
+        } else {
+          return done(null, false, { message: 'username or password is missing' });
+        }
+      })
     }
-  });
+  ));
 
-  app.get('/api/logout', (req, res, next) => {
-    req.session.destroy((err) => {
+  app.post('/api/auth/admin',
+    passport.authenticate('local', { failureRedirect: options.homePage })
+    ,(req, res) => {
       res.redirect(options.homePage);
-    })
-  })
+    }
+  );
 
   app.post('/api/register', function (req, res, next) {
     if(req.body.agree) {
@@ -114,4 +126,19 @@ module.exports = (app, passport, options) => {
       .catch(next);
     }
   })
+
+  app.get('/api/logout', (req, res, next) => {
+    req.session.destroy((err) => {
+      res.redirect(options.homePage);
+    })
+  })
+
+  app.get('/api/current-login-session', (req, res, next) => {
+    if(req.user) {
+      res.status(200).send({ success: true, user: req.user}) 
+    } else {
+      res.status(200).send({ success: false, msg: 'User is not login, yet'})
+    }
+  });
+
 };
