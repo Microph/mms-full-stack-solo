@@ -6,7 +6,9 @@ import {
   SelectField,
   MenuItem,
   FlatButton,
-  Checkbox
+  Checkbox,
+  Card,
+  CardHeader
 } from "material-ui";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -62,6 +64,28 @@ class SignUp extends Component {
     }
   };
 
+  fetchFBProfile() {
+    if (this.props.auth == null) return;
+    if (this.props.auth.success) {
+      var id = this.props.auth.user.accountID;
+      var name = this.props.auth.user.displayName;
+      var imgsrc = "https://graph.facebook.com/" + id + "/picture";
+      return [
+        <Card>
+          <CardHeader
+            title={name}
+            subtitle={
+              <a href="/api/logout" style={{ textDecoration: "None" }}>
+                นี่ไม่ใช่ฉัน
+              </a>
+            }
+            avatar={imgsrc}
+          />
+        </Card>
+      ];
+    }
+  }
+
   render() {
     return (
       <div>
@@ -74,9 +98,13 @@ class SignUp extends Component {
             alignItems: "center"
           }}
         >
+          {/* Header */}
           <span style={{ fontSize: 30, alignSelf: "flex-start" }}>
             สมัครสมาชิก
           </span>
+          {/* Profile fetched */}
+          {this.fetchFBProfile()}
+          {/* FirstName */}
           <TextField
             fullWidth
             hintText="กรุณากรอกชื่อของคุณ"
@@ -86,7 +114,7 @@ class SignUp extends Component {
             onChange={(event, name) => this.setState({ name })}
             value={this.state.name}
           />
-          <Divider />
+          {/* Lastname */}
           <TextField
             fullWidth
             hintText="กรุณากรอกนามสกุลของคุณ"
@@ -96,7 +124,7 @@ class SignUp extends Component {
             onChange={(event, lastname) => this.setState({ lastname })}
             value={this.state.lastname}
           />
-          <Divider />
+          {/* Gender */}
           <SelectField
             fullWidth
             floatingLabelText="เพศ"
@@ -108,7 +136,7 @@ class SignUp extends Component {
             <MenuItem value="female" primaryText="หญิง" />
             <MenuItem value="others" primaryText="อื่น ๆ" />
           </SelectField>
-          <Divider />
+          {/* Education Level */}
           <SelectField
             fullWidth
             floatingLabelText="ระดับการศึกษา"
@@ -123,7 +151,7 @@ class SignUp extends Component {
             <MenuItem value="master" primaryText="ปริญญาโท" />
             <MenuItem value="doctor" primaryText="ปริญญาเอง" />
           </SelectField>
-          <Divider />
+          {/* FB URL */}
           <TextField
             fullWidth
             hintText="กรุณากรอก Facebook URL ของคุณ ตัวอย่าง www.facebook.com/yourUrl"
@@ -133,7 +161,7 @@ class SignUp extends Component {
             onChange={(event, fburl) => this.setState({ fburl })}
             value={this.state.fburl}
           />
-          <Divider />
+          {/* Line ID */}
           <TextField
             fullWidth
             hintText="กรุณากรอก Line ID ของคุณ"
@@ -143,7 +171,7 @@ class SignUp extends Component {
             onChange={(event, lineid) => this.setState({ lineid })}
             value={this.state.lineid}
           />
-          <Divider />
+          {/* E-mail */}
           <TextField
             fullWidth
             hintText="กรุณากรอกอีเมลล์ของคุณ"
@@ -153,7 +181,7 @@ class SignUp extends Component {
             onChange={(event, email) => this.setState({ email })}
             value={this.state.email}
           />
-          <Divider />
+          {/* Phone number */}
           <TextField
             fullWidth
             hintText="กรุณากรอกหมายเลขโทรศัพท์ของคุณ"
@@ -163,13 +191,13 @@ class SignUp extends Component {
             onChange={(event, phone) => this.setState({ phone })}
             value={this.state.phone}
           />
-          <Divider />
+          {/* I've read it */}
           <Checkbox
             label="ฉันได้อ่านและยอมรับเงื่อนไขในการให้บริการแล้ว"
             style={{ marginTop: 30 }}
             onCheck={(event, agreement) => this.setState({ agreement })}
           />
-          <Divider />
+          {/* Confirm button */}
           <FlatButton
             disabled={!this.state.agreement}
             onClick={this.handleSubmit}
@@ -177,7 +205,6 @@ class SignUp extends Component {
               color: "#fff",
               margin: "auto",
               marginTop: 30,
-              marginBottom: 20,
               backgroundColor: "limegreen"
             }}
             labelStyle={{ fontSize: 15, fontWeight: 700 }}
