@@ -77,7 +77,8 @@
 | registStatus | Bool | true, false | return true when user already regist |
 | accountType | String | 'admin', 'line', 'facebook' |  |
 | accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
-| displayName | String |  | name provided by Facebook or Line API (username if accountType is admin)
+| displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
+| profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
 
 <p align="center">.................................................</p>
 

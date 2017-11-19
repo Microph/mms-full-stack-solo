@@ -29,9 +29,9 @@ module.exports = (app, passport, options) => {
       process.nextTick(() => {
         options.repository.findUserByID(profile.id, 'facebook').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName})
+            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: "https://graph.facebook.com/" + profile.id + "/picture"})
           } else {
-            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName})
+            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: "https://graph.facebook.com/" + profile.id + "/picture"})
           }
         })
       })
@@ -61,13 +61,14 @@ module.exports = (app, passport, options) => {
       let decoded = jwt.decode(profile.id_token, {complete: true});
       let accountID = decoded.payload.sub
       let displayName = decoded.payload.name
+      let profilePic = decoded.payload.picture
 
       process.nextTick(() => {
         options.repository.findUserByID(profile.id, 'line').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName})
+            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic})
           } else {
-            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName})
+            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic})
           }
         })
       })

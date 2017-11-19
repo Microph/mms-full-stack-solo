@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 // import {
 //   FlatButton,
 //   Card,
@@ -31,8 +30,4 @@ const tutor = [
   }
 ];
 
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(mapStateToProps)(Home);
+export default Home;

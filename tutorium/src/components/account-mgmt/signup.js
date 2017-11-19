@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   Paper,
   TextField,
-  Divider,
   SelectField,
   MenuItem,
   FlatButton,
@@ -67,9 +66,31 @@ class SignUp extends Component {
   fetchFBProfile() {
     if (this.props.auth == null) return;
     if (this.props.auth.success) {
-      var id = this.props.auth.user.accountID;
+      if (this.props.auth.user.accountType !== "facebook") return;
       var name = this.props.auth.user.displayName;
-      var imgsrc = "https://graph.facebook.com/" + id + "/picture";
+      var imgsrc = this.props.auth.user.profilePic;
+      return [
+        <Card>
+          <CardHeader
+            title={name}
+            subtitle={
+              <a href="/api/logout" style={{ textDecoration: "None" }}>
+                นี่ไม่ใช่ฉัน
+              </a>
+            }
+            avatar={imgsrc}
+          />
+        </Card>
+      ];
+    }
+  }
+
+  fetchLineProfile() {
+    if (this.props.auth == null) return;
+    if (this.props.auth.success) {
+      if (this.props.auth.user.accountType !== "line") return;
+      var name = this.props.auth.user.displayName;
+      var imgsrc = this.props.auth.user.profilePic;
       return [
         <Card>
           <CardHeader
@@ -104,6 +125,7 @@ class SignUp extends Component {
           </span>
           {/* Profile fetched */}
           {this.fetchFBProfile()}
+          {this.fetchLineProfile()}
           {/* FirstName */}
           <TextField
             fullWidth
