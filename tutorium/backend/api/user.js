@@ -61,13 +61,14 @@ module.exports = (app, passport, options) => {
       let decoded = jwt.decode(profile.id_token, {complete: true});
       let accountID = decoded.payload.sub
       let displayName = decoded.payload.name
+      let profilePic = decoded.payload.picture
 
       process.nextTick(() => {
         options.repository.findUserByID(profile.id, 'line').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName})
+            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic})
           } else {
-            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName})
+            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic})
           }
         })
       })
