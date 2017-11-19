@@ -12,15 +12,24 @@
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) | Technical Lead & Back-end Developer|
 | 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) | Designer & Front-end Developer |
 
-## Build & Run Project
-* Run the command up to your scenario in the root folder.
-### Build & Run
-* Show process on terminal `docker-compose build docker-compose up` or <br>
-* Run process in background `docker-compose build && docker-compose up -d`
+## Build & Run Project with Docker
+### One Time Command (run this command at the first time)
+`docker-compose build`
+
+### Run Project
+* Run in foreground `docker-compose up`
+* Run in background `docker-compose up -d`
 ### Shutdown
 * `docker-compose down`
+* Very important to shutdown with this command or your PC will has a lot of docker-container
 
 ## Database Details
+> Configuration
+> * database: tutorium
+> * user: tutorium
+> * password: 123
+> * port: 3306
+* Setup config in '/backend/config/config.js'
 * SHA256 algorithm used to hash 'password' field on 'admin' table
 
 ## API Reference
@@ -32,6 +41,7 @@
 [Current Login Session Data](#currLog)<br>
 [Logout](#logout)<br>
 [Reigster](#regist)<br>
+[Student Search](#stSearch)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -57,7 +67,7 @@
 * Access session data on '/api/current-login-session'
 <p align="center">.................................................</p>
 
-<a name="currLog"></a>
+<a name="currLog"></a> 
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
 #### Return value on can get login session data
 | Field Name | Type | Value | Description |
@@ -69,7 +79,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | |
-| msg | String |  | false cause |
+| msg | String | 'User is not login, yet' |  |
 
 #### Possible value inside value field
 | Field Name | Type | Value | Description |
@@ -77,6 +87,7 @@
 | registStatus | Bool | true, false | return true when user already regist |
 | accountType | String | 'admin', 'line', 'facebook' |  |
 | accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
+| tutorID | String |  | If user is not tutor the value is null |
 | displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
 | profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
 
@@ -114,5 +125,37 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
 | msg | String | | false cause |
+
+<p align="center">.................................................</p>
+
+<a name="stSearch"></a>
+### Student Search ( /api/search/student via GET method)
+
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | String | filter by studentID | Optional |
+| name | String | filter by name | Optional |
+| surname | String | filter by surname | Optional |
+| gender | String | fitler by gender | Optional |
+| educationLevel | String | filter by education level | Optional |
+| facebookUrl | String | filter by facebook url | Optional |
+| lineID | String | filter by line id | Optional |
+| email | String | filter by email | Optional |
+| mobile | String | filter by mobile | Optional |
+* If there is some field has no data inside. You must not include the field
+* Sending `studentID=undefined` means return the student who has undefined on studentID field
+#### Return value on complete
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String}] | found student |
+| count | Number |  | Amount of student |
+* If there is not any filter(didn't send any parameter), it return all student.
+#### Return value on incomplete
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should login before searching' |  |
 
 <p align="center">.................................................</p>
