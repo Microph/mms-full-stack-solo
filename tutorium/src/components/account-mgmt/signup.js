@@ -67,7 +67,6 @@ class SignUp extends Component {
     if (this.props.auth == null) return;
     if (this.props.auth.success) {
       if (this.props.auth.user.accountType !== "facebook") return;
-      var id = this.props.auth.user.accountID;
       var name = this.props.auth.user.displayName;
       var imgsrc = this.props.auth.user.profilePic;
       return [
@@ -90,7 +89,6 @@ class SignUp extends Component {
     if (this.props.auth == null) return;
     if (this.props.auth.success) {
       if (this.props.auth.user.accountType !== "line") return;
-      var id = this.props.auth.user.accountID;
       var name = this.props.auth.user.displayName;
       var imgsrc = this.props.auth.user.profilePic;
       return [
