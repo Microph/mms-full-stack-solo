@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  FlatButton,
-  List,
-  ListItem,
-  Divider,
-  Drawer,
-  Avatar,
-  Popover,
-  Menu
-} from "material-ui";
+import { FlatButton, List, ListItem, Divider, Drawer } from "material-ui";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { MenuItem } from "material-ui/DropDownMenu";

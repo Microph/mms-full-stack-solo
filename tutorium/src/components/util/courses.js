@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatButton, Avatar, Popover, Menu } from "material-ui";
+import { FlatButton, Popover, Menu } from "material-ui";
 import { MenuItem } from "material-ui/Menu";
 
 class CourseMenu extends Component {
