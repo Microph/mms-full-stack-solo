@@ -126,7 +126,7 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props.auth);
+    if (this.props.location.pathname.indexOf("/admin") !== -1) return <div></div>;
     return (
       <div>
         <nav className="navbar header">
