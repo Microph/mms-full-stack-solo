@@ -27,11 +27,13 @@ module.exports = (app, passport, options) => {
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(() => {
+        let profilePic = "https://graph.facebook.com/" + profile.id + "/picture"
+
         options.repository.findUserByID(profile.id, 'facebook').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: "https://graph.facebook.com/" + profile.id + "/picture"})
+            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: profilePic, tutorID: result.tutorID})
           } else {
-            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: "https://graph.facebook.com/" + profile.id + "/picture"})
+            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: profilePic, tutorID: null})
           }
         })
       })
@@ -57,18 +59,18 @@ module.exports = (app, passport, options) => {
       scope: options.lineConfig.scope,
       callbackURL: options.lineConfig.callbackURL
     },
-    function(accessToken, refreshToken, profile, _, done) {
-      let decoded = jwt.decode(profile.id_token, {complete: true});
-      let accountID = decoded.payload.sub
-      let displayName = decoded.payload.name
-      let profilePic = decoded.payload.picture
-
+    (accessToken, refreshToken, profile, _, done) => {
       process.nextTick(() => {
+        let decoded = jwt.decode(profile.id_token, {complete: true});
+        let accountID = decoded.payload.sub
+        let displayName = decoded.payload.name
+        let profilePic = decoded.payload.picture
+        
         options.repository.findUserByID(profile.id, 'line').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic})
+            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, tutorID: result.tutorID})
           } else {
-            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic})
+            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, tutorID: null})
           }
         })
       })
@@ -84,12 +86,12 @@ module.exports = (app, passport, options) => {
     });
 
   passport.use(new LocalStrategy(
-    function(username, password, done) {
+    (username, password, done) => {
       process.nextTick(() => {
         if(username && password) {
           options.repository.adminLogin(username, password).then((admin) => {
             if(admin) {
-              return done(null, {registStatus: true, accountType: 'admin', accountID: admin.username, displayName: admin.username});
+              return done(null, {registStatus: true, accountType: 'admin', accountID: admin.username, displayName: admin.username, profilePic: null, tutorID: null});
             } else {
               return done(null, false, { message: 'username or password was wrong' });
             }
@@ -108,12 +110,12 @@ module.exports = (app, passport, options) => {
     }
   );
 
-  app.post('/api/register', function (req, res, next) {
+  app.post('/api/register', (req, res, next) => {
     if(req.body.agree) {
       let userInfo = req.body
 
       options.repository.register(userInfo).then(() => {
-        // req.session.passport.user.registStatus = true;
+        req.session.passport.user.registStatus = true;
         res.status(200).send({ success: true })
       })
       .catch(next);

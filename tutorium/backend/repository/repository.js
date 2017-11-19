@@ -40,7 +40,7 @@ class Repository {
 
   findUserByID(id, loginType) {
     return new Promise((resolve, reject) => {
-      let sql = "SELECT account_studentID FROM account WHERE accountID = ? AND accountType = ?"
+      let sql = "SELECT tutorID FROM account WHERE accountID = ? AND accountType = ?"
 
       this.connection.query(sql, [id, loginType], (err, results) => {
         if(err) {
@@ -50,12 +50,10 @@ class Repository {
         if(results.length === 0) {
           resolve(undefined);
         } else {
-          resolve({
-            studentID: results[0].account_studentID,
-          });
+          resolve(results[0])
         }
       })
-    });
+    })
   }
 
   register(userInput) {
