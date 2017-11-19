@@ -1,9 +1,20 @@
 import React, { Component } from "react";
-import { FlatButton, List, ListItem, Divider, Drawer } from "material-ui";
+import {
+  FlatButton,
+  List,
+  ListItem,
+  Divider,
+  Drawer,
+  Avatar,
+  Popover,
+  Menu
+} from "material-ui";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { MenuItem } from "material-ui/DropDownMenu";
 import axios from "axios";
+import ProfileAvatar from "./util/avatar";
+import CourseMenu from "./util/courses";
 
 // import { actionCreators } from "../reducers/authReducer";
 
@@ -15,7 +26,8 @@ class Header extends Component {
     super(props);
     this.state = {
       mobileMenu: false,
-      searchLable: ""
+      searchLable: "",
+      avataropen: false
     };
   }
 
@@ -23,10 +35,6 @@ class Header extends Component {
   handleSigninButtonClicked = () => (window.location.href = "/signin");
   handleSignupButtonClicked = () => (window.location.href = "/signup");
   handleToBeTutorClicked = () => (window.location.href = "/iamtutor");
-  handleReportClicked = () => (window.location.href = "/report");
-  handleProfileClicked = () => (window.location.href = "/myprofile");
-  handleCoursesClicked = () => (window.location.href = "/mycourses");
-  handleOffersClicked = () => (window.location.href = "/myoffers");
 
   toggleMobileMenu = () => {
     var { mobileMenu } = this.state;
@@ -35,6 +43,11 @@ class Header extends Component {
 
   searchLableChange(text) {
     this.setState({ searchLable: text });
+  }
+
+  toggleAvatar() {
+    var { avataropen } = this.state;
+    this.setState({ avataropen: !avataropen });
   }
 
   renderContentIsAuth = () => {
@@ -58,15 +71,10 @@ class Header extends Component {
       ];
     if (this.props.auth.success && this.props.auth.user.registStatus)
       return [
-        <FlatButton
-          onClick={null}
-          style={{ color: "#fff" }}
-          label="คอร์สเรียน"
-        />,
-        <FlatButton
-          onClick={null}
-          style={{ color: "#fff" }}
-          label="รูปโปรไฟล์"
+        <CourseMenu />,
+        <ProfileAvatar
+          imgsrc={this.props.auth.user.profilePic}
+          name={this.props.auth.user.displayName}
         />
       ];
   };
@@ -126,7 +134,7 @@ class Header extends Component {
   }
 
   render() {
-    if (this.props.location.pathname.indexOf("/admin") !== -1) return <div></div>;
+    if (this.props.location.pathname.indexOf("/admin") !== -1) return <div />;
     return (
       <div>
         <nav className="navbar header">

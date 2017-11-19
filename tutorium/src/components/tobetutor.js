@@ -21,9 +21,13 @@ class ToBeTutor extends Component {
       gender: "male",
       edlvl: "pratom",
       agreement: false,
-      formerr: false
     };
   }
+
+  handleSubmit = () => {
+    return;
+  };
+
   render() {
     return (
       <div>
