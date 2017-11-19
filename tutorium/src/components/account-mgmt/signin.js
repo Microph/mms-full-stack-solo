@@ -43,8 +43,8 @@ class SignIn extends Component {
           onClick={this.handleFBLogin}
         />
         <FlatButton
-          backgroundColor="#00B900"
-          hoverColor="#00A900"
+          backgroundColor="#00C900"
+          hoverColor="#00B900"
           icon={
             <img
               src={line_logo}
