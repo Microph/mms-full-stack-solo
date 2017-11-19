@@ -36,8 +36,14 @@ class CourseMenu extends Component {
         style={{ marginTop: 5 }}
       >
         <Menu>
-          <MenuItem primaryText="คอร์สเรียนของฉัน" onClick={this.handleCoursesClicked} />
-          <MenuItem primaryText="ข้อเสนอคอร์สเรียน" onClick={this.handleOffersClicked} />
+          <MenuItem
+            primaryText="คอร์สเรียนของฉัน"
+            onClick={this.handleCoursesClicked}
+          />
+          <MenuItem
+            primaryText="ข้อเสนอคอร์สเรียน"
+            onClick={this.handleOffersClicked}
+          />
         </Menu>
       </Popover>
     ];

@@ -35,13 +35,22 @@ class ProfileAvatar extends Component {
         anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
         targetOrigin={{ horizontal: "middle", vertical: "top" }}
         onRequestClose={this.close}
-        style={{marginTop: 5, marginLeft: -40}}
+        style={{ marginTop: 5, marginLeft: -30 }}
       >
         <Menu>
-          <MenuItem primaryText={this.props.name} onClick={this.handleProfileClicked} />
-          <MenuItem primaryText="รายงานปัญหา" onClick={this.handleReportClicked} />
+          <MenuItem
+            primaryText={this.props.name}
+            onClick={this.handleProfileClicked}
+          />
+          <MenuItem
+            primaryText="รายงานปัญหา"
+            onClick={this.handleReportClicked}
+          />
           <Divider />
-          <MenuItem primaryText="ออกจากระบบ" onClick={this.handleLogoutClicked} />
+          <MenuItem
+            primaryText="ออกจากระบบ"
+            onClick={this.handleLogoutClicked}
+          />
         </Menu>
       </Popover>
     ];
