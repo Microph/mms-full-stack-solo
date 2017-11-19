@@ -69,7 +69,7 @@ class SignUp extends Component {
       if (this.props.auth.user.accountType !== "facebook") return;
       var id = this.props.auth.user.accountID;
       var name = this.props.auth.user.displayName;
-      var imgsrc = "https://graph.facebook.com/" + id + "/picture";
+      var imgsrc = this.props.auth.user.profilePic;
       return [
         <Card>
           <CardHeader

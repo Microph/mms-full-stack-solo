@@ -29,9 +29,9 @@ module.exports = (app, passport, options) => {
       process.nextTick(() => {
         options.repository.findUserByID(profile.id, 'facebook').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName})
+            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: "https://graph.facebook.com/" + profile.id + "/picture"})
           } else {
-            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName})
+            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: "https://graph.facebook.com/" + profile.id + "/picture"})
           }
         })
       })
