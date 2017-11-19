@@ -25,6 +25,7 @@ module.exports.start = (options) => {
 
     //  Add the APIs to the app.
     require('../api/user')(app, passport, options);
+    require('../api/matching')(app, passport, options);
 
     //  Start the app, creating a running server which we return.
     var server = app.listen(options.port, () => {

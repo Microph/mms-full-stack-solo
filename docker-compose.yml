@@ -3,10 +3,13 @@ services:
   backend:
     build: ./tutorium/backend
     container_name: backend
+    volumes:
+      - ./tutorium/backend:/app
+    command: node /app/index.js
     ports:
      - "8123:8123"
     links:
-      - database:database
+     - database:database
     depends_on:
      - database
     environment:

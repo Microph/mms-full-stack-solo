@@ -109,19 +109,10 @@ module.exports = (app, passport, options) => {
 
   app.post('/api/register', function (req, res, next) {
     if(req.body.agree) {
-      var userInfo = {accountType: req.body.accountType,
-                      accountID: req.body.accountID,
-                      name: req.body.name,
-                      surname: req.body.surname,
-                      gender: req.body.gender,
-                      educationLevel: req.body.educationLevel,
-                      facebookUrl: req.body.facebookUrl,
-                      lineID: req.body.lineID,
-                      email: req.body.email,
-                      mobile: req.body.mobile}
+      let userInfo = req.body
 
       options.repository.register(userInfo).then(() => {
-        req.session.passport.user.registStatus = true;
+        // req.session.passport.user.registStatus = true;
         res.status(200).send({ success: true })
       })
       .catch(next);
@@ -136,7 +127,7 @@ module.exports = (app, passport, options) => {
 
   app.get('/api/current-login-session', (req, res, next) => {
     if(req.user) {
-      res.status(200).send({ success: true, user: req.user}) 
+      res.status(200).send({ success: true, user: req.user }) 
     } else {
       res.status(200).send({ success: false, msg: 'User is not login, yet'})
     }
