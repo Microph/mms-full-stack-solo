@@ -66,7 +66,7 @@ module.exports = (app, passport, options) => {
         let displayName = decoded.payload.name
         let profilePic = decoded.payload.picture
         
-        options.repository.findUserByID(profile.id, 'line').then((result) => {
+        options.repository.findUserByID(accountID, 'line').then((result) => {
           if(result) {
             return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, tutorID: result.tutorID})
           } else {
