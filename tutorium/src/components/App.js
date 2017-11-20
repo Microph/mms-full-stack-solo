@@ -13,6 +13,9 @@ import UserReport from "./general/userreport";
 import MyCourses from "./student/mycourses";
 import MyOffers from "./student/myoffers";
 import ToBeTutor from "./tobetutor";
+import CurrentCourses from "./tutor/currentcourses";
+import TeachingInfo from "./tutor/teachinginfo";
+import StudentSearch from "./tutor/studentsearch";
 
 class App extends Component {
   componentDidMount() {
@@ -37,6 +40,9 @@ class App extends Component {
             <Route path="/report" component={UserReport} />
             <Route path="/mycourses" component={MyCourses} />
             <Route path="/myoffers" component={MyOffers} />
+            <Route path="/tutor/mycouses" component={CurrentCourses} />
+            <Route path="/tutor/teachinginfo" component={TeachingInfo} />
+            <Route path="/tutor/findstudent" component={StudentSearch} />
           </div>
         </div>
       </BrowserRouter>

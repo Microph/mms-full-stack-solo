@@ -14,7 +14,10 @@
 
 ## Build & Run Project with Docker
 ### One Time Command (run this command at the first time)
+`docker rm $(docker ps -a -q)`
+`docker rmi $(docker images -a -q)`
 `docker-compose build`
+* Run these command only at first time or when you want to format the docker and rebuild everything
 
 ### Run Project
 * Run in foreground `docker-compose up`
