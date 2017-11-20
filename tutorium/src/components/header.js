@@ -6,6 +6,7 @@ import { MenuItem } from "material-ui/DropDownMenu";
 import axios from "axios";
 import ProfileAvatar from "./util/avatar";
 import CourseMenu from "./util/courses";
+import TutorMenu from "./util/tutormenu";
 
 // import { actionCreators } from "../reducers/authReducer";
 
@@ -26,6 +27,15 @@ class Header extends Component {
   handleSigninButtonClicked = () => (window.location.href = "/signin");
   handleSignupButtonClicked = () => (window.location.href = "/signup");
   handleToBeTutorClicked = () => (window.location.href = "/iamtutor");
+  handleCoursesClicked = () => (window.location.href = "/mycourses");
+  handleOffersClicked = () => (window.location.href = "/myoffers");
+  handleReportClicked = () => (window.location.href = "/report");
+  handleProfileClicked = () => (window.location.href = "/myprofile");
+  handleLogoutClicked = () => (window.location.href = "/api/logout");
+  handleTutorCoursesClicked = () => (window.location.href = "/tutor/mycouses");
+  handleTeachingClicked = () => (window.location.href = "/tutor/teachinginfo");
+  handleStudentSearchClicked = () =>
+    (window.location.href = "/tutor/findstudent");
 
   toggleMobileMenu = () => {
     var { mobileMenu } = this.state;
@@ -119,9 +129,69 @@ class Header extends Component {
           primaryText="รายงานปํญหา"
         />,
         <Divider style={{ backgroundColor: "#0f203e" }} />,
-        <ListItem style={{ color: "#fff" }} primaryText="ออกจากระบบ" />,
+        <ListItem
+          style={{ color: "#fff" }}
+          onClick={this.handleLogoutClicked}
+          primaryText="ออกจากระบบ"
+        />,
         <Divider style={{ backgroundColor: "#0f203e" }} />
       ];
+  }
+
+  renderContentIsTutor() {
+    if (
+      this.props.auth == null ||
+      !this.props.auth.success ||
+      (this.props.auth.success && this.props.auth.user.tutorID == null)
+    ) {
+      return (
+        <FlatButton
+          onClick={this.handleToBeTutorClicked}
+          style={{ color: "#fff" }}
+          label="ฉันเป็นติวเตอร์"
+        />
+      );
+    }
+    if (this.props.auth.success && this.props.auth.user.tutorID != null) {
+      return <TutorMenu />;
+    }
+  }
+
+  renderContentIsTutorMobile() {
+    if (
+      this.props.auth == null ||
+      !this.props.auth.success ||
+      (this.props.auth.success && this.props.auth.user.tutorID == null)
+    ) {
+      return (
+        <ListItem
+          onClick={this.handleToBeTutorClicked}
+          style={{ color: "#fff" }}
+          primaryText="ฉันเป็นติวเตอร์"
+        />
+      );
+    }
+    if (this.props.auth.success && this.props.auth.user.tutorID != null) {
+      return [
+        <Divider style={{ backgroundColor: "#0f203e" }} />,
+        <ListItem
+          onClick={this.handleTeachingClicked}
+          style={{ color: "#fff" }}
+          primaryText="ข้อมูลการสอนของฉัน"
+        />,
+        <ListItem
+          onClick={this.handleTutorCoursesClicked}
+          style={{ color: "#fff" }}
+          primaryText="คอร์สปัจจุบัน"
+        />,
+        <ListItem
+          onClick={this.handleStudentSearchClicked}
+          style={{ color: "#fff" }}
+          primaryText="ค้นหานักเรียน"
+        />,
+        <Divider style={{ backgroundColor: "#0f203e" }} />
+      ];
+    }
   }
 
   render() {
@@ -155,11 +225,7 @@ class Header extends Component {
             </div>
             {/* Menu Large screen */}
             <div className="pull-right hidden-xs">
-              <FlatButton
-                onClick={this.handleToBeTutorClicked}
-                style={{ color: "#fff" }}
-                label="ฉันเป็นติวเตอร์"
-              />
+              {this.renderContentIsTutor()}
               {this.renderContentIsAuth()}
             </div>
             {/* Hambuger */}
@@ -198,11 +264,7 @@ class Header extends Component {
           <List>
             {/* Menu */}
             {this.renderContentIsAuthMobile()}
-            <ListItem
-              onClick={this.handleToBeTutorClicked}
-              style={{ color: "#fff" }}
-              primaryText="ฉันเป็นติวเตอร์"
-            />
+            {this.renderContentIsTutorMobile()}
             {this.renderContentIsAuthMobile_bottom()}
             <MenuItem
               onClick={this.toggleMobileMenu}
