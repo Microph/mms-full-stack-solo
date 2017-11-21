@@ -171,7 +171,7 @@ class SignUp extends Component {
             <MenuItem value="matthayomplai" primaryText="มัธยมศึกษาตอนปลาย" />
             <MenuItem value="bachelor" primaryText="ปริญญาตรี" />
             <MenuItem value="master" primaryText="ปริญญาโท" />
-            <MenuItem value="doctor" primaryText="ปริญญาเอง" />
+            <MenuItem value="doctor" primaryText="ปริญญาเอก" />
           </SelectField>
           {/* FB URL */}
           <TextField
