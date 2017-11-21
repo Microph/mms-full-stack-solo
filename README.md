@@ -45,6 +45,7 @@
 [Logout](#logout)<br>
 [Reigster](#regist)<br>
 [Student Search](#stSearch)<br>
+[Tutor Search](#tutorSearch)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -72,7 +73,7 @@
 
 <a name="currLog"></a> 
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
-#### Return value if user already login
+#### Return value if user already login (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | |
@@ -89,7 +90,7 @@
 | displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
 | profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
 
-#### Return value if user did not login, yet
+#### Return value if user did not login, yet (HTTP 400 Bad Request)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | |
@@ -121,11 +122,11 @@
 | lineID | String | | Optional |
 | email | String | | Yes |
 | mobile | String | | Yes |
-#### Return value on complete
+#### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | register successful |
-#### Return value on incomplete
+#### Return value on incomplete (HTTP 400 Bad Request)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
@@ -144,17 +145,17 @@
 * If there is some field has no data inside. You must not include the field
 * Sending `studentID=undefined` means return the student who has undefined on studentID field
 * Not Send the filter to get all student
-#### Return value on complete
+#### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
 | students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Object}] | found student |
 | count | Number |  | Amount of student |
-#### Return value on incomplete
+#### Return value on incomplete (HTTP 403 Forbidden, HTTP 204 No Content)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
-| msg | String | 'You should login before searching' |  |
+| msg | String | 'You should login before searching', 'Student not found' |  |
 
 <p align="center">.................................................</p>
 
@@ -168,11 +169,16 @@
 * If there is some field has no data inside. You must not include the field
 * Sending `studentID=undefined` means return the tutor who has undefined on studentID field
 * Not Send the filter to get all tutor
-#### Return value on complete
+#### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
 | tutors | Objects | [{ studentID: String, <br>education: Objects, <br> teachList: Objects, <br>place: List, <br>time: Objects, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Objects, <br> uploadEvidence: Objects, <br> isApproved: Bool}] | found tutors |
 | count | Number |  | Amount of tutor |
+#### Return value on incomplete (HTTP 204 No Content)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'Tutor not found' |  |
 
 <p align="center">.................................................</p>
