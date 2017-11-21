@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: tutorium
-# Generation Time: 2017-11-21 03:22:52 +0000
+# Generation Time: 2017-11-21 04:20:05 +0000
 # ************************************************************
 
 
@@ -26,11 +26,11 @@
 DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
-  `account_studentID` int(11) NOT NULL AUTO_INCREMENT,
+  `studentID` int(11) NOT NULL AUTO_INCREMENT,
+  `tutorID` int(11) DEFAULT NULL,
   `accountType` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `accountID` varchar(200) CHARACTER SET utf8 NOT NULL,
-  `tutorID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`account_studentID`)
+  PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -71,8 +71,7 @@ CREATE TABLE `attendance` (
   PRIMARY KEY (`attendanceID`),
   KEY `studentID_idx` (`attendance_studentID`),
   KEY `tutorID_idx` (`attendance_tutorID`),
-  CONSTRAINT `attendance_studentID` FOREIGN KEY (`attendance_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `attendance_tutorID` FOREIGN KEY (`attendance_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `attendance_studentID` FOREIGN KEY (`attendance_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -138,8 +137,7 @@ CREATE TABLE `course` (
   `isAccepted` bit(1) NOT NULL,
   `level` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`couseID`),
-  KEY `course_tutorID_idx` (`course_tutorID`),
-  CONSTRAINT `course_tutorID` FOREIGN KEY (`course_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `course_tutorID_idx` (`course_tutorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -158,8 +156,7 @@ CREATE TABLE `courserequest` (
   PRIMARY KEY (`requestID`),
   KEY `courseRequest_studentID_idx` (`courseRequest_studentID`),
   KEY `courseRequest_tutorID_idx` (`courseRequest_tutorID`),
-  CONSTRAINT `courseRequest_studentID` FOREIGN KEY (`courseRequest_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `courseRequest_tutorID` FOREIGN KEY (`courseRequest_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `courseRequest_studentID` FOREIGN KEY (`courseRequest_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -195,27 +192,6 @@ CREATE TABLE `creditcardpayment` (
 
 
 
-# Dump of table education
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `education`;
-
-CREATE TABLE `education` (
-  `educationID` int(11) NOT NULL AUTO_INCREMENT,
-  `education_tutorID` int(11) NOT NULL,
-  `schoolName` varchar(100) NOT NULL,
-  `faculty` varchar(100) DEFAULT NULL,
-  `department` varchar(100) DEFAULT NULL,
-  `grade` varchar(20) NOT NULL,
-  `gpax` double NOT NULL,
-  `info` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`educationID`),
-  KEY `education_studentID_idx` (`education_tutorID`),
-  CONSTRAINT `education_studentID` FOREIGN KEY (`education_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-
 # Dump of table enrolled
 # ------------------------------------------------------------
 
@@ -246,8 +222,7 @@ CREATE TABLE `paymentrecord` (
   PRIMARY KEY (`paymentID`),
   KEY `paymentRecord_studentID_idx` (`paymentRecord_studentID`),
   KEY `paymentRecord_tutorID_idx` (`paymentRecord_tutorID`),
-  CONSTRAINT `paymentRecord_studentID` FOREIGN KEY (`paymentRecord_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `paymentRecord_tutorID` FOREIGN KEY (`paymentRecord_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `paymentRecord_studentID` FOREIGN KEY (`paymentRecord_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -267,8 +242,7 @@ CREATE TABLE `reservation` (
   PRIMARY KEY (`reservationID`),
   KEY `reservation_studentID_idx` (`reservation_studentID`),
   KEY `reservation_tutorID_idx` (`reservation_tutorID`),
-  CONSTRAINT `reservation_studentID` FOREIGN KEY (`reservation_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `reservation_tutorID` FOREIGN KEY (`reservation_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `reservation_studentID` FOREIGN KEY (`reservation_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -288,6 +262,9 @@ CREATE TABLE `student` (
   `lineID` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `mobile` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `wantList` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `place` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time` varchar(1500) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -299,11 +276,14 @@ CREATE TABLE `student` (
 DROP TABLE IF EXISTS `tutor`;
 
 CREATE TABLE `tutor` (
-  `tutor_studentID` int(11) NOT NULL,
-  `tutorID` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`tutorID`),
-  KEY `tutor_studentID` (`tutor_studentID`),
-  CONSTRAINT `tutor_studentID` FOREIGN KEY (`tutor_studentID`) REFERENCES `student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `studentID` int(11) NOT NULL,
+  `education` varchar(2000) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `teachList` varchar(2000) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `place` varchar(1000) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `time` varchar(1500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `uploadEvidence` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `isApproved` tinyint(11) NOT NULL DEFAULT '0',
+  KEY `tutor_studentID` (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
