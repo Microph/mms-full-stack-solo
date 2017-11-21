@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: tutorium
-# Generation Time: 2017-11-19 17:41:27 +0000
+# Generation Time: 2017-11-21 03:22:52 +0000
 # ************************************************************
 
 
@@ -51,6 +51,7 @@ LOCK TABLES `admin` WRITE;
 
 INSERT INTO `admin` (`username`, `password`)
 VALUES
+	('1234','1234'),
 	('tutorium','8f7dd0890f92a2b12497f2009ac7bab80e9110898d45a281c0221adf66168c2b');
 
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
@@ -288,21 +289,6 @@ CREATE TABLE `student` (
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `mobile` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`studentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table teaching
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `teaching`;
-
-CREATE TABLE `teaching` (
-  `teaching_tutorID` int(11) NOT NULL,
-  `subject` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `level` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`teaching_tutorID`,`subject`,`level`),
-  CONSTRAINT `teaching_tutorID` FOREIGN KEY (`teaching_tutorID`) REFERENCES `tutor` (`tutorID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

@@ -122,6 +122,43 @@ class Repository {
     })
   }
 
+  searchForTutor(filters = undefined) {
+    return new Promise((resolve, reject) => {
+      if(filters) {
+        let sql = "SELECT * FROM student WHERE "
+        let condition = undefined
+
+        Object.keys(filters).forEach((key) => {
+          if(condition) {
+            condition += " AND " + key + " = " + "'" + filters[key] + "'"
+          } else {
+            condition = key + " = " + "'" + filters[key] + "'"
+          }
+        })
+
+        sql += condition
+
+        this.connection.query(sql, (err, results) => {
+          if(err) {
+            return reject(new Error('An error occured getting the users: ' + err));
+          }
+
+          resolve(results)
+        })
+      } else {
+        let sql = "SELECT * FROM student"
+
+        this.connection.query(sql, (err, results) => {
+          if(err) {
+            return reject(new Error('An error occured getting the users: ' + err));
+          }
+
+          resolve(results)
+        })
+      }
+    })
+  }
+
   disconnect() {
     this.connection.end();
   }
