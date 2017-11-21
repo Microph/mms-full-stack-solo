@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: tutorium
-# Generation Time: 2017-11-21 04:20:05 +0000
+# Generation Time: 2017-11-21 06:48:28 +0000
 # ************************************************************
 
 
@@ -51,7 +51,6 @@ LOCK TABLES `admin` WRITE;
 
 INSERT INTO `admin` (`username`, `password`)
 VALUES
-	('1234','1234'),
 	('tutorium','8f7dd0890f92a2b12497f2009ac7bab80e9110898d45a281c0221adf66168c2b');
 
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;

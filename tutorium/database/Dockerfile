@@ -5,6 +5,7 @@ ENV MYSQL_DATABASE tutorium
 ENV MYSQL_USER tutorium
 ENV MYSQL_PASSWORD 123
 
-ADD setup.sql /docker-entrypoint-initdb.d
+# RUN mkdir docker-entrypoint-initdb.d
+# ADD setup.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3306

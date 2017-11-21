@@ -16,5 +16,7 @@ services:
      - DATABASE_HOST=database
   database:
     build: ./tutorium/database
+    volumes:
+     - ./tutorium/database/setup:/docker-entrypoint-initdb.d
     ports:
      - "3306:3306"
