@@ -20,7 +20,10 @@ class Repository {
                       .createHash('sha256')
                       .update(password)
                       .digest("hex");
-      let sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
+      let sql = "SELECT * " +
+                "FROM admin " +
+                "WHERE username = ? " +
+                  "AND password = ?"
 
       this.connection.query(sql, [username, passHash], (err, results) => {
         if(err) {
@@ -40,7 +43,7 @@ class Repository {
 
   findUserByID(id, loginType) {
     return new Promise((resolve, reject) => {
-      let sql = "SELECT tutorID FROM account WHERE accountID = ? AND accountType = ?"
+      let sql = "SELECT studentID, isTutor FROM account WHERE accountID = ? AND accountType = ?"
 
       this.connection.query(sql, [id, loginType], (err, results) => {
         if(err) {
@@ -79,7 +82,7 @@ class Repository {
             return reject(new Error('An error occured getting the users: ' + err));
           }
 
-          resolve();
+          resolve(studentID);
         });
       });
     });
@@ -89,7 +92,7 @@ class Repository {
     return new Promise((resolve, reject) => {
       if(filters) {
         let sql = "SELECT * FROM student WHERE "
-        let condition = undefined
+        let condition = ""
 
         Object.keys(filters).forEach((key) => {
           if(condition) {
@@ -125,19 +128,17 @@ class Repository {
   searchForTutor(filters = undefined) {
     return new Promise((resolve, reject) => {
       if(filters) {
-        let sql = "SELECT * FROM student WHERE "
-        let condition = undefined
-
+        let sql = "SELECT * " +
+                  "FROM tutor " +
+                  "WHERE isApproved"
+        let condition = ""
+        
         Object.keys(filters).forEach((key) => {
-          if(condition) {
-            condition += " AND " + key + " = " + "'" + filters[key] + "'"
-          } else {
-            condition = key + " = " + "'" + filters[key] + "'"
-          }
+          condition += " AND " + key + " = " + "'" + filters[key] + "'"
         })
 
         sql += condition
-
+        
         this.connection.query(sql, (err, results) => {
           if(err) {
             return reject(new Error('An error occured getting the users: ' + err));
@@ -146,7 +147,9 @@ class Repository {
           resolve(results)
         })
       } else {
-        let sql = "SELECT * FROM student"
+        let sql = "SELECT * " +
+                  "FROM tutor " +
+                  "WHERE isApproved"
 
         this.connection.query(sql, (err, results) => {
           if(err) {

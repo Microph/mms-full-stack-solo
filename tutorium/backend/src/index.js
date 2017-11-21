@@ -4,7 +4,7 @@
 //  server and starts the server.
 var server = require('./server/server');
 var repository = require('./repository/repository');
-var config = require('./config/config');
+var config = require('../config/config');
 
 //  Lots of verbose logging when we're starting up...
 console.log("--- Customer Service---");

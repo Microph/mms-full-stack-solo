@@ -8,4 +8,4 @@ ADD . /app
 WORKDIR /app
 
 # install all dependencies
-RUN npm install --production
+RUN npm install

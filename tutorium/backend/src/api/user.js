@@ -27,13 +27,14 @@ module.exports = (app, passport, options) => {
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(() => {
+        let displayName = profile.displayName
         let profilePic = "https://graph.facebook.com/" + profile.id + "/picture"
 
         options.repository.findUserByID(profile.id, 'facebook').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: profilePic, tutorID: result.tutorID})
+            return done(null, {registStatus: true, studentID: result.studentID ,accountType: 'facebook', accountID: result.id, displayName: displayName , profilePic: profilePic, isTutor: result.isTutor})
           } else {
-            return done(null, {registStatus: false, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: profilePic, tutorID: null})
+            return done(null, {registStatus: false, studentID: null, accountType: 'facebook', accountID: profile.id, displayName: profile.displayName, profilePic: profilePic, isTutor: false})
           }
         })
       })
@@ -68,9 +69,9 @@ module.exports = (app, passport, options) => {
         
         options.repository.findUserByID(accountID, 'line').then((result) => {
           if(result) {
-            return done(null, {registStatus: true, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, tutorID: result.tutorID})
+            return done(null, {registStatus: true, studentID: result.studentID, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, isTutor: result.isTutor})
           } else {
-            return done(null, {registStatus: false, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, tutorID: null})
+            return done(null, {registStatus: false, studentID: null, accountType: 'line', accountID:accountID, displayName: displayName, profilePic: profilePic, isTutor: false})
           }
         })
       })
@@ -91,7 +92,7 @@ module.exports = (app, passport, options) => {
         if(username && password) {
           options.repository.adminLogin(username, password).then((admin) => {
             if(admin) {
-              return done(null, {registStatus: true, accountType: 'admin', accountID: admin.username, displayName: admin.username, profilePic: null, tutorID: null});
+              return done(null, {registStatus: true, studentID: null, accountType: 'admin', accountID: admin.username, displayName: admin.username, profilePic: null, isTutor: false});
             } else {
               return done(null, false, { message: 'username or password was wrong' });
             }
@@ -114,7 +115,8 @@ module.exports = (app, passport, options) => {
     if(req.body.agree) {
       let userInfo = req.body
 
-      options.repository.register(userInfo).then(() => {
+      options.repository.register(userInfo).then((studentID) => {
+        req.session.passport.user.studentID = studentID;
         req.session.passport.user.registStatus = true;
         res.status(200).send({ success: true })
       })
@@ -132,7 +134,7 @@ module.exports = (app, passport, options) => {
     if(req.user) {
       res.status(200).send({ success: true, user: req.user }) 
     } else {
-      res.status(200).send({ success: false, msg: 'User is not login, yet'})
+      res.status(200).send({ success: false, msg: 'User is not login, yet' })
     }
   });
 

@@ -25,4 +25,17 @@ module.exports = (app, passport, options) => {
         }
     })
 
+    app.get('/api/search/tutor', (req, res, next) => {
+        let filters = req.query
+
+        if(Object.keys(filters).length === 0) {
+            options.repository.searchForTutor().then((students) => {
+                res.status(200).send({ success: true, students: students, count: students.length })
+            })
+        } else {
+            options.repository.searchForTutor(filters).then((students) => {
+                res.status(200).send({ success: true, students: students, count: students.length})
+            })
+        }
+    })
 }
