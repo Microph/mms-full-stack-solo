@@ -165,9 +165,9 @@ class Repository {
           }
         })
       } else {
-        let sql = "SELECT * " +
-                  "FROM tutor " +
-                  "WHERE isApproved"
+        let sql = "SELECT T.*, S.name, S.surname, S.gender " +
+                  "FROM tutor T, student S " +
+                  "WHERE T.isApproved AND T.studentID = S.studentID"
 
         this.connection.query(sql, (err, results) => {
           if(err) {
