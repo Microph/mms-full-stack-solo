@@ -8,8 +8,6 @@ import ProfileAvatar from "./util/avatar";
 import CourseMenu from "./util/courses";
 import TutorMenu from "./util/tutormenu";
 
-// import { actionCreators } from "../reducers/authReducer";
-
 window.axios = axios;
 const logo = require("../resources/Tutorium_icon.png");
 
