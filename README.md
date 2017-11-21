@@ -159,7 +159,7 @@
 <p align="center">.................................................</p>
 
 <a name="tutorSearch"></a>
-### Student Search ( /api/search/tutor via GET method)
+### Tutor Search ( /api/search/tutor via GET method)
 
 #### Input Parameters
 | Field Name | Type | Description | Required? |
@@ -172,7 +172,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| tutors | Objects | [{ studentID: String, <br>education: Objects, <br> teachList: Objects, <br>place: List, <br>time: Objects, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Objects, <br> uploadEvidence: Objects, <br> isApproved: Bool}] | found student |
-| count | Number |  | Amount of student |
+| tutors | Objects | [{ studentID: String, <br>education: Objects, <br> teachList: Objects, <br>place: List, <br>time: Objects, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Objects, <br> uploadEvidence: Objects, <br> isApproved: Bool}] | found tutors |
+| count | Number |  | Amount of tutor |
 
 <p align="center">.................................................</p>
