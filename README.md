@@ -72,27 +72,28 @@
 
 <a name="currLog"></a> 
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
-#### Return value on can get login session data
+#### Return value if user already login
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | |
-| user | Object | { "registStatus": Bool,<br> "accountType": String,<br> "accountID": String,<br> "displayName": String } | current login user info |
+| user | Object | { "registStatus": Bool,<br> "studentID": Integer,<br> "isTutor": Bool,<br> "accountType": String,<br> "accountID": String,<br> "displayName": String,<br> "profilePic": String } | current login user info |
 
-#### Return value on can not get login session data (user did not login)
+#### Possible value inside user field
+| Field Name | Type | Value | Description |
+| :--------: | :--: | :---: | :---------: |
+| registStatus | Bool | true, false | return 'false' if the account is not register |
+| studentID | Integer | 1...2147483648 | return 'null' if the account is not register |
+| isTutor | Bool | true, false | return 'true' if the account is tutor |
+| accountType | String | 'admin', 'line', 'facebook' |  |
+| accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
+| displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
+| profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
+
+#### Return value if user did not login, yet
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | |
 | msg | String | 'User is not login, yet' |  |
-
-#### Possible value inside value field
-| Field Name | Type | Value | Description |
-| :--------: | :--: | :---: | :---------: |
-| registStatus | Bool | true, false | return true when user already regist |
-| accountType | String | 'admin', 'line', 'facebook' |  |
-| accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
-| tutorID | String |  | If user is not tutor the value is null |
-| displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
-| profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
 
 <p align="center">.................................................</p>
 
@@ -104,7 +105,8 @@
 
 <a name="regist"></a>
 ### Register ( /api/register via POST method)
-
+#### Pre-required
+* Authentication
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -119,11 +121,11 @@
 | lineID | String | | Optional |
 | email | String | | Yes |
 | mobile | String | | Yes |
-#### Return value on register successful
+#### Return value on complete
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | register successful |
-#### Return value on register unsuccessful
+#### Return value on incomplete
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
@@ -133,32 +135,44 @@
 
 <a name="stSearch"></a>
 ### Student Search ( /api/search/student via GET method)
-
+#### Pre-required
+* Authentication
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | studentID | String | filter by studentID | Optional |
-| name | String | filter by name | Optional |
-| surname | String | filter by surname | Optional |
-| gender | String | fitler by gender | Optional |
-| educationLevel | String | filter by education level | Optional |
-| facebookUrl | String | filter by facebook url | Optional |
-| lineID | String | filter by line id | Optional |
-| email | String | filter by email | Optional |
-| mobile | String | filter by mobile | Optional |
 * If there is some field has no data inside. You must not include the field
 * Sending `studentID=undefined` means return the student who has undefined on studentID field
+* Not Send the filter to get all student
 #### Return value on complete
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String}] | found student |
+| students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Object}] | found student |
 | count | Number |  | Amount of student |
-* If there is not any filter(didn't send any parameter), it return all student.
 #### Return value on incomplete
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
 | msg | String | 'You should login before searching' |  |
+
+<p align="center">.................................................</p>
+
+<a name="tutorSearch"></a>
+### Student Search ( /api/search/tutor via GET method)
+
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | String | filter by studentID | Optional |
+* If there is some field has no data inside. You must not include the field
+* Sending `studentID=undefined` means return the tutor who has undefined on studentID field
+* Not Send the filter to get all tutor
+#### Return value on complete
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| tutors | Objects | [{ studentID: String, <br>education: Objects, <br> teachList: Objects, <br>place: List, <br>time: Objects, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Objects, <br> uploadEvidence: Objects, <br> isApproved: Bool}] | found student |
+| count | Number |  | Amount of student |
 
 <p align="center">.................................................</p>
