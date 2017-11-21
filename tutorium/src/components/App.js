@@ -33,6 +33,7 @@ import NotFound from "./util/NotFound";
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+    this.props.fetchStudents();
   }
 
   render() {
