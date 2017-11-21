@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: tutorium
-# Generation Time: 2017-11-21 11:45:42 +0000
+# Generation Time: 2017-11-21 13:12:57 +0000
 # ************************************************************
 
 
@@ -33,16 +33,6 @@ CREATE TABLE `account` (
   PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-
-INSERT INTO `account` (`studentID`, `accountType`, `accountID`, `isTutor`)
-VALUES
-	(1,'line','Ueae411c33e5b3679791e1df38b687c21',0),
-	(2,'facebook','1671707229577179',0);
-
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table admin
@@ -277,16 +267,6 @@ CREATE TABLE `student` (
   PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `student` WRITE;
-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
-
-INSERT INTO `student` (`studentID`, `name`, `surname`, `gender`, `educationLevel`, `facebookURL`, `lineID`, `email`, `mobile`, `wantList`, `place`, `time`)
-VALUES
-	(1,'pakpoom','thaweesitthichat','male','bachelor','facebook.com/pakpoom','phakphumi','pakpoom.thawee@gmail.com','0876678775',NULL,NULL,NULL),
-	(2,'pakpoom','thaweesitthichat','male','bachelor','facebook.com/pakpoom','phakphumi','pakpoom.thawee@gmail.com','0876678775',NULL,NULL,NULL);
-
-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table tutor
@@ -305,16 +285,6 @@ CREATE TABLE `tutor` (
   KEY `tutor_studentID` (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `tutor` WRITE;
-/*!40000 ALTER TABLE `tutor` DISABLE KEYS */;
-
-INSERT INTO `tutor` (`studentID`, `education`, `teachList`, `place`, `time`, `uploadEvidence`, `isApproved`)
-VALUES
-	(0,'','','','',NULL,0),
-	(1,'','','','',NULL,0);
-
-/*!40000 ALTER TABLE `tutor` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table userreport

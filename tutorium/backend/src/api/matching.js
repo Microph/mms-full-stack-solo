@@ -29,12 +29,12 @@ module.exports = (app, passport, options) => {
         let filters = req.query
 
         if(Object.keys(filters).length === 0) {
-            options.repository.searchForTutor().then((students) => {
-                res.status(200).send({ success: true, students: students, count: students.length })
+            options.repository.searchForTutor().then((tutors) => {
+                res.status(200).send({ success: true, tutors: tutors, count: tutors.length })
             })
         } else {
-            options.repository.searchForTutor(filters).then((students) => {
-                res.status(200).send({ success: true, students: students, count: students.length})
+            options.repository.searchForTutor(filters).then((tutors) => {
+                res.status(200).send({ success: true, tutors: tutors, count: tutors.length})
             })
         }
     })
