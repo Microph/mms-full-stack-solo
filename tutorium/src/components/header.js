@@ -50,7 +50,14 @@ class Header extends Component {
   }
 
   renderContentIsAuth = () => {
-    if (this.props.auth == null) return;
+    if (this.props.auth == null)
+      return [
+        <FlatButton
+          onClick={this.handleSigninButtonClicked}
+          style={{ color: "#fff" }}
+          label="ลงชื่อเข้าใช้ / สมัครสมาชิก"
+        />
+      ];
     if (
       this.props.auth.success &&
       !this.props.auth.user.registStatus &&
@@ -79,7 +86,14 @@ class Header extends Component {
   };
 
   renderContentIsAuthMobile() {
-    if (this.props.auth == null) return;
+    if (this.props.auth == null)
+      return [
+        <ListItem
+          onClick={this.handleSigninButtonClicked}
+          style={{ color: "#fff" }}
+          primaryText="ลงชื่อเข้าใช้ / สมัครสมาชิก"
+        />
+      ];
     if (
       this.props.auth.success &&
       !this.props.auth.user.registStatus &&
