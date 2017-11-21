@@ -4,8 +4,8 @@ services:
     build: ./tutorium/backend
     container_name: backend
     volumes:
-      - ./tutorium/backend:/app
-    command: node /app/index.js
+     - ./tutorium/backend:/app
+    command: bash -c "npm install --production && npm start"
     ports:
      - "8123:8123"
     links:

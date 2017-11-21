@@ -1,47 +1,33 @@
 {
-  "name": "users-service",
+  "name": "tutorium",
   "version": "1.0.0",
-  "description": "Basic service for retrieving user information from the directory.",
+  "description": "SE project at Computer Engineering, Chulalongkorn University",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dwmkerr/node-docker-microservice.git"
+    "url": "git://github.com/we-inc/mms-full-stack-solo.git"
   },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha -R spec **/*.spec.js",
-    "debug": "node-debug index.js",
-    "lint": "eslint ."
+    "test": "echo test"
   },
-  "author": "Dave Kerr, dwmkerr@gmail.com",
+  "author": "mms-full-stack-solo, pakpoom.thawee@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.13.4",
     "body-parser": "^1.18.2",
+    "cookie-parser": "1.4.3",
+    "express": "^4.13.4",
+    "express-session": "1.15.6",
+    "jsonwebtoken": "8.1.0",
     "morgan": "^1.7.0",
     "mysql": "^2.10.2",
+    "nodemon": "1.12.1",
+    "npm": "^5.5.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
+    "passport-local": "1.0.0",
     "passport-oauth2": "1.4.0",
-    "passport-local" : "1.0.0",
-    "express-session": "1.15.6",
-    "cookie-parser": "1.4.3",
-    "jsonwebtoken": "8.1.0"
+    "start": "^5.1.0"
   },
-  "devDependencies": {
-    "eslint": "^2.7.0",
-    "mocha": "^2.4.5",
-    "node-inspector": "^0.12.7",
-    "should": "^8.3.0",
-    "supertest": "^1.2.0"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
-    },
-    "rules": {
-      "semi": 2
-    }
-  }
+  "devDependencies": {}
 }
