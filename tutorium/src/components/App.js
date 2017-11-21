@@ -34,6 +34,7 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
     this.props.fetchStudents();
+    this.props.fetchTutors();
   }
 
   render() {
