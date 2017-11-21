@@ -14,7 +14,7 @@ export const fetchStudents = () => async dispatch => {
 }
 
 export const fetchTutors = () => async dispatch => {
-  // const res = await axios.get("/api/search/student");
+  const res = await axios.get("/api/search/tutor");
 
-  // dispatch({ type: FETCH_STUDENTS, payload: res.data });
+  dispatch({ type: FETCH_STUDENTS, payload: res.data });
 }
