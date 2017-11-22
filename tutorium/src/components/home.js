@@ -28,6 +28,7 @@ class Home extends Component {
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.doFilter = this.doFilter.bind(this);
     this.prepareTutor = this.prepareTutor.bind(this);
+    this.renderTutor = this.renderTutor.bind(this);
   }
 
   // Filter out some tutors
@@ -37,14 +38,17 @@ class Home extends Component {
       filters.map(word => {
         if (word === "") return;
         preparedTutor.map(t => {
+          var i;
+          for (i = 0; i < trList.length; i++)
+            if (trList[i].detail === t.detail) return;
           if (t.detail.indexOf(word) !== -1) {
-            trList.push(t.render);
+            trList.push(t);
           }
         });
       });
     } else {
       preparedTutor.map(t => {
-        trList.push(t.render);
+        trList.push(t);
       });
     }
     return trList;
@@ -95,7 +99,7 @@ class Home extends Component {
                 actAsExpander={true}
                 showExpandableButton={true}
               />
-              <CardText expandable={true} style={{color: "#505050"}}>
+              <CardText expandable={true} style={{ color: "#505050" }}>
                 <span>เพศ: {parseGender(tutor.gender)}</span>
                 <br />
                 <span>สถานที่ที่สามารถสอน: {places}</span>
@@ -108,6 +112,14 @@ class Home extends Component {
       });
       return tList;
     }
+  }
+
+  renderTutor(tutors) {
+    var ts = [];
+    tutors.map(tutor => {
+      ts.push(tutor.render);
+    });
+    return ts;
   }
 
   // hadle when search field changed
@@ -139,7 +151,7 @@ class Home extends Component {
           </div>
         </div>
         {/* Showlist */}
-        <div>{tutorToRender}</div>
+        <div>{this.renderTutor(tutorToRender)}</div>
       </div>
     );
   }
