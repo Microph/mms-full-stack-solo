@@ -30,6 +30,6 @@ services:
   database:
     build: ./tutorium/database
     volumes:
-     - ./tutorium/database/setup:/docker-entrypoint-initdb.d
+     - ./tutorium/database/setup:/docker-entrypoint-initdb.d # run setup.sql on init
     ports:
      - "3306:3306"
