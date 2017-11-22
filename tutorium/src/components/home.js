@@ -134,7 +134,7 @@ class Home extends Component {
       <div>
         {/* Search Fields */}
         <div>
-          <div className="search-header visible-lg">
+          <div className="search-header">
             <div className="input-group stylish-input-group">
               <input
                 type="text"
