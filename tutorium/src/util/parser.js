@@ -47,3 +47,22 @@ export const parseGender = gender => {
       return gender;
   }
 };
+
+export const parseSubject = subject => {
+  switch (subject) {
+    case "math":
+      return "คณิตศาสตร์";
+    case "physic":
+      return "ฟิสิิกส์";
+    case "chemical":
+      return "เคมี";
+    case "biology":
+      return "ชีววิทยา";
+    case "thai":
+      return "ภาษาไทย";
+    case "english":
+      return "ภาษาอังกฤษ";
+    default:
+      return subject;
+  }
+};
