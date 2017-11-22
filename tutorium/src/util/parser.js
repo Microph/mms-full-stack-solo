@@ -54,7 +54,7 @@ export const parseSubject = subject => {
       return "คณิตศาสตร์";
     case "science":
       return "วิทยาศาสตร์";
-    case "physic":
+    case "physics":
       return "ฟิสิิกส์";
     case "chemistry":
       return "เคมี";
