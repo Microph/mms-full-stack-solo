@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import {
   FlatButton,
 } from "material-ui";
+import axios from "axios";
+
+const querystring = require("querystring");
 
 class AdminLogin extends Component {
     constructor(props) {
         super(props);
-            this.state = {
+        this.state = {
+          username: '',
+          password: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -15,13 +20,26 @@ class AdminLogin extends Component {
 
     handleChange(event) {
       const name = event.target.name;
-      this.setState({[name]: event.target.value});
+      //if(name == 'username' || name == 'password')
+        this.setState({[name]: event.target.value});
     }
 
     handleSubmit(event) {
-        alert('Login form submitted:\n' + 'username: ' + this.state.username + '\npassword: ' + this.state.password);
-        event.preventDefault();
-    }
+      const res = axios({
+        method: "POST",
+        url: "/api/auth/admin",
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded"
+        },
+        data: querystring.stringify({
+          username: this.state.username,
+          password: this.state.password,
+        })
+      });
+
+      alert("logging in...");
+      window.location.href = "/api/current-login-session";
+    };
 
     render() {
         return (
