@@ -52,6 +52,8 @@ export const parseSubject = subject => {
   switch (subject) {
     case "math":
       return "คณิตศาสตร์";
+    case "science":
+      return "วิทยาศาสตร์";
     case "physic":
       return "ฟิสิิกส์";
     case "chemical":
@@ -62,6 +64,8 @@ export const parseSubject = subject => {
       return "ภาษาไทย";
     case "english":
       return "ภาษาอังกฤษ";
+    case "sociality":
+      return "สังคมศึกษา";
     default:
       return subject;
   }
