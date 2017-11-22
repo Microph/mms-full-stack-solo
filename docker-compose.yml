@@ -1,5 +1,18 @@
 version: '2'
 services:
+  front-end:
+    build: ./tutorium/front-end
+    container_name: front-end
+    volumes:
+     - ./tutorium/front-end/src:/app/src
+     - ./tutorium/front-end/public:/app/public
+    command: npm start
+    ports:
+     - "3000:3000"
+    links: 
+     - backend:backend
+    depends_on:
+     - backend
   backend:
     build: ./tutorium/backend
     container_name: backend
