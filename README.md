@@ -3,9 +3,9 @@
 ## Team Members
 | Student ID | Name                         | Github Username | Role |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| 5730106921 | Chanatip Kriengkraipetch     | [Microph](https://github.com/Microph) | Developer |
+| 5730106921 | Chanatip Kriengkraipetch     | [Microph](https://github.com/Microph) | Front-end Developer |
 | 5730271721 | Teerachod Boonprapakorn      | [ptheera](https://github.com/ptheera) | Developer |
-| 5730282621 | Nonthiwat Visuthikraisee     | [5730282621-NV](https://github.com/5730282621-NV) | Database Developer|
+| 5730282621 | Nonthiwat Visuthikraisee     | [5730282621-NV](https://github.com/5730282621-NV) | Database Developer & Back-end Developer|
 | 5731001821 | Kanokpon Thongchaijareonsiri | [npingnk](https://github.com/npingnk) | Software Tester|
 | 5731036821 | Nattapat Boonprakong         | [nattapatboon](https://github.com/nattapatboon) | System Analyst |
 | 5731083221 | Peerawut Luengruengroj       | [peerawutgaga](https://github.com/peerawutgaga) | Project Manager & System Analyst|
