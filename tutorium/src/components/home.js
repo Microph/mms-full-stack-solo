@@ -84,7 +84,7 @@ class Home extends Component {
             " " +
             day,
           render: (
-            <Card key={tutor.studentID} style={{ marginTop: 10 }}>
+            <Card key={tutor.studentID} style={{ marginTop: 10, marginBottom: 5 }}>
               <CardHeader
                 title={tutor.name + " " + tutor.surname}
                 subtitle={teaching}
