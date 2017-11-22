@@ -10,14 +10,14 @@ services:
     ports:
      - "3000:3000"
     links: 
-     - backend:backend
+     - back-end:back-end
     depends_on:
-     - backend
-  backend:
-    build: ./tutorium/backend
-    container_name: backend
+     - back-end
+  back-end:
+    build: ./tutorium/back-end
+    container_name: back-end
     volumes:
-     - ./tutorium/backend/src:/app/src
+     - ./tutorium/back-end/src:/app/src
     command: npm start
     ports:
      - "8123:8123"
