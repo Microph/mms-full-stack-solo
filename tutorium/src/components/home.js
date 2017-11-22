@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  FlatButton,
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui";
+import { FlatButton, Card, CardHeader, CardText } from "material-ui";
 import {
   parseLevel,
   parseGender,
@@ -92,7 +84,7 @@ class Home extends Component {
             " " +
             day,
           render: (
-            <Card key={tutor.studentID} style={{ marginTop: 10 }}>
+            <Card key={tutor.studentID} style={{ marginTop: 10, marginBottom: 5 }}>
               <CardHeader
                 title={tutor.name + " " + tutor.surname}
                 subtitle={teaching}
