@@ -50,6 +50,22 @@ export const parseGender = gender => {
 
 export const parseSubject = subject => {
   switch (subject) {
+    case "คณิตศาสตร์":
+      return "math";
+    case "วิทยาศาสตร์":
+      return "science";
+    case "ฟิสิกส์":
+      return "physics";
+    case "เคมี":
+      return "chemistry";
+    case "ชีววิทยา":
+      return "biology";
+    case "ภาษาไทย":
+      return "thai";
+    case "ภาษาอังกฤษ":
+      return "english";
+    case "สังคมศึกษา":
+      return "socialstudies";
     case "math":
       return "คณิตศาสตร์";
     case "science":
@@ -64,7 +80,7 @@ export const parseSubject = subject => {
       return "ภาษาไทย";
     case "english":
       return "ภาษาอังกฤษ";
-    case "social studies":
+    case "socialstudies":
       return "สังคมศึกษา";
     default:
       return subject;
