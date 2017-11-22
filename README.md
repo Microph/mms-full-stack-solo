@@ -12,18 +12,21 @@
 | 5731087821 | Pakpoom Thaweesitthichat     | [phakphumi](https://github.com/phakphumi) | Technical Lead & Back-end Developer|
 | 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) | Designer & Front-end Developer |
 
-## Build & Run Project with Docker
+## Build & Run Project with Docker 
+* These command must run in the root directory (run in 'mms-full-stack-solo' folder)
 ### One Time Command (run this command at the first time)
-> `docker rm $(docker ps -a -q)`<br>
-> `docker rmi $(docker images -a -q)`<br>
-> `docker volume rm $(docker volume ls -q)`<br>
+> `docker rm $(docker ps -a -q) --force`<br>
+> `docker rmi $(docker images -a -q) --force`<br>
+> `docker volume rm $(docker volume ls -q) --force`<br>
 > `docker-compose build`<br>
+* Run these command in order
+* If some warning or error occurs, ignores them and continue run following command
 * Run these command only at first time or when you want to format the docker and rebuild everything
 
-### Run Project
+### Run Command
 * Run in foreground `docker-compose up`
 * Run in background `docker-compose up -d`
-### Shutdown
+### Shutdown Command
 * `docker-compose down`
 * Very important to shutdown with this command or your PC will has a lot of docker-container
 
