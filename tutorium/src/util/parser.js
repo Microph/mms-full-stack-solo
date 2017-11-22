@@ -48,6 +48,41 @@ export const parseGender = gender => {
   }
 };
 
+export const parseDay = day => {
+  switch (day) {
+    case "sunday":
+      return "วันอาทิตย์";
+    case "monday":
+      return "วันจันทร์";
+    case "tuesday":
+      return "วันอังคาร";
+    case "wednesday":
+      return "วันพุธ";
+    case "thursday":
+      return "วันพฤหัสบดี";
+    case "friday":
+      return "วันศุกร์";
+    case "saturday":
+      return "วันเสาร์";
+    case "วันอาทิตย์":
+      return "sunday";
+    case "วันจันทร์":
+      return "monday";
+    case "วันอังคาร":
+      return "tuesday";
+    case "วันพุธ":
+      return "wednesday";
+    case "วันพฤหัสบดี":
+      return "thursday";
+    case "วันศุกร์":
+      return "friday";
+    case "วันเสาร์":
+      return "saturday";
+    default:
+      return day;
+  }
+};
+
 export const parseSubject = subject => {
   switch (subject) {
     case "คณิตศาสตร์":
