@@ -154,7 +154,7 @@ class Header extends Component {
     if (
       this.props.auth == null ||
       !this.props.auth.success ||
-      (this.props.auth.success && this.props.auth.user.tutorID == null)
+      (this.props.auth.success && !this.props.auth.user.isTutor)
     ) {
       return (
         <FlatButton
@@ -164,7 +164,7 @@ class Header extends Component {
         />
       );
     }
-    if (this.props.auth.success && this.props.auth.user.tutorID != null) {
+    if (this.props.auth.success && this.props.auth.user.isTutor) {
       return <TutorMenu />;
     }
   }
@@ -173,7 +173,7 @@ class Header extends Component {
     if (
       this.props.auth == null ||
       !this.props.auth.success ||
-      (this.props.auth.success && this.props.auth.user.tutorID == null)
+      (this.props.auth.success && !this.props.auth.user.isTutor)
     ) {
       return (
         <ListItem
@@ -183,7 +183,7 @@ class Header extends Component {
         />
       );
     }
-    if (this.props.auth.success && this.props.auth.user.tutorID != null) {
+    if (this.props.auth.success && this.props.auth.user.isTutor) {
       return [
         <Divider style={{ backgroundColor: "#0f203e" }} />,
         <ListItem
