@@ -64,7 +64,7 @@ export const parseSubject = subject => {
       return "ภาษาไทย";
     case "english":
       return "ภาษาอังกฤษ";
-    case "sociality":
+    case "social studies":
       return "สังคมศึกษา";
     default:
       return subject;
