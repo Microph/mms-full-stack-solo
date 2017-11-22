@@ -13,6 +13,7 @@
 | 5731111121 | Athip Intaraphirom           | [athip-int](https://github.com/athip-int) | Designer & Front-end Developer |
 
 ## Build & Run Project with Docker 
+* Install Docker & Docker-Compose first
 * These command must run in the root directory (run in 'mms-full-stack-solo' folder)
 ### One Time Command (run this command at the first time)
 > `docker rm $(docker ps -a -q) --force`<br>
@@ -23,7 +24,7 @@
 * If some warning or error occurs, ignores them and continue run following command
 * Run these command only at first time or when you want to format the docker and rebuild everything
 
-### Run Command
+### Start Command
 * Run in foreground `docker-compose up`
 * Run in background `docker-compose up -d`
 ### Shutdown Command
