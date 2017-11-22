@@ -220,21 +220,6 @@ class Header extends Component {
                 </span>
               </Link>
             </div>
-            {/* Search */}
-            <div className="pull-left search-header visible-lg">
-              <div className="input-group stylish-input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="ค้นหาคอร์สเรียน"
-                />
-                <span className="input-group-addon">
-                  <button>
-                    <span class="glyphicon glyphicon-search" />
-                  </button>
-                </span>
-              </div>
-            </div>
             {/* Menu Large screen */}
             <div className="pull-right hidden-xs">
               {this.renderContentIsTutor()}
@@ -286,22 +271,6 @@ class Header extends Component {
             </MenuItem>
           </List>
         </Drawer>
-
-        {/* Search mobile */}
-        <div className="search-xs hidden-lg">
-          <div className="container input-group stylish-input-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="ค้นหาคอร์สเรียน"
-            />
-            <span className="input-group-addon">
-              <button>
-                <span class="glyphicon glyphicon-search" />
-              </button>
-            </span>
-          </div>
-        </div>
       </div>
     );
   }
