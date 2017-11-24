@@ -27,6 +27,7 @@ import ReportsManage from "../admin-components/reportsmanage";
 import RequestsManage from "../admin-components/requestsmanage";
 import SuspendedUsers from "../admin-components/suspendedusers";
 import UsersManage from "../admin-components/usersmanage";
+import AdminHeader from "../admin-components/admin-header";
 // Util
 import NotFound from "./util/NotFound";
 
@@ -43,7 +44,7 @@ class App extends Component {
         <div>
           <Route
             render={props => {
-              return <Header {...props} />;
+              return [<Header {...props} />, <AdminHeader {...props} />];
             }}
           />
           <div className="container">
