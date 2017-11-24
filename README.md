@@ -179,7 +179,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| tutors | Objects | [{ studentID: String, <br>education: Objects, <br>teachList: Objects, <br>place: List, <br>time: Objects, <br>uploadEvidence: Objects, <br>isApproved: Bool, <br>studentInfo: {name: String, surname: String, gender: String}}] | found tutors |
+| tutors | Objects | [{ studentID: String, <br>education: Objects, <br>teachList: Objects, <br>place: List, <br>time: Objects, <br>uploadEvidence: Objects, <br>isApproved: Bool, <br>student: {name: String, surname: String, gender: String}}] | found tutors |
 | count | Number |  | Amount of tutor |
 #### Return value on incomplete (HTTP 200 No Content)
 | Field Name | Type | Value | Description |
