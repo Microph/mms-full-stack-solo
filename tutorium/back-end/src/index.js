@@ -4,6 +4,7 @@
 //  server and starts the server.
 let server = require('./server/server')
 let repository = require('./repository/repository')
+let repository2 = require('./repository/schema')
 let config = require('../config/config')
 
 //  Lots of verbose logging when we're starting up...
