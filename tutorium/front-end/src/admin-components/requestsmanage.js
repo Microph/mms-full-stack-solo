@@ -34,6 +34,13 @@ class RequestCard extends Component {
     this.setState({showFullDetail: !prev});
   }
 
+  getTextShowOrHide(){
+    if(this.state.showFullDetail)
+      return 'ย่อ'
+    else
+      return 'แสดงรายละเอียดเต็ม'
+  }
+
   render() {
     return (
       <div>
@@ -96,13 +103,12 @@ class RequestCard extends Component {
                     onClick={this.onClickShowHide}
                     style={{
                       width: "100%",
-                      color: "#fff",
                       margin: "auto",
                       marginTop: 20,
-                      backgroundColor: "gray"
+                      backgroundColor: "#ddd"
                     }}
                     labelStyle={{ fontSize: 15, fontWeight: 700 }}
-                    label="ดูเพิ่มเติม"
+                    label={this.getTextShowOrHide()}
                   />
                   </div>
                 </div>
