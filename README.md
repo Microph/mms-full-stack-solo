@@ -131,11 +131,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | register successful |
+| msg | String | 'Register complete', 'Account is already register' |  |
 #### Return value on incomplete (HTTP 400 Bad Request)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
-| msg | String | | false cause |
+| msg | String | 'Registration incomplete' |  |
 
 <p align="center">.................................................</p>
 
@@ -178,7 +179,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| tutors | Objects | [{ studentID: String, <br>education: Objects, <br> teachList: Objects, <br>place: List, <br>time: Objects, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Objects, <br> uploadEvidence: Objects, <br> isApproved: Bool}] | found tutors |
+| tutors | Objects | [{ studentID: String, <br>education: Objects, <br>teachList: Objects, <br>place: List, <br>time: Objects, <br>uploadEvidence: Objects, <br>isApproved: Bool, <br>studentInfo: {name: String, surname: String, gender: String}}] | found tutors |
 | count | Number |  | Amount of tutor |
 #### Return value on incomplete (HTTP 200 No Content)
 | Field Name | Type | Value | Description |
