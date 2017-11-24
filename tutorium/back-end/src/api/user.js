@@ -188,6 +188,12 @@ module.exports = (app, passport, options) => {
     })
   })
 
+  app.get('/api/admin/logout', (req, res, next) => {
+    req.session.destroy((err) => {
+      res.redirect(options.adminHomepage)
+    })
+  })
+
   app.get('/api/current-login-session', (req, res, next) => {
     if(req.user) {
       res.status(200).send({ 

@@ -156,7 +156,7 @@
 | success | Bool | true |  |
 | students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Object}] | found student |
 | count | Number |  | Amount of student |
-#### Return value on incomplete (HTTP 403 Forbidden, HTTP 204 No Content)
+#### Return value on incomplete (HTTP 403 Forbidden, HTTP 200 No Content)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
@@ -180,7 +180,7 @@
 | success | Bool | true |  |
 | tutors | Objects | [{ studentID: String, <br>education: Objects, <br> teachList: Objects, <br>place: List, <br>time: Objects, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Objects, <br> uploadEvidence: Objects, <br> isApproved: Bool}] | found tutors |
 | count | Number |  | Amount of tutor |
-#### Return value on incomplete (HTTP 204 No Content)
+#### Return value on incomplete (HTTP 200 No Content)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
