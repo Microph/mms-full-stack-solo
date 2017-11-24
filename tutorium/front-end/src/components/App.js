@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
@@ -72,6 +72,13 @@ class App extends Component {
                 component={StudentSearch}
               />
               {/* Admin */}
+              <Route
+                exact
+                path="/admin"
+                component={() => {
+                  return <Redirect to="/admin/login" />;
+                }}
+              />
               <Route exact path="/admin/login" component={AdminLogin} />
               <Route exact path="/admin/dashboard" component={Dashboard} />
               <Route exact path="/admin/usersmanage" component={UsersManage} />
