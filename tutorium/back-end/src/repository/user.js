@@ -67,10 +67,32 @@ function register(userInput) {
     })
 }
 
+function updateStudentProfile(studentID, updateData) {
+    return new Promise((resolve, reject) => {
+        Schema.Student.update({
+            name: updateData.name,
+            surname: updateData.surname,
+            gender: updateData.gender,
+            educationLevel: updateData.educationLevel,
+            facebookURL: updateData.facebookURL,
+            lineID: updateData.lineID,
+            email: updateData.email,
+            mobile: updateData.mobile
+        }, {
+            where: {
+                studentID: studentID
+            }
+        }).then((result) => {
+            resolve(result[0])
+        })
+    })
+}
+
 module.exports = {
     adminAuthen: adminAuthen,
     findUserByAccountID: findUserByAccountID,
-    register: register
+    register: register,
+    updateStudentProfile: updateStudentProfile
 }
 // function adminLogin(username, password) {
 //     return new Promise((resolve, reject) => {

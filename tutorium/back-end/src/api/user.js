@@ -42,7 +42,7 @@ module.exports = (app, passport, options) => {
               registStatus: false, 
               studentID: null, 
               accountType: 'facebook', 
-              accountID: profile.accountID, 
+              accountID: profile.id, 
               displayName: displayName, 
               profilePic: profilePic, 
               isTutor: false
@@ -201,22 +201,38 @@ module.exports = (app, passport, options) => {
         user: req.user 
       }) 
     } else {
-      res.status(400).send({ 
+      res.status(403).send({ 
         success: false, 
         msg: 'User is not login, yet' 
       })
     }
   })
 
-  // app.post('/api/user/profile/update', (req, res, next) => {
-  //   let user = require('../repository/user')
-  //   let updateData = req.body
-    
-  //   if(req.user) {
+  app.put('/api/student/profile/update', (req, res, next) => {
+    if(req.user && req.user.studentID) {
+      let user = require('../repository/user')
+      let updateData = req.body
+      let studentID = req.user.studentID
 
-  //   } else {
-
-  //   }
-  // })
+      user.updateStudentProfile(studentID, updateData).then((result) => {
+        if(result) {
+          res.status(200).send({
+            success: true,
+            msg: 'Updated Complete'
+          })
+        } else {
+          res.status(400).send({
+            success: false,
+            msg: 'Profile hasn\'t been update, please correct your input'
+          })
+        }       
+      })
+    } else {
+      res.status(403).send({ 
+        success: false, 
+        msg: 'You should login before update your profile' 
+      })
+    }
+  })
 
 }
