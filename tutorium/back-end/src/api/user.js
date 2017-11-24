@@ -208,4 +208,15 @@ module.exports = (app, passport, options) => {
     }
   })
 
+  // app.post('/api/user/profile/update', (req, res, next) => {
+  //   let user = require('../repository/user')
+  //   let updateData = req.body
+    
+  //   if(req.user) {
+
+  //   } else {
+
+  //   }
+  // })
+
 }
