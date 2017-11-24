@@ -51,6 +51,7 @@
 [Reigster](#regist)<br>
 [Student Search](#stSearch)<br>
 [Tutor Search](#tutorSearch)<br>
+[Update Student Profile](#upStudentPro)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -186,5 +187,34 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
 | msg | String | 'Tutor not found' |  |
+
+<p align="center">.................................................</p>
+
+<a name="upStudentPro"></a>
+### Update Student Profile ( /api/student/profile/updater via PUT method)
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| name | String | Send old value or updated value | Yes |
+| surname | String | Send old value or updated value | Yes |
+| gender | String | 'male', 'female', 'others' | Yes|
+| educationLevel | String | 'pratom', 'matthayomton', 'matthayomplai', 'bachelor', 'master', 'doctor' | Yes |
+| facebookUrl | String | Send old value or updated value | Yes |
+| lineID | String | Send old value or updated value | Yes |
+| email | String | Send old value or updated value | Yes |
+| mobile | String | Send old value or updated value | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Profile hasn't been update, please correct your input', 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
