@@ -343,7 +343,7 @@
 <p align="center">.................................................</p>
 
 <a name="deleteCreditCard"></a>
-### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/update' )
+### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/delete' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
