@@ -5,4 +5,8 @@ describe('student search', () => {
         const allStudent = await matching.studentSearch();
         expect(allStudent.count).toEqual(18);
     });
+
+    test('hello', () => {
+        expect(true).toBeTruthy();
+    })
 });
