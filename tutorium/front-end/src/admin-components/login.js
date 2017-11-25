@@ -66,7 +66,7 @@ class AdminLogin extends Component {
           username: this.state.username,
           password: this.state.password,
         })
-      }).then(() => {Debug.log(res)});
+      }).then(() => {console.log('sdfsdsd')});
     };
 
     render() {
