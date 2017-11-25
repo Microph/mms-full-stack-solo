@@ -6,7 +6,8 @@ import {
   FlatButton,
   TextField,
   SelectField,
-  MenuItem
+  MenuItem,
+  TimePicker
 } from "material-ui";
 import axios from "axios";
 import {
@@ -28,8 +29,9 @@ class StudyInfo extends Component {
       openAddTime: false,
       addSubject: "math",
       addLevel: "pratom",
-      addDay: "",
-      addTime: "",
+      addDay: "sunday",
+      addTimeFrom: Date.now(),
+      addTimeTo: Date.now(),
       addPlace: ""
     };
   }
@@ -59,9 +61,26 @@ class StudyInfo extends Component {
     <FlatButton
       label="ยกเลิก"
       primary={true}
-      onClick={() => this.setState({ openAddTime: false })}
+      onClick={() =>
+        this.setState({
+          openAddTime: false,
+          addDay: "sunday",
+          addTimeFrom: Date.now(),
+          addTimeTo: Date.now()
+        })
+      }
     />,
-    <FlatButton label="ตกลง" primary={true} onClick={() => this.addTime()} />
+    <FlatButton
+      label="ตกลง"
+      primary={true}
+      onClick={() =>
+        this.addTime(
+          this.state.addDay,
+          this.state.addTimeFrom.toTimeString().substr(0, 5),
+          this.state.addTimeTo.toTimeString().substr(0, 5)
+        )
+      }
+    />
   ];
 
   placeActions = [
@@ -202,7 +221,7 @@ class StudyInfo extends Component {
           style={{ marginTop: -4, marginLeft: 2 }}
           onRequestDelete={() => this.handleRequestDeleteTime(i - 1)}
         >
-          {time[i].day + " " + time[i].time}
+          {parseDay(time[i].day) + " " + time[i].time}
         </Chip>
       );
     }
@@ -267,7 +286,21 @@ class StudyInfo extends Component {
     window.location.href = "/myprofile";
   }
 
-  addTime() {}
+  async addTime(d, from, to) {
+    var t = from + "-" + to;
+    time.push({ day: d, time: t });
+    var res = await axios({
+      method: "PUT",
+      url: "/api/student/time/update",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      },
+      data: querystring.stringify({
+        time: JSON.stringify(time)
+      })
+    });
+    window.location.href = "/myprofile";
+  }
 
   render() {
     this.fetchStudyDetails();
@@ -350,10 +383,51 @@ class StudyInfo extends Component {
             title="เพิ่มวัน - เวลาที่ต้องการเรียน"
             actions={this.timeActions}
             open={this.state.openAddTime}
-            onRequestClose={() => this.setState({ openAddTime: false })}
+            onRequestClose={() =>
+              this.setState({
+                openAddTime: false,
+                addTimeFrom: Date.now(),
+                addTimeTo: Date.now(),
+                addDay: "sunday"
+              })
+            }
           >
-            The actions in this window were passed in as an array of React
-            objects.
+            {/* Day */}
+            <SelectField
+              fullWidth
+              floatingLabelText="วันที่ต้องการเรียน"
+              value={this.state.addDay}
+              required
+              onChange={(event, key, addDay) => this.setState({ addDay })}
+            >
+              <MenuItem value="sunday" primaryText="วันอาทิตย์" />
+              <MenuItem value="monday" primaryText="วันจันทร์" />
+              <MenuItem value="tuesday" primaryText="วันอังคาร" />
+              <MenuItem value="wednesday" primaryText="วันพุธ" />
+              <MenuItem value="thursday" primaryText="วันพฤหัสบดี" />
+              <MenuItem value="friday" primaryText="วันศุกร์" />
+              <MenuItem value="saturday" primaryText="วันเสาร์" />
+            </SelectField>
+            {/* Time */}
+            <TimePicker
+              format="24hr"
+              hintText="เวลาเริ่ม"
+              value={this.state.addTimeFrom}
+              onChange={(event, date) => {
+                console.log(date);
+                this.setState({
+                  addTimeFrom: date
+                });
+              }}
+            />
+            <TimePicker
+              format="24hr"
+              hintText="เวลาสิ้นสุด"
+              value={this.state.addTimeTo}
+              onChange={(event, date) => {
+                this.setState({ addTimeTo: date });
+              }}
+            />
           </Dialog>
         </div>
         <div
