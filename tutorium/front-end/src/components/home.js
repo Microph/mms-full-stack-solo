@@ -86,13 +86,13 @@ class Home extends Component {
           render: (
             <Card key={tutor.studentID} style={{ marginTop: 10, marginBottom: 5 }}>
               <CardHeader
-                title={tutor.name + " " + tutor.surname}
+                title={tutor.student.name + " " + tutor.student.surname}
                 subtitle={teaching}
                 actAsExpander={true}
                 showExpandableButton={true}
               />
               <CardText expandable={true} style={{ color: "#505050" }}>
-                <span>เพศ: {parseGender(tutor.gender)}</span>
+                <span>เพศ: {parseGender(tutor.student.gender)}</span>
                 <br />
                 <span>สถานที่ที่สามารถสอน: {places}</span>
                 <br />
