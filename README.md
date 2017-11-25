@@ -56,6 +56,8 @@
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
 [Add Credit Card](#addCreditCard)<br>
+[Update Credit Card](#updateCreditCard)<br>
+[Delete Credit Card](#deleteCreditCard)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -115,7 +117,7 @@
 <p align="center">.................................................</p>
 
 <a name="regist"></a>
-### Register ( '/api/register' via POST method)
+### Register ( Access via POST method on '/api/register' )
 #### Pre-required
 * Authentication
 #### Input Parameters
@@ -144,7 +146,7 @@
 <p align="center">.................................................</p>
 
 <a name="stSearch"></a>
-### Student Search ( '/api/search/student' via GET method)
+### Student Search ( Access via GET method on '/api/search/student' )
 #### Pre-required
 * Authentication
 #### Input Parameters
@@ -169,7 +171,7 @@
 <p align="center">.................................................</p>
 
 <a name="tutorSearch"></a>
-### Tutor Search ( '/api/search/tutor' via GET method)
+### Tutor Search ( Access via GET method on '/api/search/tutor' )
 
 #### Input Parameters
 | Field Name | Type | Description | Required? |
@@ -193,7 +195,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentPro"></a>
-### Update Student Profile ( '/api/student/profile/update' via PUT method)
+### Update Student Profile ( Access via PUT method on '/api/student/profile/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -222,7 +224,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentWant"></a>
-### Update Student Want List ( '/api/student/wantList/update' via PUT method)
+### Update Student Want List ( Access via PUT method on '/api/student/wantList/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -244,7 +246,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentPlace"></a>
-### Update Student Comfortable Place ( '/api/student/place/update via PUT method)
+### Update Student Comfortable Place ( Access via PUT method on '/api/student/place/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -266,7 +268,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentTime"></a>
-### Update Student Comfortable Time ( '/api/student/time/update' via PUT method)
+### Update Student Comfortable Time ( Access via PUT method on '/api/student/time/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -288,7 +290,7 @@
 <p align="center">.................................................</p>
 
 <a name="addCreditCard"></a>
-### Add New Credit Card Time ( '/api/payment/card/add' via POST method)
+### Add New Credit Card Time ( Access via POST method on '/api/payment/card/add' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -303,12 +305,62 @@
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | updated complete |
+| success | Bool | true | Add credit card complete |
 | msg | String | 'Add Credit Card Complete', 'Credit Card had already added' |  |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated incomplete |
+| success | Bool | false | Add credit card incomplete |
 | msg | String | 'You should login before add your credit card'   |  |
+
+<p align="center">.................................................</p>
+
+<a name="updateCreditCard"></a>
+### Update New Credit Card Time ( Access via PUT method on '/api/payment/card/update' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+* Has Credit Card
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Fix values (Can't Change) | Yes |
+| cardHolder | String(200) | Name of card holder | Yes |
+| CVV | String(3) | Secure Code | Yes |
+| expireMonth | String(2) |  | Yes |
+| expireYear | String(2) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated credite card complete |
+| msg | String | 'Update Credit Card Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Credit card hasn\'t been update, please correct your input', 'You should login before update your credit card' |  |
+
+<p align="center">.................................................</p>
+
+<a name="deleteCreditCard"></a>
+### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/update' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+* Has Credit Card
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Card Number | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted credite card complete |
+| msg | String | 'Delete Credit Card Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Credit card hasn\'t been delete, please correct your input', 'You should login before delete your credit card' |  |
 
 <p align="center">.................................................</p>
