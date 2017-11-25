@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Chip, Dialog, FlatButton, TextField } from "material-ui";
+import {
+  Chip,
+  Dialog,
+  FlatButton,
+  TextField,
+  SelectField,
+  MenuItem
+} from "material-ui";
 import axios from "axios";
 import {
   parseLevel,
@@ -19,8 +26,8 @@ class StudyInfo extends Component {
       openAddWantList: false,
       openAddPlace: false,
       openAddTime: false,
-      addSubject: "",
-      addLevel: "",
+      addSubject: "math",
+      addLevel: "pratom",
       addDay: "",
       addTime: "",
       addPlace: ""
@@ -31,12 +38,20 @@ class StudyInfo extends Component {
     <FlatButton
       label="ยกเลิก"
       primary={true}
-      onClick={() => this.setState({ openAddWantList: false })}
+      onClick={() =>
+        this.setState({
+          openAddWantList: false,
+          addSubject: "math",
+          addLevel: "pratom"
+        })
+      }
     />,
     <FlatButton
       label="ตกลง"
       primary={true}
-      onClick={() => this.addWantList()}
+      onClick={() =>
+        this.addWantList(this.state.addSubject, this.state.addLevel)
+      }
     />
   ];
 
@@ -203,7 +218,33 @@ class StudyInfo extends Component {
     return renderList;
   }
 
-  addWantList() {}
+  async addWantList(sbj, lvl) {
+    for (var i = 0; i < wantList.length; i++) {
+      if (wantList[i].subject == sbj && wantList[i].level == lvl) {
+        this.setState({
+          openAddWantList: false,
+          addSubject: "math",
+          addLevel: "pratom"
+        });
+        return;
+      }
+    }
+    wantList.push({
+      subject: sbj,
+      level: lvl
+    });
+    var res = await axios({
+      method: "PUT",
+      url: "/api/student/wantList/update",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      },
+      data: querystring.stringify({
+        wantList: JSON.stringify(wantList)
+      })
+    });
+    window.location.href = "/myprofile";
+  }
 
   async addPlace(text) {
     for (var i = 0; i < place.length; i++) {
@@ -250,10 +291,48 @@ class StudyInfo extends Component {
             title="เพิ่มวิชาที่ต้องการเรียน"
             actions={this.wantListActions}
             open={this.state.openAddWantList}
-            onRequestClose={() => this.setState({ openAddWantList: false })}
+            onRequestClose={() =>
+              this.setState({
+                openAddWantList: false,
+                addSubject: "math",
+                addLevel: "pratom"
+              })
+            }
           >
-            The actions in this window were passed in as an array of React
-            objects.
+            {/* Subject */}
+            <SelectField
+              fullWidth
+              floatingLabelText="วิชา"
+              value={this.state.addSubject}
+              required
+              onChange={(event, key, addSubject) =>
+                this.setState({ addSubject })
+              }
+            >
+              <MenuItem value="math" primaryText="คณิตศาสตร์" />
+              <MenuItem value="science" primaryText="วิทยาศาสตร์" />
+              <MenuItem value="physics" primaryText="ฟิสิกส์" />
+              <MenuItem value="chemistry" primaryText="เคมี" />
+              <MenuItem value="biology" primaryText="ชีววิทยา" />
+              <MenuItem value="thai" primaryText="ภาษาไทย" />
+              <MenuItem value="english" primaryText="ภาษาอังกฤษ" />
+              <MenuItem value="socialstudies" primaryText="สังคมศึกษา" />
+            </SelectField>
+            {/* Education Level */}
+            <SelectField
+              fullWidth
+              floatingLabelText="ระดับการศึกษา"
+              value={this.state.addLevel}
+              required
+              onChange={(event, key, addLevel) => this.setState({ addLevel })}
+            >
+              <MenuItem value="pratom" primaryText="ประถมศึกษา" />
+              <MenuItem value="matthayomton" primaryText="มัธยมศึกษาตอนต้น" />
+              <MenuItem value="matthayomplai" primaryText="มัธยมศึกษาตอนปลาย" />
+              <MenuItem value="bachelor" primaryText="ปริญญาตรี" />
+              <MenuItem value="master" primaryText="ปริญญาโท" />
+              <MenuItem value="doctor" primaryText="ปริญญาเอก" />
+            </SelectField>
           </Dialog>
         </div>
         <div
