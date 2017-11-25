@@ -52,6 +52,9 @@
 [Student Search](#stSearch)<br>
 [Tutor Search](#tutorSearch)<br>
 [Update Student Profile](#upStudentPro)<br>
+[Update Student Want List](#upStudentWant)<br>
+[Update Student Comforatble place](#upStudentPlace)<br>
+[Update Student Comforatble Time](#upStudentTime)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
