@@ -55,6 +55,7 @@
 [Update Student Want List](#upStudentWant)<br>
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
+[Add Credit Card](#addCreditCard)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -283,5 +284,31 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input', 'You should login before update your profile'  |  |
+
+<p align="center">.................................................</p>
+
+<a name="addCreditCard"></a>
+### Add New Credit Card Time ( /api/student/time/update' via PUT method)
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Credit card number | Yes |
+| cardHolder | String(200) | Name of card holder | Yes |
+| CVV | String(3) | Secure Code | Yes |
+| expireMonth | String(2) |  | Yes |
+| expireYear | String(2) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Add Credit Card Complete', 'Credit Card had already added' |  |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'You should login before add your credit card'   |  |
 
 <p align="center">.................................................</p>
