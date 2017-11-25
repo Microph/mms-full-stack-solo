@@ -55,6 +55,10 @@
 [Update Student Want List](#upStudentWant)<br>
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
+[Add Credit Card](#addCreditCard)<br>
+[Update Credit Card](#updateCreditCard)<br>
+[Delete Credit Card](#deleteCreditCard)<br>
+[Delete Account](#deleteAccount)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -91,10 +95,10 @@
 #### Possible value inside user field
 | Field Name | Type | Value | Description |
 | :--------: | :--: | :---: | :---------: |
-| registStatus | Bool | true, false | return 'false' if the account is not register |
+| registStatus | Bool | true,<br> false | return 'false' if the account is not register |
 | studentID | Integer | 1...2147483648 | return 'null' if the account is not register |
-| isTutor | Bool | true, false | return 'true' if the account is tutor |
-| accountType | String | 'admin', 'line', 'facebook' |  |
+| isTutor | Bool | true,<br> false | return 'true' if the account is tutor |
+| accountType | String | 'admin',<br> 'line',<br> 'facebook' |  |
 | accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
 | displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
 | profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
@@ -114,7 +118,7 @@
 <p align="center">.................................................</p>
 
 <a name="regist"></a>
-### Register ( /api/register via POST method)
+### Register ( Access via POST method on '/api/register' )
 #### Pre-required
 * Authentication
 #### Input Parameters
@@ -123,8 +127,8 @@
 | agree | Bool | true on accept our condition or false on otherwise | Yes |
 | name | String | | Yes |
 | surname | String | | Yes |
-| gender | String | 'male', 'female', 'others' | Yes|
-| educationLevel | String | 'pratom', 'matthayomton', 'matthayomplai', 'bachelor', 'master', 'doctor' | Yes |
+| gender | String | 'male',<br> 'female',<br> 'others' | Yes|
+| educationLevel | String | 'pratom',<br> 'matthayomton',<br> 'matthayomplai',<br> 'bachelor',<br> 'master',<br> 'doctor' | Yes |
 | facebookUrl | String | | Optional |
 | lineID | String | | Optional |
 | email | String | | Yes |
@@ -133,17 +137,17 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | register successful |
-| msg | String | 'Register complete', 'Account is already register' |  |
+| msg | String | 'Register complete',<br> 'Account is already register' |  |
 #### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
-| msg | String | 'Registration incomplete', 'Authenticate and condition accept need for register' |  |
+| msg | String | 'Registration incomplete',<br> 'Authenticate and condition accept need for register' |  |
 
 <p align="center">.................................................</p>
 
 <a name="stSearch"></a>
-### Student Search ( /api/search/student via GET method)
+### Student Search ( Access via GET method on '/api/search/student' )
 #### Pre-required
 * Authentication
 #### Input Parameters
@@ -163,12 +167,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
-| msg | String | 'You should login before searching', 'Student not found' |  |
+| msg | String | 'You should login before searching',<br> 'Student not found' |  |
 
 <p align="center">.................................................</p>
 
 <a name="tutorSearch"></a>
-### Tutor Search ( /api/search/tutor via GET method)
+### Tutor Search ( Access via GET method on '/api/search/tutor' )
 
 #### Input Parameters
 | Field Name | Type | Description | Required? |
@@ -181,7 +185,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| tutors | Objects | [{ studentID: String, <br>education: Objects, <br>teachList: Objects, <br>place: List, <br>time: Objects, <br>uploadEvidence: Objects, <br>isApproved: Bool, <br>student: {name: String, surname: String, gender: String}}] | found tutors |
+| tutors | Objects | [{ studentID: String, <br>education: Objects, <br>teachList: Objects, <br>place: List, <br>time: Objects, <br>uploadEvidence: Objects, <br>isApproved: Bool, <br>student: {<br>name: String,<br> surname: String,<br> gender: String}}] | found tutors |
 | count | Number |  | Amount of tutor |
 #### Return value on incomplete (HTTP 200 No Content)
 | Field Name | Type | Value | Description |
@@ -192,7 +196,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentPro"></a>
-### Update Student Profile ( /api/student/profile/update via PUT method)
+### Update Student Profile ( Access via PUT method on '/api/student/profile/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -201,8 +205,8 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | name | String | Send old value or updated value | Yes |
 | surname | String | Send old value or updated value | Yes |
-| gender | String | 'male', 'female', 'others' | Yes|
-| educationLevel | String | 'pratom', 'matthayomton', 'matthayomplai', 'bachelor', 'master', 'doctor' | Yes |
+| gender | String | 'male',<br> 'female',<br> 'others' | Yes|
+| educationLevel | String | 'pratom',<br> 'matthayomton',<br> 'matthayomplai',<br> 'bachelor',<br> 'master',<br> 'doctor' | Yes |
 | facebookUrl | String | Send old value or updated value | Yes |
 | lineID | String | Send old value or updated value | Yes |
 | email | String | Send old value or updated value | Yes |
@@ -216,12 +220,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Profile hasn't been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Profile hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
 <a name="upStudentWant"></a>
-### Update Student Want List ( /api/student/wantList/update via PUT method)
+### Update Student Want List ( Access via PUT method on '/api/student/wantList/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -238,12 +242,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Want list hasn\'t been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Want list hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
 <a name="upStudentPlace"></a>
-### Update Student Comfortable Place ( /api/student/place/update via PUT method)
+### Update Student Comfort Place ( Access via PUT method on '/api/student/place/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -260,12 +264,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn\'t been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
 <a name="upStudentTime"></a>
-### Update Student Comfortable Time ( /api/student/time/update' via PUT method)
+### Update Student Comfort Time ( Access via PUT method on '/api/student/time/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -282,6 +286,104 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn't been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
+
+<p align="center">.................................................</p>
+
+<a name="addCreditCard"></a>
+### Add New Credit Card Time ( Access via POST method on '/api/payment/card/add' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Credit card number | Yes |
+| cardHolder | String(200) | Name of card holder | Yes |
+| CVV | String(3) | Secure Code | Yes |
+| expireMonth | String(2) |  | Yes |
+| expireYear | String(2) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | Add credit card complete |
+| msg | String | 'Add Credit Card Complete',<br> 'Credit Card had already added' |  |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | Add credit card incomplete |
+| msg | String | 'You should login before add your credit card'   |  |
+
+<p align="center">.................................................</p>
+
+<a name="updateCreditCard"></a>
+### Update New Credit Card Time ( Access via PUT method on '/api/payment/card/update' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+* Has Credit Card
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Fix values (Can't Change) | Yes |
+| cardHolder | String(200) | Name of card holder | Yes |
+| CVV | String(3) | Secure Code | Yes |
+| expireMonth | String(2) |  | Yes |
+| expireYear | String(2) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated credite card complete |
+| msg | String | 'Update Credit Card Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Credit card hasn\'t been update, please correct your input',<br> 'You should login before update your credit card' |  |
+
+<p align="center">.................................................</p>
+
+<a name="deleteCreditCard"></a>
+### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/delete' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+* Has Credit Card
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Card Number | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted credite card complete |
+| msg | String | 'Delete Credit Card Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
+
+<p align="center">.................................................</p>
+
+<a name="deleteAccount"></a>
+### Remove Account ( Access via DELETE method on '/api/account/delete' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| confirm | Bool | true or false for confirm to delete | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'Delete Account Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
 
 <p align="center">.................................................</p>

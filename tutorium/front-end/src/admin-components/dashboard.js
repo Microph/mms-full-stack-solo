@@ -38,7 +38,7 @@ class DashboardNumberDetail extends Component {
                   style = {{
                     height: 120,
                     width: 220,
-                    marginBottom: 30,
+                    margin: 30,
                     textAlign: 'center',
                     display: 'inline-block'
                   }}

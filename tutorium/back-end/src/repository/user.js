@@ -2,142 +2,139 @@
 
 let Schema = require('./schema')
 
-function adminAuthen(username, password) {
-    return new Promise((resolve, reject) => {
-        let passHash = require('crypto')
-                        .createHash('sha256')
-                        .update(password)
-                        .digest("hex")
-
-        Schema.Admin.findOne({
-            where: {
-                username: username,
-                password: passHash
-            }
-        }).then(result => {
-            resolve(result)
-        })
-    })
-}
-
-function findUserByAccountID(accountID, accountType) {
-    return new Promise((resolve, reject) => {
-        Schema.Account.findOne({
-            where: {
-                accountID: accountID,
-                accountType: accountType
-            }
-        }).then(result => {
-            resolve(result)
-        })
-    })
-}
-
-function register(accountType, accountID, userInput) {
-    return new Promise((resolve, reject) => {
-        Schema.Account.findOrCreate({
-            where: {
-                accountType: accountType,
-                accountID: accountID
-            },
-            defaults: {
-                accountType: accountType,
-                accountID: accountID,
-                student: [{
-                    name: userInput.name,
-                    surname: userInput.surname,
-                    gender: userInput.gender,
-                    educationLevel: userInput.educationLevel,
-                    facebookURL: userInput.facebookURL,
-                    lineID: userInput.lineID,
-                    email: userInput.email,
-                    mobile: userInput.mobile    
-                }]
-            },
-            include: [{
-                model: Schema.Student,
-                as: 'student'
-            }]
-        }).spread((studentAccount, created) => {
-            resolve({
-                created: created,
-                studentID: studentAccount.dataValues.studentID
+module.exports = {
+    adminAuthen: (username, password) => {
+        return new Promise((resolve, reject) => {
+            let passHash = require('crypto')
+                            .createHash('sha256')
+                            .update(password)
+                            .digest("hex")
+    
+            Schema.Admin.findOne({
+                where: {
+                    username: username,
+                    password: passHash
+                }
+            }).then(result => {
+                resolve(result)
             })
         })
-    })
-}
-
-function updateStudentProfile(studentID, updateData) {
-    return new Promise((resolve, reject) => {
-        Schema.Student.update({
-            name: updateData.name,
-            surname: updateData.surname,
-            gender: updateData.gender,
-            educationLevel: updateData.educationLevel,
-            facebookURL: updateData.facebookURL,
-            lineID: updateData.lineID,
-            email: updateData.email,
-            mobile: updateData.mobile
-        }, {
-            where: {
-                studentID: studentID
-            }
-        }).then((result) => {
-            resolve(result[0])
+    },
+    findUserByAccountID: (accountID, accountType) => {
+        return new Promise((resolve, reject) => {
+            Schema.Account.findOne({
+                where: {
+                    accountID: accountID,
+                    accountType: accountType
+                }
+            }).then(result => {
+                resolve(result)
+            })
         })
-    })
-}
-
-function updateStudentWantList(studentID, updateData) {
-    return new Promise((resolve, reject) => {
-        Schema.Student.update({
-            wantList: updateData.wantList
-        }, {
-            where: {
-                studentID: studentID
-            }
-        }).then((result) => {
-            resolve(result[0])
+    },
+    register: (accountType, accountID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.Account.findOrCreate({
+                where: {
+                    accountType: accountType,
+                    accountID: accountID
+                },
+                defaults: {
+                    accountType: accountType,
+                    accountID: accountID,
+                    student: [{
+                        name: userInput.name,
+                        surname: userInput.surname,
+                        gender: userInput.gender,
+                        educationLevel: userInput.educationLevel,
+                        facebookURL: userInput.facebookURL,
+                        lineID: userInput.lineID,
+                        email: userInput.email,
+                        mobile: userInput.mobile    
+                    }]
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student'
+                }]
+            }).spread((studentAccount, created) => {
+                resolve({
+                    created: created,
+                    studentID: studentAccount.dataValues.studentID
+                })
+            })
         })
-    })
-}
-
-function updateStudentPlace(studentID, updateData) {
-    return new Promise((resolve, reject) => {
-        Schema.Student.update({
-            place: updateData.place
-        }, {
-            where: {
-                studentID: studentID
-            }
-        }).then((result) => {
-            resolve(result[0])
+    },
+    updateStudentProfile: (studentID, updateData) => {
+        return new Promise((resolve, reject) => {
+            Schema.Student.update({
+                name: updateData.name,
+                surname: updateData.surname,
+                gender: updateData.gender,
+                educationLevel: updateData.educationLevel,
+                facebookURL: updateData.facebookURL,
+                lineID: updateData.lineID,
+                email: updateData.email,
+                mobile: updateData.mobile
+            }, {
+                where: {
+                    studentID: studentID
+                }
+            }).then((result) => {
+                resolve(result[0])
+            })
         })
-    })
-}
-
-function updateStudentTime(studentID, updateData) {
-    return new Promise((resolve, reject) => {
-        Schema.Student.update({
-            time: updateData.time
-        }, {
-            where: {
-                studentID: studentID
-            }
-        }).then((result) => {
-            resolve(result[0])
+    },
+    updateStudentWantList: (studentID, updateData) => {
+        return new Promise((resolve, reject) => {
+            Schema.Student.update({
+                wantList: updateData.wantList
+            }, {
+                where: {
+                    studentID: studentID
+                }
+            }).then((result) => {
+                resolve(result[0])
+            })
         })
-    })
-}
-
-module.exports = {
-    adminAuthen: adminAuthen,
-    findUserByAccountID: findUserByAccountID,
-    register: register,
-    updateStudentProfile: updateStudentProfile,
-    updateStudentWantList: updateStudentWantList,
-    updateStudentPlace: updateStudentPlace,
-    updateStudentTime: updateStudentTime
+    },
+    updateStudentPlace: (studentID, updateData) => {
+        return new Promise((resolve, reject) => {
+            Schema.Student.update({
+                place: updateData.place
+            }, {
+                where: {
+                    studentID: studentID
+                }
+            }).then((result) => {
+                resolve(result[0])
+            })
+        })
+    },
+    updateStudentTime: (studentID, updateData) => {
+        return new Promise((resolve, reject) => {
+            Schema.Student.update({
+                time: updateData.time
+            }, {
+                where: {
+                    studentID: studentID
+                }
+            }).then((result) => {
+                resolve(result[0])
+            })
+        })
+    },
+    deleteStudentAccount: (studentID) => {
+        return new Promise((resolve, reject) => {
+            Schema.Student.destroy({
+                where: {
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    }
 }
 // function adminLogin(username, password) {
 //     return new Promise((resolve, reject) => {
