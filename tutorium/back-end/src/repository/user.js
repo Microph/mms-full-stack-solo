@@ -33,16 +33,16 @@ function findUserByAccountID(accountID, accountType) {
     })
 }
 
-function register(userInput) {
+function register(accountType, accountID, userInput) {
     return new Promise((resolve, reject) => {
         Schema.Account.findOrCreate({
             where: {
-                accountType: userInput.accountType,
-                accountID: userInput.accountID
+                accountType: accountType,
+                accountID: accountID
             },
             defaults: {
-                accountType: userInput.accountType,
-                accountID: userInput.accountID,
+                accountType: accountType,
+                accountID: accountID,
                 student: [{
                     name: userInput.name,
                     surname: userInput.surname,
@@ -88,11 +88,56 @@ function updateStudentProfile(studentID, updateData) {
     })
 }
 
+function updateStudentWantList(studentID, updateData) {
+    return new Promise((resolve, reject) => {
+        Schema.Student.update({
+            wantList: updateData.wantList
+        }, {
+            where: {
+                studentID: studentID
+            }
+        }).then((result) => {
+            resolve(result[0])
+        })
+    })
+}
+
+function updateStudentPlace(studentID, updateData) {
+    return new Promise((resolve, reject) => {
+        Schema.Student.update({
+            place: updateData.place
+        }, {
+            where: {
+                studentID: studentID
+            }
+        }).then((result) => {
+            resolve(result[0])
+        })
+    })
+}
+
+function updateStudentTime(studentID, updateData) {
+    return new Promise((resolve, reject) => {
+        Schema.Student.update({
+            time: updateData.time
+        }, {
+            where: {
+                studentID: studentID
+            }
+        }).then((result) => {
+            resolve(result[0])
+        })
+    })
+}
+
 module.exports = {
     adminAuthen: adminAuthen,
     findUserByAccountID: findUserByAccountID,
     register: register,
-    updateStudentProfile: updateStudentProfile
+    updateStudentProfile: updateStudentProfile,
+    updateStudentWantList: updateStudentWantList,
+    updateStudentPlace: updateStudentPlace,
+    updateStudentTime: updateStudentTime
 }
 // function adminLogin(username, password) {
 //     return new Promise((resolve, reject) => {

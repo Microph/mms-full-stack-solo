@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -L ./src/index.js",
-    "test": "echo test"
+    "test": "jest"
   },
   "author": "mms-full-stack-solo, pakpoom.thawee@gmail.com",
   "license": "MIT",
@@ -32,6 +32,9 @@
     "start": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "1.12.1"
+    "jest": "^21.2.1",
+    "nodemon": "1.12.1",
+    "request": "^2.83.0",
+    "supertest": "^3.0.0"
   }
 }
