@@ -189,7 +189,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentPro"></a>
-### Update Student Profile ( /api/student/profile/updater via PUT method)
+### Update Student Profile ( /api/student/profile/update via PUT method)
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -214,5 +214,71 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Profile hasn't been update, please correct your input', 'You should login before update your profile'  |  |
+
+<p align="center">.................................................</p>
+
+<a name="upStudentWant"></a>
+### Update Student Want List ( /api/student/wantList/update via PUT method)
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| wantList | Objects | User want list | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Want list hasn\'t been update, please correct your input', 'You should login before update your profile'  |  |
+
+<p align="center">.................................................</p>
+
+<a name="upStudentPlace"></a>
+### Update Student Comfortable Place ( /api/student/place/update via PUT method)
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| place | Objects | User comfortable place | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Place hasn\'t been update, please correct your input', 'You should login before update your profile'  |  |
+
+<p align="center">.................................................</p>
+
+<a name="upStudentTime"></a>
+### Update Student Comfortable Time ( /api/student/time/update' via PUT method)
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| time | Objects | User comfortable time | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Place hasn't been update, please correct your input', 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
