@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  Card,  
+} from "material-ui";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -31,11 +34,20 @@ class DashboardNumberDetail extends Component {
     render() {
         return (
             <div class="col-sm-4 col-md-4">
-                <h1 style={{
-                    paddingBottom: 10,
-                    textAlign: "center"
-                }}>{this.props.number}</h1>
-                <h4 align="center">{this.props.text}</h4>
+                <Card 
+                  style = {{
+                    height: 120,
+                    width: 220,
+                    marginBottom: 30,
+                    textAlign: 'center',
+                    display: 'inline-block'
+                  }}
+                >
+                  <h1 style={{
+                      paddingBottom: 10,
+                  }}>{this.props.number}</h1>
+                  <h4>{this.props.text}</h4>
+                </Card>
             </div>
         );
     }
