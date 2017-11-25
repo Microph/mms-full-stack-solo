@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {
   FlatButton,
+  CircularProgress,
 } from "material-ui";
 import axios from "axios";
+import { connect } from "react-redux";
 
 const querystring = require("querystring");
 
@@ -11,11 +13,27 @@ class AdminLogin extends Component {
         super(props);
         this.state = {
           username: '',
-          password: ''
+          password: '',
+          clickedSubmit: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    checkSubmitStateForLebel(){
+      if(!this.state.clickedSubmit){
+        return 'เข้าสู่ระบบ';
+      }
+      else{
+        return '';
+      }
+    }
+
+    checkSubmitStateForCircularProgress(){
+      if(this.state.clickedSubmit){
+        return (<CircularProgress />);
+      }
     }
 
     handleChange(event) {
@@ -23,8 +41,21 @@ class AdminLogin extends Component {
       //if(name == 'username' || name == 'password')
         this.setState({[name]: event.target.value});
     }
+    
+    /*componentDidUpdate(prevProps, prevState) {
+      if(this.state.clickedSubmitted)
+      {
+        window.location.href = "/api/current-login-session";     
+      }
+    }*/
+
+    checkSession = async () => {
+      const user = await axios.get("/api/current-login-session");
+      console.log(user);
+    }
 
     handleSubmit(event) {
+      this.setState({clickedSubmit: true});
       const res = axios({
         method: "POST",
         url: "/api/auth/admin",
@@ -35,10 +66,7 @@ class AdminLogin extends Component {
           username: this.state.username,
           password: this.state.password,
         })
-      });
-
-      alert("logging in...");
-      window.location.href = "/api/current-login-session";
+      }).then(() => {Debug.log(res)});
     };
 
     render() {
@@ -51,6 +79,7 @@ class AdminLogin extends Component {
                 <input name="username" type="text" class="form-control" placeholder="ชื่อผู้ใช้"
                   style={{
                     width: "100%",
+                    height: 40,
                     backgroundColor: "white",
                     marginTop: 20,
                   }}
@@ -60,23 +89,28 @@ class AdminLogin extends Component {
                 secureTextEntry={true}
                 style={{
                   width: "100%",
+                  height: 40,
                   backgroundColor: "white",
                   marginTop: 20,
                 }}
                 onChange={this.handleChange} />
 
                 <FlatButton
+                  disabled={this.state.clickedSubmit}
                   onClick={this.handleSubmit}
                   style={{
                     width: "100%",
+                    height: 40,
                     color: "#fff",
                     margin: "auto",
                     marginTop: 20,
                     backgroundColor: "limegreen"
                   }}
                   labelStyle={{ fontSize: 15, fontWeight: 700 }}
-                  label="ลงชื่อเข้าใช้"
-                />
+                  label={this.checkSubmitStateForLebel()}
+                >
+                  {this.checkSubmitStateForCircularProgress()}
+                </FlatButton>
               </div>
             </div>
           </div>
@@ -84,4 +118,9 @@ class AdminLogin extends Component {
     }
 }
 
-export default AdminLogin;
+//export default AdminLogin;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(AdminLogin);
