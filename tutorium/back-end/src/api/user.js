@@ -152,15 +152,17 @@ module.exports = (app, passport, options) => {
   )
 
   app.post('/api/register', (req, res, next) => {
-    if(req.body.agree) {
+    if(req.user && req.body.agree) {
       let user = require('../repository/user')
       let userInput = req.body
-      
-      user.register(userInput).then((result) => {
+      let accountType = req.user.accountType
+      let accountID = req.user.accountID
+
+      user.register(accountType, accountID, userInput).then((result) => {
         if(result.studentID) {
-          req.session.passport.user.studentID = studentID
-          req.session.passport.user.registStatus = true
-          
+          req.user.studentID = result.studentID
+          req.user.registStatus = true
+
           if(result.created) {
             res.status(200).send({
               success: true,
@@ -179,6 +181,11 @@ module.exports = (app, passport, options) => {
           })
         }
       }).catch(next)
+    } else {
+      res.status(403).send({
+        success: false,
+        msg: 'Authenticate and condition accept need for register'
+      })
     }
   })
 
@@ -213,7 +220,7 @@ module.exports = (app, passport, options) => {
       let user = require('../repository/user')
       let updateData = req.body
       let studentID = req.user.studentID
-
+      
       user.updateStudentProfile(studentID, updateData).then((result) => {
         if(result) {
           res.status(200).send({

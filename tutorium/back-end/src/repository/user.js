@@ -33,16 +33,16 @@ function findUserByAccountID(accountID, accountType) {
     })
 }
 
-function register(userInput) {
+function register(accountType, accountID, userInput) {
     return new Promise((resolve, reject) => {
         Schema.Account.findOrCreate({
             where: {
-                accountType: userInput.accountType,
-                accountID: userInput.accountID
+                accountType: accountType,
+                accountID: accountID
             },
             defaults: {
-                accountType: userInput.accountType,
-                accountID: userInput.accountID,
+                accountType: accountType,
+                accountID: accountID,
                 student: [{
                     name: userInput.name,
                     surname: userInput.surname,
