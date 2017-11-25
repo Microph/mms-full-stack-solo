@@ -1,7 +1,9 @@
 //  server.js
 
 let bodyParser = require("body-parser")
+let cookieParser = require('cookie-parser')
 let express = require('express')
+let expressSession = require('express-session')
 let flash = require('connect-flash')
 let morgan = require('morgan')
 let passport = require('passport')
@@ -19,8 +21,12 @@ module.exports.start = (options) => {
     app.use(bodyParser.json())
     app.use(morgan('dev'))
     app.use(flash())
-    app.use(require('cookie-parser')())
-    app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
+    app.use(cookieParser('anything'))
+    app.use(expressSession({
+      secret: 'anything', 
+      resave: true,
+      saveUninitialized: false
+    }))
     app.use(passport.initialize())
     app.use(passport.session())
 

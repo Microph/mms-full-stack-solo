@@ -118,8 +118,6 @@
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | agree | Bool | true on accept our condition or false on otherwise | Yes |
-| accountType | String | 'facebook' or 'line' provided by login session | Yes |
-| accountID | String | account id provided by login session | Yes |
 | name | String | | Yes |
 | surname | String | | Yes |
 | gender | String | 'male', 'female', 'others' | Yes|
@@ -133,11 +131,11 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | register successful |
 | msg | String | 'Register complete', 'Account is already register' |  |
-#### Return value on incomplete (HTTP 400 Bad Request)
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
-| msg | String | 'Registration incomplete' |  |
+| msg | String | 'Registration incomplete', 'Authenticate and condition accept need for register' |  |
 
 <p align="center">.................................................</p>
 
