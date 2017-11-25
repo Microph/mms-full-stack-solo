@@ -95,10 +95,10 @@
 #### Possible value inside user field
 | Field Name | Type | Value | Description |
 | :--------: | :--: | :---: | :---------: |
-| registStatus | Bool | true, false | return 'false' if the account is not register |
+| registStatus | Bool | true,<br> false | return 'false' if the account is not register |
 | studentID | Integer | 1...2147483648 | return 'null' if the account is not register |
-| isTutor | Bool | true, false | return 'true' if the account is tutor |
-| accountType | String | 'admin', 'line', 'facebook' |  |
+| isTutor | Bool | true,<br> false | return 'true' if the account is tutor |
+| accountType | String | 'admin',<br> 'line',<br> 'facebook' |  |
 | accountID | String |  | ID provided by Facebook or Line API (username if accountType is admin ) |
 | displayName | String |  | name provided by Facebook or Line API (username if accountType is admin) |
 | profilePic | String |  | URL to profile's picture provided by Facebook or Line API 
@@ -127,8 +127,8 @@
 | agree | Bool | true on accept our condition or false on otherwise | Yes |
 | name | String | | Yes |
 | surname | String | | Yes |
-| gender | String | 'male', 'female', 'others' | Yes|
-| educationLevel | String | 'pratom', 'matthayomton', 'matthayomplai', 'bachelor', 'master', 'doctor' | Yes |
+| gender | String | 'male',<br> 'female',<br> 'others' | Yes|
+| educationLevel | String | 'pratom',<br> 'matthayomton',<br> 'matthayomplai',<br> 'bachelor',<br> 'master',<br> 'doctor' | Yes |
 | facebookUrl | String | | Optional |
 | lineID | String | | Optional |
 | email | String | | Yes |
@@ -205,8 +205,8 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | name | String | Send old value or updated value | Yes |
 | surname | String | Send old value or updated value | Yes |
-| gender | String | 'male', 'female', 'others' | Yes|
-| educationLevel | String | 'pratom', 'matthayomton', 'matthayomplai', 'bachelor', 'master', 'doctor' | Yes |
+| gender | String | 'male',<br> 'female',<br> 'others' | Yes|
+| educationLevel | String | 'pratom',<br> 'matthayomton',<br> 'matthayomplai',<br> 'bachelor',<br> 'master',<br> 'doctor' | Yes |
 | facebookUrl | String | Send old value or updated value | Yes |
 | lineID | String | Send old value or updated value | Yes |
 | email | String | Send old value or updated value | Yes |
@@ -220,7 +220,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Profile hasn't been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Profile hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
@@ -242,12 +242,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Want list hasn\'t been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Want list hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
 <a name="upStudentPlace"></a>
-### Update Student Comfortable Place ( Access via PUT method on '/api/student/place/update' )
+### Update Student Comfort Place ( Access via PUT method on '/api/student/place/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -264,12 +264,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn\'t been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
 <a name="upStudentTime"></a>
-### Update Student Comfortable Time ( Access via PUT method on '/api/student/time/update' )
+### Update Student Comfort Time ( Access via PUT method on '/api/student/time/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -286,7 +286,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn't been update,<br> please correct your input',<br> 'You should login before update your profile'  |  |
+| msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
@@ -339,7 +339,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated credit card incomplete |
-| msg | String | 'Credit card hasn\'t been update,<br> please correct your input',<br> 'You should login before update your credit card' |  |
+| msg | String | 'Credit card hasn\'t been update, please correct your input',<br> 'You should login before update your credit card' |  |
 
 <p align="center">.................................................</p>
 
@@ -362,7 +362,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated credit card incomplete |
-| msg | String | 'Credit card hasn\'t been delete,<br> please correct your input',<br> 'You should login before delete your credit card' |  |
+| msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
 
 <p align="center">.................................................</p>
 
