@@ -115,7 +115,7 @@
 <p align="center">.................................................</p>
 
 <a name="regist"></a>
-### Register ( /api/register via POST method)
+### Register ( '/api/register' via POST method)
 #### Pre-required
 * Authentication
 #### Input Parameters
@@ -144,7 +144,7 @@
 <p align="center">.................................................</p>
 
 <a name="stSearch"></a>
-### Student Search ( /api/search/student via GET method)
+### Student Search ( '/api/search/student' via GET method)
 #### Pre-required
 * Authentication
 #### Input Parameters
@@ -169,7 +169,7 @@
 <p align="center">.................................................</p>
 
 <a name="tutorSearch"></a>
-### Tutor Search ( /api/search/tutor via GET method)
+### Tutor Search ( '/api/search/tutor' via GET method)
 
 #### Input Parameters
 | Field Name | Type | Description | Required? |
@@ -193,7 +193,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentPro"></a>
-### Update Student Profile ( /api/student/profile/update via PUT method)
+### Update Student Profile ( '/api/student/profile/update' via PUT method)
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -222,7 +222,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentWant"></a>
-### Update Student Want List ( /api/student/wantList/update via PUT method)
+### Update Student Want List ( '/api/student/wantList/update' via PUT method)
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -244,7 +244,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentPlace"></a>
-### Update Student Comfortable Place ( /api/student/place/update via PUT method)
+### Update Student Comfortable Place ( '/api/student/place/update via PUT method)
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -266,7 +266,7 @@
 <p align="center">.................................................</p>
 
 <a name="upStudentTime"></a>
-### Update Student Comfortable Time ( /api/student/time/update' via PUT method)
+### Update Student Comfortable Time ( '/api/student/time/update' via PUT method)
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -288,7 +288,7 @@
 <p align="center">.................................................</p>
 
 <a name="addCreditCard"></a>
-### Add New Credit Card Time ( /api/student/time/update' via PUT method)
+### Add New Credit Card Time ( '/api/payment/card/add' via POST method)
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
