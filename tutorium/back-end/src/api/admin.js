@@ -14,7 +14,7 @@ module.exports = (app, passport, options) => {
     app.get('/api/admin/tutor-request-management', (req, res, next) => {
         if (isAdmin(req) === false) {
             //res.redirect('/api/admin/logout')
-            res.send({'Hi': 'asdfghjk'})
+            res.send("assdfghjkl")
             return;
         }
 

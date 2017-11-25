@@ -63,14 +63,14 @@ const Report = sequelize.define('report', {
         allowNull: false
     },
     reportedStudentID: {
-        type: sequelize.INTEGER
+        type: Sequelize.INTEGER
     },
     topic: {
-        type: sequelize.STRING(200),
+        type: Sequelize.STRING(200),
         allowNull: false
     },
     detail: {
-        type: sequelize.STRING(2000),
+        type: Sequelize.STRING(2000),
         allowNull: false
     }
 })
