@@ -11,6 +11,7 @@ class RequestsManage extends Component {
   render() {
       return(
         <div>
+          <h1>Tutor Requests</h1>
           {this.genCard()}
           {this.genCard()}
           {this.genCard()}
@@ -44,7 +45,6 @@ class RequestCard extends Component {
   render() {
     return (
       <div>
-        <h1>Tutor Requests</h1>
         <div class="row">
           <div class="thumbnail clearfix">
             <div class="container">
@@ -113,6 +113,34 @@ class RequestCard extends Component {
                   />
                   </div>
                 </div>
+
+                <div class="row">
+                  <div align="center">
+                    <FlatButton
+                      style={{
+                        display: "inline-block",
+                        margin: "auto",
+                        marginRight: 20,
+                        marginTop: 20,
+                        backgroundColor: "#0f0"
+                      }}
+                      labelStyle={{ fontSize: 15, fontWeight: 700 }}
+                      label="ยอมรับ"
+                    />
+                    <FlatButton
+                      style={{
+                        display: "inline-block",
+                        margin: "auto",
+                        marginTop: 20,
+                        backgroundColor: "#f00"
+                      }}
+                      labelStyle={{ fontSize: 15, fontWeight: 700 }}
+                      label="ปฏิเสธ"
+                    />
+                  </div>
+                </div>
+
+
             </div>
           </div>
         </div>
