@@ -8,9 +8,37 @@ class UsersManage extends Component {
       return(<UserDetailCard />);
   }
 
+  handleFieldChange() {
+    /*To be implemented*/
+  }
+
   render() {
       return(
         <div>
+          <h1>Users Management</h1>
+          {/* User Count and Search Field */}
+          <div className="row" style={{marginBottom: 20}}>
+            <div className="col-sm-7 col-md-7">
+              <h4 style={{}}>ผู้ใช้ทั้งหมด</h4>
+            </div>
+            
+            <div className="search-header col-sm-5 col-md-5 pull-right">
+              <div className="input-group stylish-input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="ใส่คำค้นหาของคุณที่นี่"
+                  onChange={event => this.handleFieldChange(event.target.value)}
+                />
+                <span className="input-group-addon">
+                  <button>
+                    <span class="glyphicon glyphicon-search" />
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          {/* Cards Field */}
           {this.genCard()}
           {this.genCard()}
           {this.genCard()}

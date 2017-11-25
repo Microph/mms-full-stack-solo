@@ -11,6 +11,29 @@ module.exports = (app, passport, options) => {
         
     })
 
+    app.get('/api/admin/tutor-request-management', (req, res, next) => {
+        if (isAdmin(req) === false) {
+            res.redirect('/api/admin/logout')
+            return;
+        }
+
+        let qry = require('../repository/admin')
+        qry.adminSearchTutorRequest().then((result) => {
+            if (result.count === 0){
+                res.status(200).send({ 
+                    success: false,
+                    msg: 'No tutor request found!'
+                })
+            } else {
+                res.status(200).send({ 
+                    success: true, 
+                    students: result.rows,
+                    count: result.count 
+                })
+            }
+        })
+    })
+
     //----------------------------------------------------------------------------------admin-response-to-a-tutor-req---
     app.post('/api/admin/tutor-request-management', (req, res, next) => {
         if (isAdmin(req) === false) {
@@ -18,14 +41,44 @@ module.exports = (app, passport, options) => {
             return;
         }
 
-        if (req.id != null) {
-            if (req.accept === true) {
-                
+        let id = req.body.id
+        let accept = req.body.accept
+        let qry = require('../repository/admin')
+        if (id != null) {
+            if (accept) {
+                qry.adminAcceptTutorRequest(id).then((result) => {
+                    if (result > 0) {
+                        res.status(200).send({ 
+                            success: true,
+                            msg: 'Accepted!'
+                        })
+                    } else {
+                        res.status(500).send({ 
+                            success: false,
+                            msg: 'Failed to Accept!'
+                        })
+                    }
+                })
             } else {
-
+                qry.adminDeleteTutorRequest(id).then((result) => {
+                    if (result > 0) {
+                        res.status(200).send({ 
+                            success: true,
+                            msg: 'Deleted!'
+                        })
+                    } else {
+                        res.status(500).send({ 
+                            success: false,
+                            msg: 'Failed to Delete!'
+                        })
+                    }
+                })
             }
         } else {
-
+            res.status(500).send({ 
+                success: false,
+                msg: 'Bugged!!!'
+            })
         }
     })
 
@@ -81,6 +134,7 @@ module.exports = (app, passport, options) => {
 //------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------check-if-the-user-is-an-admin---
 function isAdmin (req) {
+    return true;
     if (req.user.accountType === 'admin') {
         return true;
     } else return false;

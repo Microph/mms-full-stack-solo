@@ -79,6 +79,29 @@ const CreditCard = sequelize.define('creditCard', {
     }
 })
 
+const Report = sequelize.define('report', {
+    reportID: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    reporterStudentID: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reportedStudentID: {
+        type: Sequelize.INTEGER
+    },
+    topic: {
+        type: Sequelize.STRING(200),
+        allowNull: false
+    },
+    detail: {
+        type: Sequelize.STRING(2000),
+        allowNull: false
+    }
+})
+
 const Student = sequelize.define('student', {
     studentID: { 
         type: Sequelize.INTEGER, 

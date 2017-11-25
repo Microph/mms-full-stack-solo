@@ -6,7 +6,10 @@ describe('student search', () => {
         expect(allStudent.count).toEqual(18);
     });
 
-    test('hello', () => {
-        expect(true).toBeTruthy();
+    test('find dummy student', async () => {
+        const result = await matching.studentSearch({studentID: 18});
+        expect(result.count).toEqual(1);
+        const dummyStudent = result.rows[0];
+        expect(dummyStudent.name).toEqual('Kame');
     })
 });
