@@ -52,6 +52,29 @@ const Admin = sequelize.define('admin', {
     },
 })
 
+const Report = sequelize.define('report', {
+    reportID: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    reporterStudentID: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reportedStudentID: {
+        type: sequelize.INTEGER
+    },
+    topic: {
+        type: sequelize.STRING(200),
+        allowNull: false
+    },
+    detail: {
+        type: sequelize.STRING(2000),
+        allowNull: false
+    }
+})
+
 const Student = sequelize.define('student', {
     studentID: { 
         type: Sequelize.INTEGER, 

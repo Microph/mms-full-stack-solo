@@ -11,6 +11,29 @@ module.exports = (app, passport, options) => {
         
     })
 
+    app.get('/api/admin/tutor-request-management', (req, res, next) => {
+        if (isAdmin(req) === false) {
+            res.redirect('/api/admin/logout')
+            return;
+        }
+
+        let qry = require('../repository/admin')
+        qry.adminSearchTutorRequest().then((result) => {
+            if (result.count === 0){
+                res.status(200).send({ 
+                    success: false,
+                    msg: 'No tutor request found!'
+                })
+            } else {
+                res.status(200).send({ 
+                    success: true, 
+                    students: result.rows,
+                    count: result.count 
+                })
+            }
+        })
+    })
+
     //----------------------------------------------------------------------------------admin-response-to-a-tutor-req---
     app.post('/api/admin/tutor-request-management', (req, res, next) => {
         if (isAdmin(req) === false) {
