@@ -137,12 +137,12 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | register successful |
-| msg | String | 'Register complete', 'Account is already register' |  |
+| msg | String | 'Register complete',<br> 'Account is already register' |  |
 #### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | register unsuccessful |
-| msg | String | 'Registration incomplete', 'Authenticate and condition accept need for register' |  |
+| msg | String | 'Registration incomplete',<br> 'Authenticate and condition accept need for register' |  |
 
 <p align="center">.................................................</p>
 
@@ -167,7 +167,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
-| msg | String | 'You should login before searching', 'Student not found' |  |
+| msg | String | 'You should login before searching',<br> 'Student not found' |  |
 
 <p align="center">.................................................</p>
 
@@ -286,7 +286,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn't been update, please correct your input', 'You should login before update your profile'  |  |
+| msg | String | 'Place hasn't been update,<br> please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
 
@@ -307,7 +307,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | Add credit card complete |
-| msg | String | 'Add Credit Card Complete', 'Credit Card had already added' |  |
+| msg | String | 'Add Credit Card Complete',<br> 'Credit Card had already added' |  |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -339,7 +339,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated credit card incomplete |
-| msg | String | 'Credit card hasn\'t been update, please correct your input', 'You should login before update your credit card' |  |
+| msg | String | 'Credit card hasn\'t been update,<br> please correct your input',<br> 'You should login before update your credit card' |  |
 
 <p align="center">.................................................</p>
 
@@ -362,7 +362,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated credit card incomplete |
-| msg | String | 'Credit card hasn\'t been delete, please correct your input', 'You should login before delete your credit card' |  |
+| msg | String | 'Credit card hasn\'t been delete,<br> please correct your input',<br> 'You should login before delete your credit card' |  |
 
 <p align="center">.................................................</p>
 
@@ -383,7 +383,7 @@
 #### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated credit card incomplete |
-| msg | String | 'Account hasn\'t been delete or already been delete, please correct your input', 'You need to confirm for delete account', 'You need to authenticate before delete account' |  |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
 
 <p align="center">.................................................</p>
