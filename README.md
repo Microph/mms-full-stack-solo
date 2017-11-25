@@ -58,6 +58,7 @@
 [Add Credit Card](#addCreditCard)<br>
 [Update Credit Card](#updateCreditCard)<br>
 [Delete Credit Card](#deleteCreditCard)<br>
+[Delete Account](#deleteAccount)<br>
 
 <a name="adminAuth"></a>
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -362,5 +363,27 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated credit card incomplete |
 | msg | String | 'Credit card hasn\'t been delete, please correct your input', 'You should login before delete your credit card' |  |
+
+<p align="center">.................................................</p>
+
+<a name="deleteAccount"></a>
+### Remove Account ( Access via DELETE method on '/api/account/delete' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| confirm | Bool | true or false for confirm to delete | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'Delete Account Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Account hasn\'t been delete or already been delete, please correct your input', 'You need to confirm for delete account', 'You need to authenticate before delete account' |  |
 
 <p align="center">.................................................</p>
