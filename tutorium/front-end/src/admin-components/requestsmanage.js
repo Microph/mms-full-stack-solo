@@ -44,6 +44,7 @@ class RequestCard extends Component {
   render() {
     return (
       <div>
+        <h1>Tutor Requests</h1>
         <div class="row">
           <div class="thumbnail clearfix">
             <div class="container">

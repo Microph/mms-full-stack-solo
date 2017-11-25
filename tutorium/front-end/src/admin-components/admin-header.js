@@ -17,20 +17,7 @@ class AdminHeader extends Component {
             open: false,
         };
     }
-
-    getPageName (){
-        let out = '';
-        switch(this.props.location.pathname){
-            case '/admin/dashboard': out = 'Dashboard '; break;
-            case '/admin/usersmanage': out = 'Users Management '; break;
-            case '/admin/requestsmanage': out = 'Tutor Requests '; break;
-            case '/admin/reportsmanage': out = 'User Reports '; break;
-            case '/admin/deleterequests': out = 'User Deletion Requests '; break;
-            case '/admin/suspendedusers': out = 'Suspended Users '; break;
-            default: ;
-        }
-        return out;
-    }
+    
     handleToggle = () => this.setState({open: !this.state.open})
     handleClose = () => this.setState({open: false});
     handleMenuNavClicked = (url) => (window.location.href = url);
@@ -49,11 +36,11 @@ class AdminHeader extends Component {
                     onRequestChange={(open) => this.setState({open})}
                     >
                     
-                    <MenuItem style={{ margin: 30 }}>
+                    <MenuItem style={{ margin: 50 }}>
                         <Link to={"/"} style={{ textDecoration: "none" }}>
-                            <span style={{ fontSize: 14, color: "#fff" }}>
+                            <span style={{ fontSize: 30, color: "#fff" }}>
                                 <img className="logo logo-header" src={logo} alt="Tutorium" />
-                                <b>{this.getPageName()}</b>
+                                Tutorium
                             </span>
                         </Link>
                     </MenuItem>
@@ -92,7 +79,7 @@ class AdminHeader extends Component {
                         />
                         <MenuItem
                         onClick={this.handleClose}
-                        style={{ fontSize: 16, color: "#fff", margin: 20 }}
+                        style={{ fontSize: 20, color: "#fff", margin: 20 }}
                         >
                         <b>logout</b>
                         </MenuItem>
@@ -112,24 +99,8 @@ class AdminHeader extends Component {
                                 </span>
                             </Link>
                         </div>
-                        {/* Hambuger with page name*/}
-                        <div className="pull-right hidden-xs">
-                            <span style={{ fontSize: 30, color: "#fff" }}>
-                                {this.getPageName()}
-                                <div 
-                                    style={{
-                                    fontSize: 30,
-                                    cursor: "pointer",
-                                    color: "#fff",
-                                    marginTop: 5
-                                    }}
-                                    onClick={this.handleToggle}
-                                    className="glyphicon glyphicon-menu-hamburger"
-                                />
-                            </span>
-                        </div>
-                        {/* Hambuger only*/}
-                        <div className="pull-right visible-xs">
+                        {/* Hambuger */}
+                        <div className="pull-right">
                             <span style={{ fontSize: 30, color: "#fff" }}>
                                 <div 
                                     style={{

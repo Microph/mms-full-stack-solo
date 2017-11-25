@@ -11,6 +11,7 @@ class UsersManage extends Component {
   render() {
       return(
         <div>
+          <h1>Tutor Requests</h1>
           {this.genCard()}
           {this.genCard()}
           {this.genCard()}
