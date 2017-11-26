@@ -4,6 +4,8 @@ import {
   FlatButton,  
 } from "material-ui";
 
+const querystring = require("querystring");
+
 class RequestsManage extends Component {
   constructor(props) {
       super(props);
@@ -12,6 +14,8 @@ class RequestsManage extends Component {
           requests: [],
           cards: []
       };
+
+    this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -49,8 +53,34 @@ class RequestsManage extends Component {
       studentID = {studentID}
       education = {education}
       teachList = {teachList}
+      onClickAccept = {() => this.handleButtonSubmit(studentID, true)}
+      onClickDecline = {() => this.handleButtonSubmit(studentID, false)}
     />);
     this.setState({cards: [...this.state.cards, newCard]});
+  }
+
+  async handleButtonSubmit (studentID, isAccepted) {
+    const acceptStatus = isAccepted? 'true':'false';
+    const res = await axios({
+      method: "POST",
+      url: "/api/admin/tutor-request-management",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      },
+      data: querystring.stringify({
+        id: studentID,
+        accept: acceptStatus
+      })
+    });
+
+    if(res.data.success){
+      //remove card
+      let newCards = this.state.cards;
+      newCards = newCards.filter(card => {
+        return (Object.entries(card)[4][1]).studentID != studentID;
+      });
+      this.setState({cards: newCards});
+    } 
   }
 
   render() {
@@ -138,6 +168,7 @@ class RequestCard extends Component {
                 <div class="row">
                   <div align="center">
                     <FlatButton
+                      onClick= {this.props.onClickAccept}
                       style={{
                         display: "inline-block",
                         margin: "auto",
@@ -149,6 +180,7 @@ class RequestCard extends Component {
                       label="ยอมรับ"
                     />
                     <FlatButton
+                      onClick= {this.props.onClickDecline}
                       style={{
                         display: "inline-block",
                         margin: "auto",
