@@ -63,6 +63,7 @@
 [Update Credit Card](#updateCreditCard)<br>
 [Delete Credit Card](#deleteCreditCard)<br>
 [Delete Account](#deleteAccount)<br>
+[user write report](#userWriteReport)<br>
 
 <a name="adminAuth"></a>
 
