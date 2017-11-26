@@ -17,6 +17,29 @@ module.exports = {
             }
         })
     },
+    register: (studentID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.Tutor.findOrCreate({
+                where: {
+                    studentID: studentID
+                },
+                defaults: {
+                    studentID: studentID,
+                    education: userInput.education,
+                    teachList: userInput.teachList,
+                    place: userInput.place,
+                    time: userInput.time,
+                    uploadEvidence: userInput.uploadEvidence,
+                    isApproved: false
+                }
+            }).spread((tutor, created) => {
+                resolve({
+                    created: created,
+                    studentID: tutor.dataValues.studentID
+                })
+            })
+        })
+    },
     updateTeachList: (studentID, updateData) => {
         return new Promise((resolve, reject) => {
             Schema.Tutor.update({

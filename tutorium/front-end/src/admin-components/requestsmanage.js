@@ -1,20 +1,63 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import {
   FlatButton,  
 } from "material-ui";
 
 class RequestsManage extends Component {
-  genCard(){
-      return(<RequestCard />);
+  constructor(props) {
+      super(props);
+      this.state = {
+          querySuccess: false,
+          requests: [],
+          cards: []
+      };
+  }
+
+  async componentDidMount() {
+    const res = await axios({
+      method: "GET",
+      url: "/api/admin/tutor-request-management"
+    });
+
+    this.setState({
+      querySuccess: res.data.success,
+      requests: res.data.students
+    });
+
+    if(this.state.querySuccess) this.prepareCard();
+  }
+
+  //call if tutor-request-management return success
+  prepareCard(){
+    this.state.requests.map(studentOb => {
+      this.genCard(
+        studentOb.student.name + ' ' + studentOb.student.surname, 
+        studentOb.studentID,
+        studentOb.uploadEvidence,
+        studentOb.education,
+        studentOb.teachList
+      );
+    });
+  }
+
+  //always get called after prepareCard
+  genCard(name, studentID, uploadEvidence, education, teachList){
+    const newCard = (<RequestCard 
+      name = {name}
+      uploadEvidence = {uploadEvidence}
+      studentID = {studentID}
+      education = {education}
+      teachList = {teachList}
+    />);
+    this.setState({cards: [...this.state.cards, newCard]});
   }
 
   render() {
       return(
         <div>
           <h1>Tutor Requests</h1>
-          {this.genCard()}
-          {this.genCard()}
-          {this.genCard()}
+          {this.state.cards}
         </div>
       );
   }
@@ -50,50 +93,28 @@ class RequestCard extends Component {
             <div class="container">
                 <div class="row">
                   <div class="col-sm-7 col-md-7">
-                      <h2>เด็กดี ตั้งใจเรียน</h2>
+                      <h2>{this.props.name}</h2>
                   </div>
                   <div class="col-sm-5 col-md-5">
-                      <h2 align="right">ID: 000023</h2>
+                      <h2 align="right">ID: {this.props.studentID}</h2>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-sm-7 col-md-7">
-                      <h4>เด็กดี ตั้งใจเรียน</h4>
-                  </div>
-                  <div class="col-sm-5 col-md-5">
-                      <h4 align="right">ID: 000023</h4>
-                  </div>
-                </div>
-                
-                <div class="row">
-                  <div class="col-sm-7 col-md-7">
-                      <h4>เด็กดี ตั้งใจเรียน</h4>
-                  </div>
-                  <div class="col-sm-5 col-md-5">
-                      <h4 align="right">ID: 000023</h4>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-7 col-md-7">
-                      <h4>เด็กดี ตั้งใจเรียน</h4>
-                  </div>
-                  <div class="col-sm-5 col-md-5">
-                      <h4 align="right">ID: 000023</h4>
-                  </div>
-                </div>
-
                 <div hidden={!this.state.showFullDetail}>
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>เด็กดี ตั้งใจเรียน</h4>
+                        <h4>หลักฐานการยืนยันตัวตน: {this.props.uploadEvidence}</h4>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h4>ข้อมูลด้านการศึกษา: {this.props.education}</h4>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>เด็กดี ตั้งใจเรียน</h4>
+                        <h4>วิชาที่สอน: {this.props.teachList}</h4>
                     </div>
                   </div>
                 </div>

@@ -55,6 +55,7 @@
 [Update Student Want List](#upStudentWant)<br>
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
+[Request For Tutor Account](#registTutor)<br>
 [Update Tutor Want List](#upTutorTeach)<br>
 [Update Tutor Comforatble place](#upTutorPlace)<br>
 [Update Tutor Comforatble Time](#upTutorTime)<br>
@@ -296,6 +297,33 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
+
+<p align="center">.................................................</p>
+<a name="registTutor"></a>
+
+### Request for a Tutor Account ( Access via POST method on '/api/tutor/register' )
+#### Pre-required
+* Authentication
+* Is a student (Already register)
+
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| education | Objects | Education history | Yes |
+| teachList | Objects | Teach list that you want to teach | Yes |
+| place | Objects | Convinience place you want to teach | Yes |
+| time | Objects | Covinience time you want to teach | Yes |
+| UploadEvidence | Objects | Evidence for everything | Optional |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Register complete',<br> 'Account is already register' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Registration incomplete',<br> 'You should be a student, or login first' |  |
 
 <p align="center">.................................................</p>
 <a name="upTutorTeach"></a>
