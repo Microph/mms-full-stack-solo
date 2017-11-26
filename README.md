@@ -64,6 +64,7 @@
 [Delete Credit Card](#deleteCreditCard)<br>
 [Delete Account](#deleteAccount)<br>
 [user write report](#userWriteReport)<br>
+[Admin search all tutor requests](#adminTutorRequestManagement)<br>
 
 <a name="adminAuth"></a>
 
@@ -501,5 +502,21 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | insert report incompleted<br> reporterStudentID, topic, detail cannot be null |
+
+<p align="center">.................................................</p>
+<a name="adminTutorRequestManagement"></a>
+
+### Admin search all tutor requests ( Access via GET method on '/api/admin/tutor-request-management' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| student | Object | {"studentID":INT,<br>"education":String,<br>"teachList":String,<br>"place":String,<br>"time":String,<br>"uploadEvidence":String,<br>"isApproved":BOOL,<br>"createdAt":DATETIME,<br>"updatedAt":DATETIME,<br>"student":{<br>"name":String,<br>"surname":Sstring<br>}<br>} |  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | no tutor request found |
 
 <p align="center">.................................................</p>

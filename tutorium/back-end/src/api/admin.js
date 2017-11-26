@@ -113,6 +113,21 @@ module.exports = (app, passport, options) => {
             res.redirect('/api/admin/logout')
             return;
         }
+
+        if (req.body.id) {
+            let qry = require('../repository/admin')
+            qry.adminSuspendStudent(req.body.id).then((result) => {
+                res.status(200).send({ 
+                    success: true, 
+                    report: result
+                })
+            })
+        } else {
+            res.status(500).send({ 
+                success: false,
+                msg: 'Bugged!!!'
+            })
+        }
     })
 
     //---------------------------------------------------------------------------------------query-all-suspended-user---
