@@ -6,7 +6,7 @@ function userWriteReport(reporter, reported, reportTopic, reportDetail) {
     return new Promise((resolve, reject) => {
         Schema.Report.create({
             reporterStudentID: reporter,
-            reportedDtudentID: reported,
+            reportedStudentID: reported,
             topic: reportTopic,
             detail: reportDetail
         }).then(result => {

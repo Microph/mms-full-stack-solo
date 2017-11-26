@@ -2,14 +2,94 @@
 let Schema = require('./schema')
 
 module.exports = {
-    tutorOffer: (tutorID, studentID, userInput) => {
+    getOfferByStudentID: (studentID) => {
         return new Promise((resolve, reject) => {
-
+            Schema.Match.findAndCountAll({
+                where: {
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    getOfferByTutorID: (tutorID) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.findAndCountAll({
+                where: {
+                    tutorID: tutorID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    acceptOffer: (studentID, tutorID) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.update({
+                studentConfirm: true
+            }, {
+                where: {
+                    studentID: studentID,
+                    tutorID: tutorID
+                }
+            }).then(result => {
+                resolve(result[0])
+            })
+        })
+    },
+    offer: (tutorID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.findOrCreate({
+                where: {
+                    tutorID: tutorID,
+                    studentID: userInput.studentID
+                },
+                defaults: {
+                    tutorID: tutorID,
+                    studentID: userInput.studentID,
+                    subject: userInput.subject,
+                    price: userInput.price,
+                    studentConfirm: false
+                }
+            }).spread((offer, created) => {
+                resolve({
+                    created: created,
+                    offer: offer.dataValues
+                })
+            })
         })
     },    
-    studentRequest: (tutorID, studentID, userInput) => {
+    tutorRequest: (studentID, userInput) => {
         return new Promise((resolve, reject) => {
-            
+            Schema.TutorRequest.findOrCreate({
+                where: {
+                    studentID: studentID,
+                    tutorID: userInput.tutorID
+                },
+                defaults: {
+                    studentID: studentID,
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
+                }
+            }).spread((tutorRequest, created) => {
+                resolve({
+                    created: created,
+                    tutorRequest: tutorRequest.dataValues
+                })
+            })
+        })
+    },
+    deleteTutorRequest: (tutorID, studentID) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.destroy({
+                where: {
+                    tutorID: tutorID,
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result)
+            })
         })
     }
 }

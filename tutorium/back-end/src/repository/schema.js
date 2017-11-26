@@ -99,10 +99,6 @@ const Match = sequelize.define('match', {
     studentConfirm: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
-    },
-    tutorConfirm: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
     }
 })
 
@@ -200,6 +196,21 @@ const Tutor = sequelize.define('tutor', {
         defaultValue: false }
 })
 
+const TutorRequest = sequelize.define('tutorRequest', {
+    studentID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    tutorID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    subject: {
+        type: Sequelize.STRING(100),
+        allowNull: false
+    }
+})
+
 /* #### 1-1 Relations #### */
 Account.belongsTo(Student, { 
     foreignKey: 'studentID',
@@ -207,20 +218,40 @@ Account.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
-Match.belongsTo(Student, {
-    foreignKey: 'studentID',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-})
-
-Match.belongsTo(Tutor, {
-    foreignKey: 'tutorID',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-})
-
 Tutor.belongsTo(Student, {
     foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Suspended.belongsTo(Student,{
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Report.belongsTo(Student, {
+    as: 'reported',
+    foreignKey: 'reportedStudentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Report.belongsTo(Student, {
+    as: 'reporter',
+    foreignKey: 'reporterStudentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+TutorRequest.belongsTo(Student, {
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+TutorRequest.belongsTo(Tutor, {
+    foreignKey: 'tutorID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
@@ -239,12 +270,10 @@ Student.hasMany(CreditCard, {
 })
 
 Student.hasMany(Report, {
-    foreignKey: 'studentID',
+    foreignKey: 'reporterStudentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
-
-sequelize.sync()
 
 module.exports = {
     Account: Account,
@@ -254,5 +283,6 @@ module.exports = {
     Match: Match,
     Student: Student,
     Suspended: Suspended,
-    Tutor: Tutor
+    Tutor: Tutor,
+    TutorRequest: TutorRequest
 }
