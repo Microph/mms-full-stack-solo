@@ -99,10 +99,6 @@ const Match = sequelize.define('match', {
     studentConfirm: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
-    },
-    tutorConfirm: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
     }
 })
 
@@ -200,6 +196,21 @@ const Tutor = sequelize.define('tutor', {
         defaultValue: false }
 })
 
+const TutorRequest = sequelize.define('tutorRequest', {
+    studentID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    tutorID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    subject: {
+        type: Sequelize.STRING(100),
+        allowNull: false
+    }
+})
+
 /* #### 1-1 Relations #### */
 Account.belongsTo(Student, { 
     foreignKey: 'studentID',
@@ -221,6 +232,18 @@ Match.belongsTo(Tutor, {
 
 Tutor.belongsTo(Student, {
     foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+TutorRequest.belongsTo(Student, {
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+TutorRequest.belongsTo(Tutor, {
+    foreignKey: 'tutorID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
@@ -254,5 +277,6 @@ module.exports = {
     Match: Match,
     Student: Student,
     Suspended: Suspended,
-    Tutor: Tutor
+    Tutor: Tutor,
+    TutorRequest: TutorRequest
 }
