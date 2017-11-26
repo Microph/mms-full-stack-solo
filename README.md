@@ -194,6 +194,105 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
+<a name="addCreditCard"></a>
+
+### Add New Credit Card Time ( Access via POST method on '/api/payment/card/add' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Credit card number | Yes |
+| cardHolder | String(200) | Name of card holder | Yes |
+| CVV | String(3) | Secure Code | Yes |
+| expireMonth | String(2) |  | Yes |
+| expireYear | String(2) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | Add credit card complete |
+| msg | String | 'Add Credit Card Complete',<br> 'Credit Card had already added' |  |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | Add credit card incomplete |
+| msg | String | 'You should login before add your credit card'   |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="deleteCreditCard"></a>
+
+### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/delete' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+* Has Credit Card
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Card Number | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted credite card complete |
+| msg | String | 'Delete Credit Card Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="getCreditCard"></a>
+
+### Get Credit Card ( Access via GET method on '/api/payment/card' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | Get credit card complete |
+| cards | Objects | [{ cardNO: String(16), <br>cardHolder: String(200), <br>CVV: String(3), <br>expireMonth: String(2), <br>expireYear: String(2)}] | found cards |
+| count | Number |  | Amount of card related to authenticate student |
+#### Return value on incomplete (HTTP 200 Success, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | Get card incomplete |
+| msg | String | 'Credit Card not found', 'You should login before get your credit card' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="updateCreditCard"></a>
+
+### Update New Credit Card Time ( Access via PUT method on '/api/payment/card/update' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+* Has Credit Card
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| cardNO | String(16) | Fix values (Can't Change) | Yes |
+| cardHolder | String(200) | Name of card holder | Yes |
+| CVV | String(3) | Secure Code | Yes |
+| expireMonth | String(2) |  | Yes |
+| expireYear | String(2) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated credite card complete |
+| msg | String | 'Update Credit Card Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated credit card incomplete |
+| msg | String | 'Credit card hasn\'t been update, please correct your input',<br> 'You should login before update your credit card' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
 <a name="stSearch"></a>
 
 ### Student Search ( Access via GET method on '/api/search/student' )
@@ -438,105 +537,6 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your place'  |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="getCreditCard"></a>
-
-### Get Credit Card ( Access via GET method on '/api/payment/card' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | Get credit card complete |
-| cards | Objects | [{ cardNO: String(16), <br>cardHolder: String(200), <br>CVV: String(3), <br>expireMonth: String(2), <br>expireYear: String(2)}] | found cards |
-| count | Number |  | Amount of card related to authenticate student |
-#### Return value on incomplete (HTTP 200 Success, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | Get card incomplete |
-| msg | String | 'Credit Card not found', 'You should login before get your credit card' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="addCreditCard"></a>
-
-### Add New Credit Card Time ( Access via POST method on '/api/payment/card/add' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| cardNO | String(16) | Credit card number | Yes |
-| cardHolder | String(200) | Name of card holder | Yes |
-| CVV | String(3) | Secure Code | Yes |
-| expireMonth | String(2) |  | Yes |
-| expireYear | String(2) |  | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | Add credit card complete |
-| msg | String | 'Add Credit Card Complete',<br> 'Credit Card had already added' |  |
-#### Return value on incomplete (HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | Add credit card incomplete |
-| msg | String | 'You should login before add your credit card'   |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="updateCreditCard"></a>
-
-### Update New Credit Card Time ( Access via PUT method on '/api/payment/card/update' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-* Has Credit Card
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| cardNO | String(16) | Fix values (Can't Change) | Yes |
-| cardHolder | String(200) | Name of card holder | Yes |
-| CVV | String(3) | Secure Code | Yes |
-| expireMonth | String(2) |  | Yes |
-| expireYear | String(2) |  | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | updated credite card complete |
-| msg | String | 'Update Credit Card Complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated credit card incomplete |
-| msg | String | 'Credit card hasn\'t been update, please correct your input',<br> 'You should login before update your credit card' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="deleteCreditCard"></a>
-
-### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/delete' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-* Has Credit Card
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| cardNO | String(16) | Card Number | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | deleted credite card complete |
-| msg | String | 'Delete Credit Card Complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated credit card incomplete |
-| msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
