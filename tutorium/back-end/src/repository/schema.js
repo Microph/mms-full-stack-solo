@@ -225,14 +225,11 @@ Tutor.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
-<<<<<<< HEAD
-=======
 Suspended.belongsTo(Student,{
     foreignKey: 'studentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
->>>>>>> d1c30482e382d90e8f18932c264281b8da412b88
 
 /* #### 1-Many Relations #### */
 Student.hasMany(CreditCard, {
@@ -253,11 +250,8 @@ module.exports = {
     Account: Account,
     Admin: Admin,
     CreditCard: CreditCard,
-<<<<<<< HEAD
     Report: Report,
-=======
     Match: Match,
->>>>>>> 57905fd923f9e493686eb8b096b6c63f50f4b2f5
     Student: Student,
     Suspended: Suspended,
     Tutor: Tutor
