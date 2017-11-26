@@ -65,65 +65,6 @@ module.exports = {
             })
         })
     },
-    updateStudentProfile: (studentID, updateData) => {
-        return new Promise((resolve, reject) => {
-            Schema.Student.update({
-                name: updateData.name,
-                surname: updateData.surname,
-                gender: updateData.gender,
-                educationLevel: updateData.educationLevel,
-                facebookURL: updateData.facebookURL,
-                lineID: updateData.lineID,
-                email: updateData.email,
-                mobile: updateData.mobile
-            }, {
-                where: {
-                    studentID: studentID
-                }
-            }).then((result) => {
-                resolve(result[0])
-            })
-        })
-    },
-    updateStudentWantList: (studentID, updateData) => {
-        return new Promise((resolve, reject) => {
-            Schema.Student.update({
-                wantList: updateData.wantList
-            }, {
-                where: {
-                    studentID: studentID
-                }
-            }).then((result) => {
-                resolve(result[0])
-            })
-        })
-    },
-    updateStudentPlace: (studentID, updateData) => {
-        return new Promise((resolve, reject) => {
-            Schema.Student.update({
-                place: updateData.place
-            }, {
-                where: {
-                    studentID: studentID
-                }
-            }).then((result) => {
-                resolve(result[0])
-            })
-        })
-    },
-    updateStudentTime: (studentID, updateData) => {
-        return new Promise((resolve, reject) => {
-            Schema.Student.update({
-                time: updateData.time
-            }, {
-                where: {
-                    studentID: studentID
-                }
-            }).then((result) => {
-                resolve(result[0])
-            })
-        })
-    },
     deleteStudentAccount: (studentID) => {
         return new Promise((resolve, reject) => {
             Schema.Student.destroy({

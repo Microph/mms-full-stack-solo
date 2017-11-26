@@ -11,6 +11,7 @@ module.exports = (app, passport, options) => {
         
     })
 
+    //----------------------------------------------------------------------------------------admin-search-tutor-reqs---
     app.get('/api/admin/tutor-request-management', (req, res, next) => {
         if (isAdmin(req) === false) {
             res.redirect('/api/admin/logout')
@@ -88,6 +89,22 @@ module.exports = (app, passport, options) => {
             res.redirect('/api/admin/logout')
             return;
         }
+
+        let qry = require('../repository/admin')
+        qry.adminSearchAllReport().then((result) => {
+            if (result.count === 0){
+                res.status(200).send({ 
+                    success: false,
+                    msg: 'No report found!'
+                })
+            } else {
+                res.status(200).send({ 
+                    success: true, 
+                    report: result.rows,
+                    count: result.count 
+                })
+            }
+        })
     })
 
     //-------------------------------------------------------------------------------------------response-to-a-report---
