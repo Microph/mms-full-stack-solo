@@ -66,6 +66,10 @@
 [Delete Account](#deleteAccount)<br>
 [Student Request for a Tutor](#tutorRequest)<br>
 [Delete Student Request for a Tutor](#delTutorRequest)<br>
+[Offer Course to a Student](#offerCourse)<br>
+[Accep Course Offer](#accepCourse)<br>
+[Get Course Offer By a Student](#getCourseStudent)<br>
+[Get Course Offer By a Tutor](#getCourseTutor)<br>
 [user write report](#userWriteReport)<br>
 [Admin search all tutor requests](#adminTutorRequestManagement)<br>
 
@@ -555,6 +559,84 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | delete account incomplete |
 | msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
+
+<p align="center">.................................................</p>
+<a name="offerCourse"></a>
+
+### Offer Course to a Student ( Access via POST method on '/api/match/offer' )
+#### Pre-required
+* Authentication
+* Is tutor
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | Integer | send offer to whose student | Yes |
+| subject | String(100) | subject that you want to teach | Yes |
+| price | Integer |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| msg | String | 'Offer to a student complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false |  |
+| msg | String | 'You used to send an offer to this student',<br> 'You should be a tutor to send offer to student' |  |
+
+<p align="center">.................................................</p>
+<a name="accepCourse"></a>
+
+### Offer Course to a Student ( Access via POST method on '/api/match/offer/accept' )
+#### Pre-required
+* Authentication
+* Is student
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | whose tutor do you want to accept offer | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| msg | String | 'Confirm complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false |  |
+| msg | String | 'There is no any offers',<br> 'You should be a student to accept course offer' |  |
+
+<p align="center">.................................................</p>
+<a name="getCourseStudent"></a>
+
+### Get Course Offer by Student ( Access via GET method on '/api/match/bystudent' )
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
+| count | Number |  | Amount of offer |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should login to get the match' |  |
+
+<p align="center">.................................................</p>
+<a name="getCourseTutor"></a>
+
+### Get Course Offer by Tutor ( Access via GET method on '/api/match/bytutor' )
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
+| count | Number |  | Amount of offer |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should be a tutor to get tutor offer' |  |
 
 <p align="center">.................................................</p>
 <a name="userWriteReport"></a>

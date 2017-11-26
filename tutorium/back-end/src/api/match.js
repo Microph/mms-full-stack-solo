@@ -10,7 +10,7 @@ module.exports = (app, passport, options) => {
                 if(result.count > 0) {
                     res.status(200).send({ 
                         success: true, 
-                        tutors: result.rows, 
+                        offers: result.rows, 
                         count: result.count
                     })
                 } else {
@@ -36,7 +36,7 @@ module.exports = (app, passport, options) => {
                 if(result.count > 0) {
                     res.status(200).send({ 
                         success: true, 
-                        tutors: result.rows, 
+                        offers: result.rows, 
                         count: result.count
                     })
                 } else {
