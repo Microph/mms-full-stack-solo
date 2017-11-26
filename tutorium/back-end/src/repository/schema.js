@@ -163,10 +163,13 @@ const Student = sequelize.define('student', {
     },
     wantList: Sequelize.STRING(2000),
     place: Sequelize.STRING(1000),
-    time: Sequelize.STRING(1500),
-    isBanned: {
-        type: Sequelize.BOOLEAN, 
-        defaultValue: false 
+    time: Sequelize.STRING(1500)
+})
+
+const Suspended = sequelize.define('suspended', {
+    studentID: { 
+        type: Sequelize.INTEGER,
+        primaryKey: true 
     }
 })
 
@@ -204,7 +207,25 @@ Account.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
+Match.belongsTo(Student, {
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Match.belongsTo(Tutor, {
+    foreignKey: 'tutorID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
 Tutor.belongsTo(Student, {
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Suspended.belongsTo(Student,{
     foreignKey: 'studentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
@@ -223,12 +244,15 @@ Student.hasMany(Report, {
     onUpdate: 'CASCADE'
 })
 
+sequelize.sync()
+
 module.exports = {
     Account: Account,
     Admin: Admin,
     CreditCard: CreditCard,
+    Report: Report,
     Match: Match,
     Student: Student,
-    Tutor: Tutor,
-    Report: Report
+    Suspended: Suspended,
+    Tutor: Tutor
 }

@@ -57,9 +57,22 @@ function adminSearchAllReport() {
     })
 }
 
+function adminSuspendStudent(SID) {
+    return new Promise((resolve, reject) => {
+        Schema.Suspended.findOrCreate({
+            where: {
+                studentID: SID
+            }
+        }).then(result => {
+            resolve(result)
+        })
+    })
+}
+
 module.exports = {
     adminSearchTutorRequest: adminSearchTutorRequest,
     adminAcceptTutorRequest: adminAcceptTutorRequest,
     adminDeleteTutorRequest:adminDeleteTutorRequest,
-    adminSearchAllReport: adminSearchAllReport
+    adminSearchAllReport: adminSearchAllReport,
+    adminSuspendStudent: adminSuspendStudent
 }

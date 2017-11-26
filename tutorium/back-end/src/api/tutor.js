@@ -3,7 +3,7 @@ let tutor = require('../repository/tutor')
 
 module.exports = (app, passport, options) => {
     app.get('/api/search/student', (req, res, next) => {
-        if(req.user && req.user.isTutor){
+        if(req.user){
             let filter = req.query
 
             if(Object.keys(filter).length === 0) {
@@ -40,7 +40,7 @@ module.exports = (app, passport, options) => {
         } else {
             res.status(403).send({ 
                 success: false, 
-                msg: 'You should be a tutor to searching' 
+                msg: 'You should login to searching' 
             })
         }
     })
