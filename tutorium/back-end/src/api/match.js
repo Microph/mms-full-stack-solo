@@ -2,6 +2,109 @@
 let match = require('../repository/match')
 
 module.exports = (app, passport, options) => {
+    app.get('/api/match/bystudent', (req, res, next) => {
+        if(req.user && req.user.studentID) {
+            let studentID = req.user.studentID
+
+            match.getOfferByStudentID(studentID).then((result) => {
+                if(result.count > 0) {
+                    res.status(200).send({ 
+                        success: true, 
+                        offers: result.rows, 
+                        count: result.count
+                    })
+                } else {
+                    res.status(200).send({ 
+                        success: false,
+                        msg: 'Offer not found'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({ 
+                success: false, 
+                msg: 'You should login to get the match' 
+            })
+        }
+    })
+
+    app.get('/api/match/bytutor', (req, res, next) => {
+        if(req.user && req.user.isTutor) {
+            let tutorID = req.user.studentID
+
+            match.getOfferByTutorID(tutorID).then((result) => {
+                if(result.count > 0) {
+                    res.status(200).send({ 
+                        success: true, 
+                        offers: result.rows, 
+                        count: result.count
+                    })
+                } else {
+                    res.status(200).send({ 
+                        success: false,
+                        msg: 'Offer not found'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({ 
+                success: false, 
+                msg: 'You should be a tutor to get tutor offer' 
+            })
+        }
+    })
+
+    app.post('/api/match/offer', (req, res, next) => {
+        if(req.user && req.user.isTutor) {
+            let tutorID = req.user.studentID
+            let userInput = req.body
+
+            match.offer(tutorID, userInput).then(result => {
+                if(result.created) {
+                    res.status(200).send({
+                        success: true,
+                        msg: 'Offer to a student complete'
+                    })
+                } else {
+                    res.status(400).send({
+                        success: false,
+                        msg: 'You used to send an offer to this student'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({ 
+                success: false, 
+                msg: 'You should be a tutor to send offer to student' 
+            })
+        }
+    })
+    app.post('/api/match/offer/accept', (req, res, next) => {
+        if(req.user && req.user.studentID) {
+            let studentID = req.user.studentID
+            let tutorID = req.body.tutorID
+
+            match.acceptOffer(studentID, tutorID).then(result => {
+                if(result) {
+                    res.status(200).send({
+                        success: true,
+                        msg: 'Confirm complete'
+                    })
+                } else {
+                    res.status(400).send({
+                        success: false,
+                        msg: 'There is no any offers'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({ 
+                success: false, 
+                msg: 'You should be a student to accept course offer' 
+            })
+        }
+    })
+
     app.post('/api/match/request', (req, res, next) => {
         if(req.user && req.user.studentID) {
             let studentID = req.user.studentID
