@@ -10,8 +10,6 @@ class RequestsManage extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          querySuccess: false,
-          requests: [],
           cards: []
       };
   }
@@ -22,17 +20,12 @@ class RequestsManage extends Component {
       url: "/api/admin/tutor-request-management"
     });
 
-    this.setState({
-      querySuccess: res.data.success,
-      requests: res.data.students
-    });
-
-    if(this.state.querySuccess) this.prepareCard();
+    if(res.data.success) this.prepareCard(res.data.students);
   }
 
   //call if tutor-request-management return success
-  prepareCard(){
-    this.state.requests.map(studentOb => {
+  prepareCard(studentData){
+    studentData.map(studentOb => {
       this.genCard(
         studentOb.student.name + ' ' + studentOb.student.surname, 
         studentOb.studentID,
@@ -190,7 +183,6 @@ class RequestCard extends Component {
                     />
                   </div>
                 </div>
-
 
             </div>
           </div>
