@@ -132,12 +132,11 @@ class ToBeTutor extends Component {
     var { teachable } = this.state;
     var renderList = [];
     for (var i = 0; i < teachable.length; i++) {
-      var key = teachable[i].day + teachable[i].time;
       renderList.push(
         <Chip
-          key={key}
+          key={i}
           style={{ marginTop: -4, marginLeft: 2 }}
-          onRequestDelete={() => this.removeTeachable(key)}
+          onRequestDelete={() => this.removeTeachable(i - 1)}
         >
           {parseDay(teachable[i].day) + " " + teachable[i].time}
         </Chip>
@@ -152,9 +151,9 @@ class ToBeTutor extends Component {
     for (var i = 0; i < places.length; i++) {
       renderList.push(
         <Chip
-          key={places[i]}
+          key={i}
           style={{ marginTop: -4, marginLeft: 2 }}
-          onRequestDelete={() => this.removePlace(places[i])}
+          onRequestDelete={() => this.removePlace(i - 1)}
         >
           {places[i]}
         </Chip>
@@ -167,17 +166,11 @@ class ToBeTutor extends Component {
     var { eduLevel } = this.state;
     var renderList = [];
     for (var i = 0; i < eduLevel.length; i++) {
-      var key =
-        eduLevel[i].level +
-        eduLevel[i].university +
-        eduLevel[i].gradyear +
-        eduLevel[i].faculty +
-        eduLevel[i].major;
       renderList.push(
         <Chip
-          key={key}
+          key={ i }
           style={{ marginTop: -4, marginLeft: 2 }}
-          onRequestDelete={() => this.removeEdu(key)}
+          onRequestDelete={() => this.removeEdu( i - 1 )}
         >
           {parseLevel(eduLevel[i].level) +
             " " +
@@ -198,12 +191,11 @@ class ToBeTutor extends Component {
     var { teaching } = this.state;
     var renderList = [];
     for (var i = 0; i < teaching.length; i++) {
-      var key = teaching[i].subject + teaching[i].level;
       renderList.push(
         <Chip
-          key={key}
+          key={i}
           style={{ marginTop: -4, marginLeft: 2 }}
-          onRequestDelete={() => this.removeTeaching(key)}
+          onRequestDelete={() => this.removeTeaching(i - 1)}
         >
           {parseSubject(teaching[i].subject) + parseLevel(teaching[i].level)}
         </Chip>
