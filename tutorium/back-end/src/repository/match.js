@@ -2,13 +2,61 @@
 let Schema = require('./schema')
 
 module.exports = {
-    tutorOffer: (tutorID, studentID, userInput) => {
+    getOfferByStudentID: (studentID) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.findAndCountAll({
+                where: {
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    getOfferByTutorID: (tutorID) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.findAndCountAll({
+                where: {
+                    tutorID: tutorID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    acceptOffer: (studentID, tutorID) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.update({
+                studentConfirm: true
+            }, {
+                where: {
+                    studentID: studentID,
+                    tutorID: tutorID
+                }
+            }).then(result => {
+                resolve(result[0])
+            })
+        })
+    },
+    offer: (tutorID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.Match.findOrCreate({
                 where: {
                     tutorID: tutorID,
-                    studentID: studentID
+                    studentID: userInput.studentID
+                },
+                defaults: {
+                    tutorID: tutorID,
+                    studentID: userInput.studentID,
+                    subject: userInput.subject,
+                    price: userInput.price,
+                    studentConfirm: false
                 }
+            }).spread((offer, created) => {
+                resolve({
+                    created: created,
+                    offer: offer.dataValues
+                })
             })
         })
     },    
