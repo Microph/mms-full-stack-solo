@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: tutorium
-# Generation Time: 2017-11-24 10:13:31 +0000
+# Generation Time: 2017-11-26 10:18:13 +0000
 # ************************************************************
 
 
@@ -58,7 +58,8 @@ VALUES
 	(15,'facebook','107860986661856',0,'2017-11-24 06:36:34','2017-11-24 06:36:34'),
 	(16,'facebook','116502822462042',0,'2017-11-24 06:36:34','2017-11-24 06:36:34'),
 	(17,'facebook','103949853720600',0,'2017-11-24 06:36:34','2017-11-24 06:36:34'),
-	(18,'line','U7ca72bd3bf0d065e5c68f5ba4a63be88',1,'2017-11-24 06:36:34','2017-11-24 06:36:34');
+	(18,'line','U7ca72bd3bf0d065e5c68f5ba4a63be88',1,'2017-11-24 06:36:34','2017-11-24 06:36:34'),
+	(19,'facebook','1671707229577179',1,'2017-11-26 10:14:07','2017-11-26 10:14:07');
 
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -88,180 +89,73 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table attendance
+# Dump of table creditCard
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `attendance`;
+DROP TABLE IF EXISTS `creditCard`;
 
-CREATE TABLE `attendance` (
-  `attendanceID` int(11) NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
-  `attendance_studentID` int(11) NOT NULL,
-  `attendance_tutorID` int(11) NOT NULL,
-  PRIMARY KEY (`attendanceID`),
-  KEY `studentID_idx` (`attendance_studentID`),
-  KEY `tutorID_idx` (`attendance_tutorID`)
+CREATE TABLE `creditCard` (
+  `studentID` int(11) NOT NULL,
+  `cardNO` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `cardHolder` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `CVV` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `expireMonth` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `expireYear` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`studentID`,`cardNO`),
+  CONSTRAINT `creditCard_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
-# Dump of table bankaccount
+# Dump of table match
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `bankaccount`;
+DROP TABLE IF EXISTS `match`;
 
-CREATE TABLE `bankaccount` (
-  `bankAccount_studentID` int(11) NOT NULL,
-  `bankaccountNo` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`bankaccountNo`,`bankAccount_studentID`),
-  KEY `bankAccount_studentID` (`bankAccount_studentID`)
+CREATE TABLE `match` (
+  `studentID` int(11) NOT NULL,
+  `tutorID` int(11) NOT NULL,
+  `subject` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `price` int(11) DEFAULT '0',
+  `studentConfirm` tinyint(1) DEFAULT '0',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`studentID`,`tutorID`),
+  KEY `tutorID` (`tutorID`),
+  CONSTRAINT `match_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `match_ibfk_2` FOREIGN KEY (`tutorID`) REFERENCES `tutor` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+LOCK TABLES `match` WRITE;
+/*!40000 ALTER TABLE `match` DISABLE KEYS */;
+
+INSERT INTO `match` (`studentID`, `tutorID`, `subject`, `price`, `studentConfirm`, `createdAt`, `updatedAt`)
+VALUES
+	(19,19,'kosate',10000,1,'2017-11-26 10:16:52','2017-11-26 10:17:18');
+
+/*!40000 ALTER TABLE `match` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
-# Dump of table bankaccountpayment
+# Dump of table report
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `bankaccountpayment`;
+DROP TABLE IF EXISTS `report`;
 
-CREATE TABLE `bankaccountpayment` (
-  `bankAccountPayment_paymentID` int(11) NOT NULL,
-  `bankAccountNo` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`bankAccountPayment_paymentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table contact
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `contact`;
-
-CREATE TABLE `contact` (
-  `contact_studentID` int(11) NOT NULL,
-  `phone` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
-  `LineID` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `FacebookURL` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`contact_studentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table course
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `course`;
-
-CREATE TABLE `course` (
-  `couseID` int(11) NOT NULL AUTO_INCREMENT,
-  `course_tutorID` int(11) NOT NULL,
-  `subject` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `acceptedDateTime` datetime NOT NULL,
-  `isAccepted` bit(1) NOT NULL,
-  `level` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`couseID`),
-  KEY `course_tutorID_idx` (`course_tutorID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table courserequest
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `courserequest`;
-
-CREATE TABLE `courserequest` (
-  `requestID` int(11) NOT NULL AUTO_INCREMENT,
-  `courseRequest_studentID` int(11) NOT NULL,
-  `courseRequest_tutorID` int(11) NOT NULL,
-  `Subject` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `level` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`requestID`),
-  KEY `courseRequest_studentID_idx` (`courseRequest_studentID`),
-  KEY `courseRequest_tutorID_idx` (`courseRequest_tutorID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table creditcard
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `creditcard`;
-
-CREATE TABLE `creditcard` (
-  `creditCard_studentID` int(11) NOT NULL,
-  `cardNo` int(11) NOT NULL AUTO_INCREMENT,
-  `expireDate` date NOT NULL,
-  `secureCode` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`cardNo`,`creditCard_studentID`),
-  KEY `creditCard_studentID` (`creditCard_studentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table creditcardpayment
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `creditcardpayment`;
-
-CREATE TABLE `creditcardpayment` (
-  `creditCardPayment_paymentID` int(11) NOT NULL,
-  `creditCardNo` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`creditCardPayment_paymentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table enrolled
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `enrolled`;
-
-CREATE TABLE `enrolled` (
-  `enrolled_courseID` int(11) NOT NULL,
-  `enrolled_studentID` int(11) NOT NULL,
-  PRIMARY KEY (`enrolled_courseID`,`enrolled_studentID`),
-  KEY `enrolled_studentID_idx` (`enrolled_studentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table paymentrecord
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `paymentrecord`;
-
-CREATE TABLE `paymentrecord` (
-  `paymentID` int(11) NOT NULL AUTO_INCREMENT,
-  `paymentRecord_studentID` int(11) NOT NULL,
-  `paymentRecord_tutorID` int(11) NOT NULL,
-  `paidDate` datetime NOT NULL,
-  `amount` double NOT NULL,
-  PRIMARY KEY (`paymentID`),
-  KEY `paymentRecord_studentID_idx` (`paymentRecord_studentID`),
-  KEY `paymentRecord_tutorID_idx` (`paymentRecord_tutorID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-# Dump of table reservation
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `reservation`;
-
-CREATE TABLE `reservation` (
-  `reservationID` int(11) NOT NULL AUTO_INCREMENT,
-  `reservation_studentID` int(11) NOT NULL,
-  `reservation_tutorID` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `startTime` time NOT NULL,
-  `endTime` time NOT NULL,
-  PRIMARY KEY (`reservationID`),
-  KEY `reservation_studentID_idx` (`reservation_studentID`),
-  KEY `reservation_tutorID_idx` (`reservation_tutorID`)
+CREATE TABLE `report` (
+  `reportID` int(11) NOT NULL AUTO_INCREMENT,
+  `reporterStudentID` int(11) NOT NULL,
+  `reportedStudentID` int(11) DEFAULT NULL,
+  `topic` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `detail` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `studentID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`reportID`),
+  KEY `studentID` (`studentID`),
+  CONSTRAINT `report_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -311,10 +205,26 @@ VALUES
 	(15,'พิมพ์','ชนก','female','matthayomton',NULL,'','pim@chan.ok','0900000008','[{\"subject\":\"science\",\"level\":\"matthayomton\"}]','[\"MRT ห้วยขวาง\"]','[{\"day\":\"saturday\",\"time\":\"10.00-12.00\"}]','2017-11-24 06:25:04','2017-11-24 06:25:04'),
 	(16,'แอนนา','โฟรซ','female','matthayomplai',NULL,'','ann@froz.en','0900000009','[{\"subject\":\"english\",\"level\":\"matthayomplai\"}]','[\"สยาม\"]','[{\"day\":\"saturday\",\"time\":\"13.00-15.00\"},{\"day\":\"sunday\",\"time\":\"13.00-15.00\"}]','2017-11-24 06:25:04','2017-11-24 06:25:04'),
 	(17,'ไทเลอร์','สวิตช์','male','matthayomplai',NULL,'','tyler@swit.ch','0900000010','[{\"subject\":\"math\",\"level\":\"matthayomplai\"}]','[\"MRT ห้วยขวาง\"]','[{\"day\":\"wednesday\",\"time\":\"17.00-19.00\"}]','2017-11-24 06:25:04','2017-11-24 06:25:04'),
-	(18,'Kame','Line','male','bachelor',NULL,'','kame@email.com','0111111111',NULL,NULL,NULL,'2017-11-24 06:25:04','2017-11-24 06:25:04');
+	(18,'Kame','Line','male','bachelor',NULL,'','kame@email.com','0111111111',NULL,NULL,NULL,'2017-11-24 06:25:04','2017-11-24 06:25:04'),
+	(19,'pakpoom','thaweesitthichat','male','bachelor','facebook.com/pakpoom','phakphumi','pakpoom.thawee@gmail.com','0876678775',NULL,NULL,NULL,'2017-11-26 10:14:07','2017-11-26 10:14:07');
 
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table suspended
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `suspended`;
+
+CREATE TABLE `suspended` (
+  `studentID` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`studentID`),
+  CONSTRAINT `suspended_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 # Dump of table tutor
@@ -347,10 +257,30 @@ VALUES
 	(4,'[{\"level\":\"bachelor\",\"university\":\"จุฬาลงกรณ์มหาวิทยาลัย\",\"faculty\":\"วิทยาศาสตร์\",\"major\":\"เคมี\"}]','[{\"subject\":\"chemistry\",\"level\":\"matthayomplai\"}]','[\"ตามแนว BTS\",\"ตามแนว MRT\"]','[{\"day\":\"wednesday\",\"time\":\"17.00-19.00\"},{\"day\":\"sunday\",\"time\":\"13.00-15.00\"}]',NULL,1,'2017-11-24 06:43:40','2017-11-24 06:43:40'),
 	(5,'[{\"level\":\"bachelor\",\"university\":\"จุฬาลงกรณ์มหาวิทยาลัย\",\"faculty\":\"ครุศาสตร์\",\"major\":\"ชีววิทยา\"}]','[{\"subject\":\"biology\",\"level\":\"matthayomplai\"},{\"subject\":\"science\",\"level\":\"matthayomton\"}]','[\"สยาม\"]','[{\"day\":\"tuesday\",\"time\":\"17.00-19.00\"},{\"day\":\"sunday\",\"time\":\"13.00-15.00\"}]',NULL,1,'2017-11-24 06:43:40','2017-11-24 06:43:40'),
 	(6,'[{\"day\":\"tuesday\",\"time\":\"17.00-19.00\"},{\"day\":\"sunday\",\"time\":\"13.00-15.00\"}]','[{\"subject\":\"english\",\"level\":\"matthayomton\"}]','[\"สยาม\"]','[{\"day\":\"saturday\",\"time\":\"10.00-12.00\"}]',NULL,1,'2017-11-24 06:43:40','2017-11-24 06:43:40'),
-	(7,'[{\"level\":\"bachelor\",\"university\":\"จุฬาลงกรณ์มหาวิทยาลัย\",\"faculty\":\"รัฐศาสตร์\",\"major\":\"\"}]','[{\"subject\":\"socialstudies\",\"level\":\"matthayomton\"}, {\"subject\":\"GAT\",\"level\":\"\"}]','[\"สยาม\"]','[{\"day\":\"saturday\",\"time\":\"10.00-12.00\"},{\"day\":\"sunday\",\"time\":\"10.00-12.00\"}]',NULL,1,'2017-11-24 06:43:40','2017-11-24 06:43:40');
+	(7,'[{\"level\":\"bachelor\",\"university\":\"จุฬาลงกรณ์มหาวิทยาลัย\",\"faculty\":\"รัฐศาสตร์\",\"major\":\"\"}]','[{\"subject\":\"socialstudies\",\"level\":\"matthayomton\"}, {\"subject\":\"GAT\",\"level\":\"\"}]','[\"สยาม\"]','[{\"day\":\"saturday\",\"time\":\"10.00-12.00\"},{\"day\":\"sunday\",\"time\":\"10.00-12.00\"}]',NULL,1,'2017-11-24 06:43:40','2017-11-24 06:43:40'),
+	(19,'','','','','',1,'2017-11-26 10:15:30','2017-11-26 10:15:30');
 
 /*!40000 ALTER TABLE `tutor` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table tutorRequest
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tutorRequest`;
+
+CREATE TABLE `tutorRequest` (
+  `studentID` int(11) NOT NULL,
+  `tutorID` int(11) NOT NULL,
+  `subject` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`studentID`,`tutorID`),
+  KEY `tutorID` (`tutorID`),
+  CONSTRAINT `tutorRequest_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tutorRequest_ibfk_2` FOREIGN KEY (`tutorID`) REFERENCES `tutor` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 # Dump of table userreport

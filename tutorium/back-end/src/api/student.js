@@ -122,7 +122,7 @@ module.exports = (app, passport, options) => {
             let updateData = req.body
             let studentID = req.user.studentID
     
-            student.updateStudentTime(studentID, updateData).then((result) => {
+            student.updateTime(studentID, updateData).then((result) => {
                 if(result) {
                     res.status(200).send({
                         success: true,
