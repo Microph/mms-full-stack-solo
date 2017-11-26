@@ -535,7 +535,7 @@
 | msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
 
 <p align="center">.................................................</p>
-<a name="delRutorRequest"></a>
+<a name="delTutorRequest"></a>
 
 ### Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete' )
 #### Pre-required
