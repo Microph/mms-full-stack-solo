@@ -541,7 +541,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true | query success |
-| student | Object | {"studentID":INT,<br>"education":String,<br>"teachList":String,<br>"place":String,<br>"time":String,<br>"uploadEvidence":String,<br>"isApproved":BOOL,<br>"createdAt":DATETIME,<br>"updatedAt":DATETIME,<br>"student":{<br>&nbsp&nbsp"name":String,<br>&nbsp&nbsp"surname":Sstring<br>}<br>} |  |
+| student | Object | {"studentID":INT,<br>"education":String,<br>"teachList":String,<br>"place":String,<br>"time":String,<br>"uploadEvidence":String,<br>"isApproved":BOOL,<br>"createdAt":DATETIME,<br>"updatedAt":DATETIME,<br>"student":{<br>  "name":String,<br>  "surname":Sstring<br>}<br>} |  |
 #### Return value on Not found (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
