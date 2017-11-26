@@ -73,11 +73,12 @@
   4. [Update Student Want List](#upStudentWant)<br>
 * Tutor
   1. [Request For Tutor Account](#registTutor)<br>
-  2. [Update Tutor Comforatble place](#upTutorPlace)<br>
-  3. [Update Tutor Comforatble Time](#upTutorTime)<br>
-  4. [Update Tutor Want List](#upTutorTeach)<br>
-[user write report](#userWriteReport)<br>
-[Admin search all tutor requests](#adminTutorRequestManagement)<br>
+  2. [Update Tutor Comfort place](#upTutorPlace)<br>
+  3. [Update Tutor Comfort Time](#upTutorTime)<br>
+  4. [Update Tutor Teach List](#upTutorTeach)<br>
+* Admin
+  1. [user write report](#userWriteReport)<br>
+  2. [Admin search all tutor requests](#adminTutorRequestManagement)<br>
 
 <a name="adminAuth"></a>
 
@@ -587,7 +588,7 @@
 <p align="center">.................................................</p>
 <a name="registTutor"></a>
 
-### Request for a Tutor Account ( Access via POST method on '/api/tutor/register' )
+### Request for Tutor Account ( Access via POST method on '/api/tutor/register' )
 #### Pre-required
 * Authentication
 * Is a student (Already register)
@@ -610,30 +611,6 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Registration incomplete',<br> 'You should be a student, or login first' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="upTutorTeach"></a>
-
-### Update Tutor Teach List ( Access via PUT method on '/api/tutor/teachList/update' )
-#### Pre-required
-* Authentication
-* Is tutor (Already approved)
-
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| teachList | Objects | Tutor teach list | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | updated complete |
-| msg | String | 'Updated Complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated incomplete |
-| msg | String | 'Teacn list hasn\'t been update, please correct your input',<br> 'You should be a tutor to update your teach list' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
@@ -680,6 +657,30 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your place'  |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="upTutorTeach"></a>
+
+### Update Tutor Teach List ( Access via PUT method on '/api/tutor/teachList/update' )
+#### Pre-required
+* Authentication
+* Is tutor (Already approved)
+
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| teachList | Objects | Tutor teach list | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Teacn list hasn\'t been update, please correct your input',<br> 'You should be a tutor to update your teach list' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
