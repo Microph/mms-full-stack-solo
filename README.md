@@ -548,3 +548,23 @@
 | success | Bool | false | no tutor request found |
 
 <p align="center">.................................................</p>
+<a name="adminResponseToATutorRequest"></a>
+
+### Admin response to a tutor request ( Access via POST method on '/api/admin/tutor-request-management' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+| accept | string | 'true' for accept and<br>any other for reject | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | the tutor request has been accepted<br>or rejected based on the button clicked |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | the id doesn't existed |
+
+<p align="center">.................................................</p>

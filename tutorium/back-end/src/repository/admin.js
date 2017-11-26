@@ -51,7 +51,11 @@ function adminDeleteTutorRequest(SID) {
 
 function adminSearchAllReport() {
     return new Promise((resolve, reject) => {
-        Schema.Report.findAndCountAll().then(result => {
+        Schema.Report.findAndCountAll({
+            include: [{
+                model: Schema.Student
+            }]
+        }).then(result => {
             resolve(result)
         })
     })
@@ -69,10 +73,36 @@ function adminSuspendStudent(SID) {
     })
 }
 
+function adminSearchSuspendedAccount() {
+    return new Promise((resolve, reject) => {
+        Schema.Suspended.findAll({
+            include: [{
+                model: Schema.Student
+            }]
+        }).then(result => {
+            resolve(result)
+        })
+    })
+}
+
+function adminUnsuspendAccount(SID) {
+    return new Promise((resolve, reject) => {
+        Schema.Suspended.destroy({
+            where: {
+                studentID: SID
+            }
+        }).then(result => {
+            resolve(result)
+        })
+    })
+}
+
 module.exports = {
     adminSearchTutorRequest: adminSearchTutorRequest,
     adminAcceptTutorRequest: adminAcceptTutorRequest,
     adminDeleteTutorRequest:adminDeleteTutorRequest,
     adminSearchAllReport: adminSearchAllReport,
-    adminSuspendStudent: adminSuspendStudent
+    adminSuspendStudent: adminSuspendStudent,
+    adminSearchSuspendedAccount: adminSearchSuspendedAccount,
+    adminUnsuspendAccount: adminUnsuspendAccount
 }
