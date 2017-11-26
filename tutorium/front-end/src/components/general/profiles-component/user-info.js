@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Paper,
   TextField,
@@ -9,14 +10,12 @@ import {
   Card,
   CardHeader
 } from "material-ui";
-import { connect } from "react-redux";
 import axios from "axios";
 
 const querystring = require("querystring");
-
 window.axios = axios;
 
-class SignUp extends Component {
+class UserInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,39 +25,34 @@ class SignUp extends Component {
       lineid: "",
       email: "",
       phone: "",
-      gender: "male",
-      edlvl: "pratom",
-      agreement: false,
-      formerr: false
+      gender: "",
+      edlvl: ""
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit = async () => {
-    const res = await axios({
-      method: "POST",
-      url: "/api/register",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded"
-      },
-      data: querystring.stringify({
-        name: this.state.name,
-        surname: this.state.lastname,
-        gender: this.state.gender,
-        educationLevel: this.state.edlvl,
-        facebookUrl: this.state.fburl,
-        lineID: this.state.lineid,
-        email: this.state.email,
-        mobile: this.state.phone,
-        agree: this.state.agreement
-      })
-    });
-    if (res.data.success) {
-      window.location.href = "/";
-    } else {
-      this.setState({ formerr: true });
+  fetchMySelf() {
+    if (this.props.auth == null) return;
+    if (this.props.auth.success) {
+      const sid = this.props.auth.user.studentID;
+      if (this.props.students == null) return;
+      if (this.props.students.success)
+        this.props.students.students.map(person => {
+          if (person.studentID === sid) {
+            if (this.state.gender !== "") return;
+            this.setState({
+              name: person.name,
+              lastname: person.surname,
+              fburl: person.facebookURL,
+              lineid: person.lineID,
+              email: person.email,
+              phone: person.mobile,
+              gender: person.gender,
+              edlvl: person.educationLevel
+            });
+          }
+        });
     }
-  };
+  }
 
   fetchFBProfile() {
     if (this.props.auth == null) return;
@@ -68,15 +62,7 @@ class SignUp extends Component {
       var imgsrc = this.props.auth.user.profilePic;
       return [
         <Card>
-          <CardHeader
-            title={name}
-            subtitle={
-              <a href="/api/logout" style={{ textDecoration: "None" }}>
-                นี่ไม่ใช่ฉัน
-              </a>
-            }
-            avatar={imgsrc}
-          />
+          <CardHeader title={name} avatar={imgsrc} />
         </Card>
       ];
     }
@@ -90,25 +76,39 @@ class SignUp extends Component {
       var imgsrc = this.props.auth.user.profilePic;
       return [
         <Card>
-          <CardHeader
-            title={name}
-            subtitle={
-              <a href="/api/logout" style={{ textDecoration: "None" }}>
-                นี่ไม่ใช่ฉัน
-              </a>
-            }
-            avatar={imgsrc}
-          />
+          <CardHeader title={name} avatar={imgsrc} />
         </Card>
       ];
     }
   }
 
+  handleSubmit = async () => {
+    var res = await axios({
+      method: "PUT",
+      url: " /api/student/profile/update",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      },
+      data: querystring.stringify({
+        name: this.state.name,
+        surname: this.state.lastname,
+        gender: this.state.gender,
+        educationLevel: this.state.edlvl,
+        facebookUrl: this.state.fburl,
+        lineID: this.state.lineid,
+        email: this.state.email,
+        mobile: this.state.phone
+      })
+    });
+    this.forceUpdate();
+  };
+
   render() {
+    this.fetchMySelf();
     return (
       <div>
         <Paper
-          zDepth={2}
+          zDepth={1}
           style={{
             padding: 30,
             display: "flex",
@@ -117,8 +117,8 @@ class SignUp extends Component {
           }}
         >
           {/* Header */}
-          <span style={{ fontSize: 30, alignSelf: "flex-start" }}>
-            สมัครสมาชิก
+          <span style={{ fontSize: 25, alignSelf: "flex-start" }}>
+            ข้อมูลส่วนตัว
           </span>
           {/* Profile fetched */}
           {this.fetchFBProfile()}
@@ -204,15 +204,8 @@ class SignUp extends Component {
             onChange={(event, phone) => this.setState({ phone })}
             value={this.state.phone}
           />
-          {/* I've read it */}
-          <Checkbox
-            label="ฉันได้อ่านและยอมรับเงื่อนไขในการให้บริการแล้ว"
-            style={{ marginTop: 30 }}
-            onCheck={(event, agreement) => this.setState({ agreement })}
-          />
           {/* Confirm button */}
           <FlatButton
-            disabled={!this.state.agreement}
             onClick={this.handleSubmit}
             style={{
               color: "#fff",
@@ -221,7 +214,7 @@ class SignUp extends Component {
               backgroundColor: "limegreen"
             }}
             labelStyle={{ fontSize: 15, fontWeight: 700 }}
-            label="ยืนยัน"
+            label="บันทึกข้อมูล"
           />
         </Paper>
       </div>
@@ -229,9 +222,8 @@ class SignUp extends Component {
   }
 }
 
-// export default SignUp;
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ students, auth }) {
+  return { students, auth };
 }
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(UserInfo);
