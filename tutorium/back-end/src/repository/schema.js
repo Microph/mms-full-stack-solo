@@ -230,12 +230,6 @@ Suspended.belongsTo(Student,{
     onUpdate: 'CASCADE'
 })
 
-Suspended.hasOne(Student, {
-    foreignKey: 'reportedStudentID',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-})
-
 Report.belongsTo(Student, {
     foreignKey: 'reporterStudentID',
     onDelete: 'CASCADE',
