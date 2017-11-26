@@ -14,8 +14,8 @@ module.exports = (app, passport, options) => {
                         msg: 'Request for a tutor complete'
                     })
                 } else {
-                    res.status(200).send({
-                        success: true,
+                    res.status(400).send({
+                        success: false,
                         msg: 'You used to send a request to this tutor'
                     })
                 }
