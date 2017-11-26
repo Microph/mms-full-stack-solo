@@ -3,6 +3,25 @@
 let Schema = require('./schema')
 
 module.exports = {
+    getCard: (studentID) => {
+        return new Promise((resolve, reject) => {
+            Schema.CreditCard.findAndCountAll({
+                attributes: [
+                    'studentID',
+                    'cardNO',
+                    'cardHolder',
+                    'CVV',
+                    'expireMonth',
+                    'expireYear'
+                ],
+                where: {
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
     addCard: (studentID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.CreditCard.findOrCreate({

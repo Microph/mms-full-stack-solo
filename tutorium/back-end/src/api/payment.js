@@ -1,13 +1,40 @@
 'use strict'
 
 module.exports = (app, passport, options) => {
+    app.get('/api/payment/card', (req, res, next) => {
+        if(req.user && req.user.studentID) {
+            let payment = require('../repository/payment')
+            let studentID = req.user.studentID
+
+            payment.getCard(studentID).then(result => {
+                if(result.count > 0) {
+                    res.status(200).send({ 
+                        success: true, 
+                        cards: result.rows, 
+                        count: result.count 
+                    })
+                } else {
+                    res.status(200).send({ 
+                        success: false,
+                        msg: 'Credit Card not found'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({ 
+                success: false, 
+                msg: 'You should login before get your credit card' 
+            })
+        }
+    })
+
     app.post('/api/payment/card/add', (req, res, next) => {
         if(req.user && req.user.studentID) {
             let payment = require('../repository/payment')
             let studentID = req.user.studentID
             let userInput = req.body
 
-            payment.addCard(studentID, userInput).then((result) => {
+            payment.addCard(studentID, userInput).then(result => {
                 if(result.created) {
                     res.status(200).send({
                         success: true,
@@ -34,7 +61,7 @@ module.exports = (app, passport, options) => {
             let studentID = req.user.studentID
             let updateData = req.body
 
-            payment.updateCard(studentID, updateData).then((result) => {
+            payment.updateCard(studentID, updateData).then(result => {
                 if(result) {
                     res.status(200).send({
                         success: true,
@@ -61,7 +88,7 @@ module.exports = (app, passport, options) => {
             let studentID = req.user.studentID
             let cardNO = req.body.cardNO
 
-            payment.deleteCard(studentID, cardNO).then((result) => {
+            payment.deleteCard(studentID, cardNO).then(result => {
                 if(result) {
                     res.status(200).send({
                         success: true,
