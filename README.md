@@ -55,6 +55,9 @@
 [Update Student Want List](#upStudentWant)<br>
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
+[Update Tutor Want List](#upTutorTeach)<br>
+[Update Tutor Comforatble place](#upTutorPlace)<br>
+[Update Tutor Comforatble Time](#upTutorTime)<br>
 [Get Credit Card](#getCreditCard)<br>
 [Add Credit Card](#addCreditCard)<br>
 [Update Credit Card](#updateCreditCard)<br>
