@@ -486,6 +486,52 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
+<a name="upStudentPlace"></a>
+
+### Update Student Comfort Place ( Access via PUT method on '/api/student/place/update' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| place | Objects | User comfortable place | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="upStudentTime"></a>
+
+### Update Student Comfort Time ( Access via PUT method on '/api/student/time/update' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| time | Objects | User comfortable time | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
 <a name="upStudentPro"></a>
 
 ### Update Student Profile ( Access via PUT method on '/api/student/profile/update' )
@@ -536,52 +582,6 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Want list hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="upStudentPlace"></a>
-
-### Update Student Comfort Place ( Access via PUT method on '/api/student/place/update' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| place | Objects | User comfortable place | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | updated complete |
-| msg | String | 'Updated Complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="upStudentTime"></a>
-
-### Update Student Comfort Time ( Access via PUT method on '/api/student/time/update' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| time | Objects | User comfortable time | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | updated complete |
-| msg | String | 'Updated Complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | updated incomplete |
-| msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
