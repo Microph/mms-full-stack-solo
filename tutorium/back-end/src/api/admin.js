@@ -46,7 +46,7 @@ module.exports = (app, passport, options) => {
         let accept = req.body.accept
         let qry = require('../repository/admin')
         if (id != null) {
-            if (accept) {
+            if (accept === 'true') {
                 qry.adminAcceptTutorRequest(id).then((result) => {
                     if (result > 0) {
                         res.status(200).send({ 
