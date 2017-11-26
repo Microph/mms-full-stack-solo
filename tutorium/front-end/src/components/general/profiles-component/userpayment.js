@@ -149,7 +149,7 @@ class UserPayment extends Component {
           <FlatButton
             onClick={() => this.setState({ dialogOn: true })}
             style={{ borderColor: "#505050", borderWidth: "1px" }}
-            label="+ เพิ่มวิธีการชำระเงิน"
+            label="+ เพิ่มบัญชี"
           />
         </span>
         {cards}
