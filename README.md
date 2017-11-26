@@ -41,35 +41,41 @@
 * SHA256 algorithm used to hash 'password' field on 'admin' table
 
 ## API Reference
-
+<a name="tableOfContent"></a>
 ### Table of Contents
-[Admin Authen](#adminAuth)<br>
-[Facebook Authen](#faceAuth)<br>
-[Line Authen](#lineAuth)<br>
-[Current Login Session Data](#currLog)<br>
-[Logout](#logout)<br>
-[Reigster](#regist)<br>
-[Student Search](#stSearch)<br>
-[Tutor Search](#tutorSearch)<br>
-[Update Student Profile](#upStudentPro)<br>
-[Update Student Want List](#upStudentWant)<br>
-[Update Student Comforatble place](#upStudentPlace)<br>
-[Update Student Comforatble Time](#upStudentTime)<br>
-[Request For Tutor Account](#registTutor)<br>
-[Update Tutor Want List](#upTutorTeach)<br>
-[Update Tutor Comforatble place](#upTutorPlace)<br>
-[Update Tutor Comforatble Time](#upTutorTime)<br>
-[Get Credit Card](#getCreditCard)<br>
-[Add Credit Card](#addCreditCard)<br>
-[Update Credit Card](#updateCreditCard)<br>
-[Delete Credit Card](#deleteCreditCard)<br>
-[Delete Account](#deleteAccount)<br>
-[Student Request for a Tutor](#tutorRequest)<br>
-[Delete Student Request for a Tutor](#delTutorRequest)<br>
-[Offer Course to a Student](#offerCourse)<br>
-[Accep Course Offer](#accepCourse)<br>
-[Get Course Offer By a Student](#getCourseStudent)<br>
-[Get Course Offer By a Tutor](#getCourseTutor)<br>
+* Authneticate
+  1. [Admin Authen](#adminAuth)<br>
+  2. [Current Login Session Data](#currLog)<br>
+  3. [Delete Account](#deleteAccount)<br>
+  4. [Facebook Authen](#faceAuth)<br>
+  5. [Line Authen](#lineAuth)<br>
+  6. [Logout](#logout)<br>
+  7. [Reigster](#regist)<br>
+* Payment
+  1. [Add Credit Card](#addCreditCard)<br>
+  2. [Delete Credit Card](#deleteCreditCard)<br>
+  3. [Get Credit Card](#getCreditCard)<br>
+  4. [Update Credit Card](#updateCreditCard)<br>
+* Matching
+  1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
+  2. [Get Course Offer By a Student](#getCourseStudent)<br>
+  3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
+  4. [Student Accep Course Offer](#accepCourse)<br>
+  5. [Student Request for a Tutor](#tutorRequest)<br>
+  6. [Tutor Offer Course to a Student](#offerCourse)<br>
+* Search
+  1. [Student Search](#stSearch)<br>
+  2. [Tutor Search](#tutorSearch)<br>
+* Student
+  1. [Update Student Comforatble place](#upStudentPlace)<br>
+  2. [Update Student Comforatble Time](#upStudentTime)<br>
+  3. [Update Student Profile](#upStudentPro)<br>
+  4. [Update Student Want List](#upStudentWant)<br>
+* Tutor
+  1. [Request For Tutor Account](#registTutor)<br>
+  2. [Update Tutor Comforatble place](#upTutorPlace)<br>
+  3. [Update Tutor Comforatble Time](#upTutorTime)<br>
+  4. [Update Tutor Want List](#upTutorTeach)<br>
 [user write report](#userWriteReport)<br>
 [Admin search all tutor requests](#adminTutorRequestManagement)<br>
 
@@ -85,20 +91,21 @@
 * On success saving SESSION to cookies and redirect to admin homepage
 * Access session data on '/api/current-login-session'
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="faceAuth"></a>
 
 ### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
 * On success saving SESSION to cookies and redirect to homepage
 * Access session data on '/api/current-login-session'
-
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="lineAuth"></a>
 
 ### Line Authentication ( Access via GET method on '/api/auth/line' )
 * On success saving SESSION to cookies and redirect to homepage
 * Access session data on '/api/current-login-session'
-
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="currLog"></a> 
 
@@ -126,6 +133,7 @@
 | success | Bool | false | |
 | msg | String | 'User is not login, yet' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="logout"></a>
 
@@ -161,6 +169,7 @@
 | success | Bool | false | register unsuccessful |
 | msg | String | 'Registration incomplete',<br> 'Authenticate and condition accept need for register' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="stSearch"></a>
 
@@ -186,6 +195,7 @@
 | success | Bool | false | search incomplete |
 | msg | String | 'You should be a tutor to searching',<br> 'Student not found' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="tutorSearch"></a>
 
@@ -209,6 +219,7 @@
 | success | Bool | false | search incomplete |
 | msg | String | 'Tutor not found' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upStudentPro"></a>
 
@@ -238,6 +249,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Profile hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upStudentWant"></a>
 
@@ -260,6 +272,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Want list hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upStudentPlace"></a>
 
@@ -282,6 +295,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upStudentTime"></a>
 
@@ -304,6 +318,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="registTutor"></a>
 
@@ -331,6 +346,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Registration incomplete',<br> 'You should be a student, or login first' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upTutorTeach"></a>
 
@@ -354,6 +370,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Teacn list hasn\'t been update, please correct your input',<br> 'You should be a tutor to update your teach list' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upTutorPlace"></a>
 
@@ -376,6 +393,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should be a tutor to update your place' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="upTutorTime"></a>
 
@@ -398,6 +416,7 @@
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your place'  |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="getCreditCard"></a>
 
@@ -417,6 +436,7 @@
 | success | Bool | false | Get card incomplete |
 | msg | String | 'Credit Card not found', 'You should login before get your credit card' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="addCreditCard"></a>
 
@@ -443,6 +463,7 @@
 | success | Bool | false | Add credit card incomplete |
 | msg | String | 'You should login before add your credit card'   |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="updateCreditCard"></a>
 
@@ -470,6 +491,7 @@
 | success | Bool | false | updated credit card incomplete |
 | msg | String | 'Credit card hasn\'t been update, please correct your input',<br> 'You should login before update your credit card' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="deleteCreditCard"></a>
 
@@ -493,6 +515,7 @@
 | success | Bool | false | updated credit card incomplete |
 | msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="deleteAccount"></a>
 
@@ -515,6 +538,7 @@
 | success | Bool | false | delete account incomplete |
 | msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="tutorRequest"></a>
 
@@ -538,6 +562,7 @@
 | success | Bool | false | delete account incomplete |
 | msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="delTutorRequest"></a>
 
@@ -560,6 +585,7 @@
 | success | Bool | false | delete account incomplete |
 | msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="offerCourse"></a>
 
@@ -584,6 +610,7 @@
 | success | Bool | false |  |
 | msg | String | 'You used to send an offer to this student',<br> 'You should be a tutor to send offer to student' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="accepCourse"></a>
 
@@ -606,6 +633,7 @@
 | success | Bool | false |  |
 | msg | String | 'There is no any offers',<br> 'You should be a student to accept course offer' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="getCourseStudent"></a>
 
@@ -622,6 +650,7 @@
 | success | Bool | false | search incomplete |
 | msg | String | 'You should login to get the match' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="getCourseTutor"></a>
 
@@ -638,6 +667,7 @@
 | success | Bool | false | search incomplete |
 | msg | String | 'You should be a tutor to get tutor offer' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="userWriteReport"></a>
 
@@ -660,6 +690,7 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | insert report incompleted<br> reporterStudentID, topic, detail cannot be null |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="adminTutorRequestManagement"></a>
 
@@ -676,6 +707,7 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | no tutor request found |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="adminResponseToATutorRequest"></a>
 
@@ -696,4 +728,5 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | the id doesn't existed |
 
+<br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
