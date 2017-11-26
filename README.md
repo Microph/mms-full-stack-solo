@@ -55,12 +55,14 @@
 [Update Student Want List](#upStudentWant)<br>
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
+[Get Credit Card](#getCreditCard)<br>
 [Add Credit Card](#addCreditCard)<br>
 [Update Credit Card](#updateCreditCard)<br>
 [Delete Credit Card](#deleteCreditCard)<br>
 [Delete Account](#deleteAccount)<br>
 
 <a name="adminAuth"></a>
+
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
 #### Input Parameters
 | Field Name | Type | Description | Required? |
@@ -70,21 +72,24 @@
 
 * On success saving SESSION to cookies and redirect to admin homepage
 * Access session data on '/api/current-login-session'
-<p align="center">.................................................</p>
 
+<p align="center">.................................................</p>
 <a name="faceAuth"></a>
+
 ### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
 * On success saving SESSION to cookies and redirect to homepage
 * Access session data on '/api/current-login-session'
-<p align="center">.................................................</p>
 
+<p align="center">.................................................</p>
 <a name="lineAuth"></a>
+
 ### Line Authentication ( Access via GET method on '/api/auth/line' )
 * On success saving SESSION to cookies and redirect to homepage
 * Access session data on '/api/current-login-session'
-<p align="center">.................................................</p>
 
+<p align="center">.................................................</p>
 <a name="currLog"></a> 
+
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
 #### Return value if user already login (HTTP 200 Success)
 | Field Name | Type | Value | Description |
@@ -110,14 +115,14 @@
 | msg | String | 'User is not login, yet' |  |
 
 <p align="center">.................................................</p>
-
 <a name="logout"></a>
+
 ### Logout ( Access via GET method on '/api/logout' )
 * Performs logout will clear all session then redirect to the home page
 
 <p align="center">.................................................</p>
-
 <a name="regist"></a>
+
 ### Register ( Access via POST method on '/api/register' )
 #### Pre-required
 * Authentication
@@ -145,8 +150,8 @@
 | msg | String | 'Registration incomplete',<br> 'Authenticate and condition accept need for register' |  |
 
 <p align="center">.................................................</p>
-
 <a name="stSearch"></a>
+
 ### Student Search ( Access via GET method on '/api/search/student' )
 #### Pre-required
 * Authentication
@@ -170,10 +175,9 @@
 | msg | String | 'You should login before searching',<br> 'Student not found' |  |
 
 <p align="center">.................................................</p>
-
 <a name="tutorSearch"></a>
-### Tutor Search ( Access via GET method on '/api/search/tutor' )
 
+### Tutor Search ( Access via GET method on '/api/search/tutor' )
 #### Input Parameters
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -194,8 +198,8 @@
 | msg | String | 'Tutor not found' |  |
 
 <p align="center">.................................................</p>
-
 <a name="upStudentPro"></a>
+
 ### Update Student Profile ( Access via PUT method on '/api/student/profile/update' )
 #### Pre-required
 * Authentication
@@ -223,8 +227,8 @@
 | msg | String | 'Profile hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
-
 <a name="upStudentWant"></a>
+
 ### Update Student Want List ( Access via PUT method on '/api/student/wantList/update' )
 #### Pre-required
 * Authentication
@@ -245,8 +249,8 @@
 | msg | String | 'Want list hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
-
 <a name="upStudentPlace"></a>
+
 ### Update Student Comfort Place ( Access via PUT method on '/api/student/place/update' )
 #### Pre-required
 * Authentication
@@ -267,8 +271,8 @@
 | msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
-
 <a name="upStudentTime"></a>
+
 ### Update Student Comfort Time ( Access via PUT method on '/api/student/time/update' )
 #### Pre-required
 * Authentication
@@ -289,8 +293,27 @@
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
+<a name="getCreditCard"></a>
 
+### Get Credit Card ( Access via GET method on '/api/payment/card/add' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | Get credit card complete |
+| cards | Objects | [{ cardNO: String(16), <br>cardHolder: String(200), <br>CVV: String(3), <br>expireMonth: String(2), <br>expireYear: String(2)}] | found cards |
+| count | Number |  | Amount of card related to authenticate student |
+#### Return value on incomplete (HTTP 200 Success, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | Get card incomplete |
+| msg | String | 'Credit Card not found', 'You should login before get your credit card' |  |
+
+<p align="center">.................................................</p>
 <a name="addCreditCard"></a>
+
 ### Add New Credit Card Time ( Access via POST method on '/api/payment/card/add' )
 #### Pre-required
 * Authentication
@@ -315,8 +338,8 @@
 | msg | String | 'You should login before add your credit card'   |  |
 
 <p align="center">.................................................</p>
-
 <a name="updateCreditCard"></a>
+
 ### Update New Credit Card Time ( Access via PUT method on '/api/payment/card/update' )
 #### Pre-required
 * Authentication
@@ -342,8 +365,8 @@
 | msg | String | 'Credit card hasn\'t been update, please correct your input',<br> 'You should login before update your credit card' |  |
 
 <p align="center">.................................................</p>
-
 <a name="deleteCreditCard"></a>
+
 ### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/delete' )
 #### Pre-required
 * Authentication
@@ -365,8 +388,8 @@
 | msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
 
 <p align="center">.................................................</p>
-
 <a name="deleteAccount"></a>
+
 ### Remove Account ( Access via DELETE method on '/api/account/delete' )
 #### Pre-required
 * Authentication

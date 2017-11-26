@@ -7,7 +7,6 @@ module.exports = {
         return new Promise((resolve, reject) => {
             Schema.CreditCard.findAndCountAll({
                 attributes: [
-                    'studentID',
                     'cardNO',
                     'cardHolder',
                     'CVV',
