@@ -65,7 +65,7 @@
 [Delete Credit Card](#deleteCreditCard)<br>
 [Delete Account](#deleteAccount)<br>
 [Student Request for a Tutor](#tutorRequest)<br>
-[Delete Student Request for a Tutor](#deleteTutorRequest)<br>
+[Delete Student Request for a Tutor](#delTutorRequest)<br>
 [user write report](#userWriteReport)<br>
 [Admin search all tutor requests](#adminTutorRequestManagement)<br>
 
