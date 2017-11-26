@@ -64,6 +64,8 @@
 [Update Credit Card](#updateCreditCard)<br>
 [Delete Credit Card](#deleteCreditCard)<br>
 [Delete Account](#deleteAccount)<br>
+[Student Request for a Tutor](#tutorRequest)<br>
+[Delete Student Request for a Tutor](#delTutorRequest)<br>
 [user write report](#userWriteReport)<br>
 [Admin search all tutor requests](#adminTutorRequestManagement)<br>
 
@@ -508,6 +510,51 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | delete account incomplete |
 | msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
+
+<p align="center">.................................................</p>
+<a name="tutorRequest"></a>
+
+### Student request for a Tutor ( Access via POST method on '/api/match/request' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | student id of a tutor is tutorID | Yes |
+| subject | String(100) | subject that you want to study | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'Request for a tutor complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
+
+<p align="center">.................................................</p>
+<a name="delTutorRequest"></a>
+
+### Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete' )
+#### Pre-required
+* Authentication
+* Is a tutor
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | Integer | student id you want to delete the request | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'The request has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
 
 <p align="center">.................................................</p>
 <a name="userWriteReport"></a>

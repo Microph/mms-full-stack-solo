@@ -36,6 +36,7 @@ module.exports.start = (options) => {
     require('../api/payment')(app, passport, options)
     require('../api/report')(app, passport, options)
     require('../api/user')(app, passport, options)
+    require('../api/match')(app, passport, options)
     require('../api/student')(app, passport, options)
     require('../api/tutor')(app, passport, options)
 
