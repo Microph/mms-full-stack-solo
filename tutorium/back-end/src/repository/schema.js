@@ -52,6 +52,33 @@ const Admin = sequelize.define('admin', {
     }
 })
 
+const CreditCard = sequelize.define('creditCard', {
+    studentID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    cardNO: {
+        type: Sequelize.STRING(16),
+        primaryKey: true
+    },
+    cardHolder: {
+        type: Sequelize.STRING(200),
+        allowNull: false
+    },
+    CVV: {
+        type: Sequelize.STRING(3),
+        allowNull: false
+    },
+    expireMonth: {
+        type: Sequelize.STRING(2),
+        allowNull: false
+    },
+    expireYear: {
+        type: Sequelize.STRING(2),
+        allowNull: false
+    }
+})
+
 const Report = sequelize.define('report', {
     reportID: {
         type: Sequelize.INTEGER,
@@ -143,7 +170,7 @@ const Tutor = sequelize.define('tutor', {
         defaultValue: false }
 })
 
-/* #### Relations #### */
+/* #### 1-1 Relations #### */
 Account.belongsTo(Student, { 
     foreignKey: 'studentID',
     onDelete: 'CASCADE',
@@ -156,12 +183,14 @@ Tutor.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
-Student.hasMany(Report, {
+/* #### 1-Many Relations #### */
+Student.hasMany(CreditCard, {
+    foreignKey: 'studentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
 
-Report.belongsTo(Student, {
+Student.hasMany(Report, {
     foreignKey: 'studentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
@@ -170,6 +199,7 @@ Report.belongsTo(Student, {
 module.exports = {
     Account: Account,
     Admin: Admin,
+    CreditCard: CreditCard,
     Student: Student,
     Tutor: Tutor,
     Report: Report

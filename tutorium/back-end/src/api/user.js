@@ -322,4 +322,36 @@ module.exports = (app, passport, options) => {
       })
     }
   })
+
+  app.delete('/api/account/delete', (req, res, next) => {
+    if(req.user && req.user.studentID) {
+      if(req.body.confirm) {
+        let user = require('../repository/user')
+        let studentID = req.user.studentID
+        user.deleteStudentAccount(studentID).then(result => {
+          if(result) {
+            res.status(200).send({
+              success: true,
+              msg: 'Delete Account Complete'
+            })
+          } else {
+            res.status(400).send({
+              success: false,
+              msg: 'Account hasn\'t been delete or already been delete, please correct your input'
+            })
+          }
+        })
+      } else {
+        res.status(400).send({
+          success: false,
+          msg: 'You need to confirm for delete account'
+        })
+      }
+    } else {
+      res.status(403).send({
+        success: false,
+        msg: 'You need to authenticate before delete account'
+      })
+    }
+  })
 }

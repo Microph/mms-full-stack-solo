@@ -25,5 +25,5 @@ module.exports = {
     callbackURL: 'http://localhost:8123/api/auth/line/callback'
   },
   homepage: 'http://localhost:3000/',
-  adminHomepage: 'http://localhost:3000/admin/dashboard'
+  adminHomepage: 'http://localhost:3000/admin/'
 };
