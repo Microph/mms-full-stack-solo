@@ -119,7 +119,7 @@ module.exports = (app, passport, options) => {
             qry.adminSuspendStudent(req.body.id).then((result) => {
                 res.status(200).send({ 
                     success: true, 
-                    report: result
+                    result: result
                 })
             })
         } else {
@@ -136,6 +136,21 @@ module.exports = (app, passport, options) => {
             res.redirect('/api/admin/logout')
             return;
         }
+
+        let qry = require('../repository/admin')
+        qry.adminSearchSuspendedAccount().then((result) => {
+            if (result.count === 0){
+                res.status(200).send({ 
+                    success: false,
+                    msg: 'No suspended account!'
+                })
+            } else {
+                res.status(200).send({ 
+                    success: true, 
+                    result: result
+                })
+            }
+        })
     })
 
     //-----------------------------------------------------------------------------------------------unsuspend-a-user---
@@ -143,6 +158,27 @@ module.exports = (app, passport, options) => {
         if (isAdmin(req) === false) {
             res.redirect('/api/admin/logout')
             return;
+        }
+
+        if (req.body.id) {
+            let qry = require('../repository/admin')
+            qry.adminUnsuspendAccount(req.body.id).then((result) => {
+                if (result === 0) {
+                    res.status(400).send({ 
+                        success: false,
+                        msg: 'The account is not suspended'
+                    })
+                } else {
+                    res.status(200).send({ 
+                        success: true
+                    })
+                }
+                
+            })
+        } else {
+            res.status(400).send({ 
+                success: false
+            })
         }
     })
 

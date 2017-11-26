@@ -218,20 +218,20 @@ Account.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
-Match.belongsTo(Student, {
-    foreignKey: 'studentID',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-})
-
-Match.belongsTo(Tutor, {
-    foreignKey: 'tutorID',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-})
-
 Tutor.belongsTo(Student, {
     foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Suspended.belongsTo(Student,{
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Report.belongsTo(Student, {
+    foreignKey: 'reporterStudentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
@@ -262,12 +262,10 @@ Student.hasMany(CreditCard, {
 })
 
 Student.hasMany(Report, {
-    foreignKey: 'studentID',
+    foreignKey: 'reporterStudentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
-
-sequelize.sync()
 
 module.exports = {
     Account: Account,
