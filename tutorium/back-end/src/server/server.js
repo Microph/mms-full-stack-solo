@@ -34,6 +34,7 @@ module.exports.start = (options) => {
     require('../api/user')(app, passport, options)
     require('../api/matching')(app, passport, options)
     require('../api/admin')(app, passport, options)
+    require('../api/report')(app, passport, options)
 
     //  Start the app, creating a running server which we return.
     let server = app.listen(options.port, () => {

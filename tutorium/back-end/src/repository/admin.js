@@ -2,6 +2,10 @@
 
 let Schema = require('./schema')
 
+function adminDashboard() {
+
+}
+
 function adminSearchTutorRequest() {
     return new Promise((resolve, reject) => {
         Schema.Tutor.findAndCountAll({
@@ -45,8 +49,17 @@ function adminDeleteTutorRequest(SID) {
     })
 }
 
+function adminSearchAllReport() {
+    return new Promise((resolve, reject) => {
+        Schema.Report.findAndCountAll().then(result => {
+            resolve(result)
+        })
+    })
+}
+
 module.exports = {
     adminSearchTutorRequest: adminSearchTutorRequest,
     adminAcceptTutorRequest: adminAcceptTutorRequest,
-    adminDeleteTutorRequest:adminDeleteTutorRequest
+    adminDeleteTutorRequest:adminDeleteTutorRequest,
+    adminSearchAllReport: adminSearchAllReport
 }

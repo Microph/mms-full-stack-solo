@@ -49,7 +49,7 @@ const Admin = sequelize.define('admin', {
     password: {
         type: Sequelize.STRING, 
         allowNull: false 
-    },
+    }
 })
 
 const Report = sequelize.define('report', {
@@ -109,7 +109,11 @@ const Student = sequelize.define('student', {
     },
     wantList: Sequelize.STRING(2000),
     place: Sequelize.STRING(1000),
-    time: Sequelize.STRING(1500)
+    time: Sequelize.STRING(1500),
+    isBanned: {
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false 
+    }
 })
 
 const Tutor = sequelize.define('tutor', {
@@ -136,7 +140,7 @@ const Tutor = sequelize.define('tutor', {
     uploadEvidence: Sequelize.STRING(2000),
     isApproved: { 
         type: Sequelize.BOOLEAN, 
-        defaultValue: false },
+        defaultValue: false }
 })
 
 /* #### Relations #### */
@@ -152,9 +156,21 @@ Tutor.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
+Student.hasMany(Report, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Report.belongsTo(Student, {
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
 module.exports = {
     Account: Account,
     Admin: Admin,
     Student: Student,
-    Tutor: Tutor
+    Tutor: Tutor,
+    Report: Report
 }
