@@ -45,6 +45,39 @@ module.exports = (app, passport, options) => {
         }
     })
 
+    app.post('/api/tutor/register', (req, res, next) => {
+        if(req.user && req.user.studentID) {
+            let userInput = req.body
+            let studentID = req.user.studentID
+
+            tutor.register(studentID, userInput).then(result => {
+                if(result.studentID) {
+                    if(result.created) {
+                      res.status(200).send({
+                        success: true,
+                        msg: 'Register complete'
+                      })
+                    } else {
+                      res.status(200).send({
+                        success: true,
+                        msg: 'Account is already register'
+                      })
+                    }
+                  } else {
+                    res.status(400).send({
+                      success: false,
+                      msg: 'Registration incomplete' 
+                    })
+                  }
+            })
+        } else {
+            res.status(403).send({ 
+                success: false, 
+                msg: 'You should be a student, or login first' 
+            })
+        }
+    })
+
     app.put('/api/tutor/teachList/update', (req, res, next) => {
         if(req.user && req.user.isTutor) {
             let updateData = req.body

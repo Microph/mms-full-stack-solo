@@ -79,6 +79,33 @@ const CreditCard = sequelize.define('creditCard', {
     }
 })
 
+const Match = sequelize.define('match', {
+    studentID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    tutorID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    subject: {
+        type: Sequelize.STRING(100),
+        allowNull: false
+    },
+    price: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    studentConfirm: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    },
+    tutorConfirm: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
+})
+
 const Report = sequelize.define('report', {
     reportID: {
         type: Sequelize.INTEGER,
@@ -190,6 +217,7 @@ module.exports = {
     Account: Account,
     Admin: Admin,
     CreditCard: CreditCard,
+    Match: Match,
     Student: Student,
     Tutor: Tutor
 }
