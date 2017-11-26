@@ -480,3 +480,25 @@
 | msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
 
 <p align="center">.................................................</p>
+<a name="userWriteReport"></a>
+
+### User write report ( Access via POST method on '/api/user-write-report' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| reporterStudentID | Int |  | Yes |
+| reportedStudentID | Int |  | No |
+| topic | String(200) |  | Yes |
+| detail | String(2000) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | insert report completed |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | insert report incompleted<br> reporterStudentID, topic, detail cannot be null |
+
+<p align="center">.................................................</p>
