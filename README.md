@@ -55,11 +55,15 @@
 [Update Student Want List](#upStudentWant)<br>
 [Update Student Comforatble place](#upStudentPlace)<br>
 [Update Student Comforatble Time](#upStudentTime)<br>
+[Update Tutor Want List](#upTutorTeach)<br>
+[Update Tutor Comforatble place](#upTutorPlace)<br>
+[Update Tutor Comforatble Time](#upTutorTime)<br>
 [Get Credit Card](#getCreditCard)<br>
 [Add Credit Card](#addCreditCard)<br>
 [Update Credit Card](#updateCreditCard)<br>
 [Delete Credit Card](#deleteCreditCard)<br>
 [Delete Account](#deleteAccount)<br>
+[user write report](#userWriteReport)<br>
 
 <a name="adminAuth"></a>
 
@@ -172,7 +176,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
-| msg | String | 'You should login before searching',<br> 'Student not found' |  |
+| msg | String | 'You should be a tutor to searching',<br> 'Student not found' |  |
 
 <p align="center">.................................................</p>
 <a name="tutorSearch"></a>
@@ -293,9 +297,76 @@
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your profile'  |  |
 
 <p align="center">.................................................</p>
+<a name="upTutorTeach"></a>
+
+### Update Tutor Teach List ( Access via PUT method on '/api/tutor/teachList/update' )
+#### Pre-required
+* Authentication
+* Is tutor (Already approved)
+
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| teachList | Objects | Tutor teach list | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Teacn list hasn\'t been update, please correct your input',<br> 'You should be a tutor to update your teach list' |  |
+
+<p align="center">.................................................</p>
+<a name="upTutorPlace"></a>
+
+### Update Tutor Comfort Place ( Access via PUT method on '/api/tutor/place/update' )
+#### Pre-required
+* Authentication
+* Is tutor (Already approved)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| place | Objects | User comfortable place | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Place hasn\'t been update, please correct your input',<br> 'You should be a tutor to update your place' |  |
+
+<p align="center">.................................................</p>
+<a name="upTutorTime"></a>
+
+### Update Tutor Comfort Time ( Access via PUT method on '/api/tutor/time/update' )
+#### Pre-required
+* Authentication
+* Is tutor (Already approved)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| time | Objects | User comfortable time | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | updated complete |
+| msg | String | 'Updated Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | updated incomplete |
+| msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your place'  |  |
+
+<p align="center">.................................................</p>
 <a name="getCreditCard"></a>
 
-### Get Credit Card ( Access via GET method on '/api/payment/card/add' )
+### Get Credit Card ( Access via GET method on '/api/payment/card' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -408,5 +479,27 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | delete account incomplete |
 | msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
+
+<p align="center">.................................................</p>
+<a name="userWriteReport"></a>
+
+### User write report ( Access via POST method on '/api/user-write-report' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| reporterStudentID | Int |  | Yes |
+| reportedStudentID | Int |  | No |
+| topic | String(200) |  | Yes |
+| detail | String(2000) |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | insert report completed |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | insert report incompleted<br> reporterStudentID, topic, detail cannot be null |
 
 <p align="center">.................................................</p>
