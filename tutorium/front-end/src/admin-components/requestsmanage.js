@@ -14,8 +14,6 @@ class RequestsManage extends Component {
           requests: [],
           cards: []
       };
-
-    this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
   }
 
   async componentDidMount() {
