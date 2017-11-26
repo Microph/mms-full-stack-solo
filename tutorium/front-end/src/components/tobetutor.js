@@ -7,20 +7,13 @@ import {
   FlatButton,
   Checkbox
 } from "material-ui";
+import UserPayment from "./general/profiles-component/userpayment";
 
 class ToBeTutor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      lastname: "",
-      fburl: "",
-      lineid: "",
-      email: "",
-      phone: "",
-      gender: "male",
-      edlvl: "pratom",
-      agreement: false,
+      agreement: false
     };
   }
 
@@ -42,109 +35,11 @@ class ToBeTutor extends Component {
         >
           {/* Header */}
           {howto()}
-          {/* Personal Info */}
-          <div
-            style={{
-              fontSize: 30,
-              marginTop: 20,
-              alignSelf: "flex-start",
-              color: "#505050"
-            }}
-          >
-            ข้อมูลส่วนตัว
-          </div>
-          {/* FirstName */}
-          <TextField
-            fullWidth
-            hintText="กรุณากรอกชื่อของคุณ"
-            floatingLabelText="ชื่อ"
-            underlineShow={false}
-            // required
-            onChange={(event, name) => this.setState({ name })}
-            value={this.state.name}
-          />
-          {/* Lastname */}
-          <TextField
-            fullWidth
-            hintText="กรุณากรอกนามสกุลของคุณ"
-            floatingLabelText="นามสกุล"
-            underlineShow={false}
-            // required
-            onChange={(event, lastname) => this.setState({ lastname })}
-            value={this.state.lastname}
-          />
-          {/* Gender */}
-          <SelectField
-            fullWidth
-            floatingLabelText="เพศ"
-            value={this.state.gender}
-            required
-            onChange={(event, key, gender) => this.setState({ gender })}
-          >
-            <MenuItem value="male" primaryText="ชาย" />
-            <MenuItem value="female" primaryText="หญิง" />
-            <MenuItem value="others" primaryText="อื่น ๆ" />
-          </SelectField>
-          {/* Education Level */}
-          <SelectField
-            fullWidth
-            floatingLabelText="ระดับการศึกษา"
-            value={this.state.edlvl}
-            required
-            onChange={(event, key, edlvl) => this.setState({ edlvl })}
-          >
-            <MenuItem value="pratom" primaryText="ประถมศึกษา" />
-            <MenuItem value="matthayomton" primaryText="มัธยมศึกษาตอนต้น" />
-            <MenuItem value="matthayomplai" primaryText="มัธยมศึกษาตอนปลาย" />
-            <MenuItem value="bachelor" primaryText="ปริญญาตรี" />
-            <MenuItem value="master" primaryText="ปริญญาโท" />
-            <MenuItem value="doctor" primaryText="ปริญญาเอง" />
-          </SelectField>
-          {/* FB URL */}
-          <TextField
-            fullWidth
-            hintText="กรุณากรอก Facebook URL ของคุณ ตัวอย่าง www.facebook.com/yourUrl"
-            floatingLabelText="Facebook URL"
-            underlineShow={false}
-            // required
-            onChange={(event, fburl) => this.setState({ fburl })}
-            value={this.state.fburl}
-          />
-          {/* Line ID */}
-          <TextField
-            fullWidth
-            hintText="กรุณากรอก Line ID ของคุณ"
-            floatingLabelText="Line ID"
-            underlineShow={false}
-            // required
-            onChange={(event, lineid) => this.setState({ lineid })}
-            value={this.state.lineid}
-          />
-          {/* E-mail */}
-          <TextField
-            fullWidth
-            hintText="กรุณากรอกอีเมลล์ของคุณ"
-            floatingLabelText="อีเมลล์"
-            underlineShow={false}
-            // required
-            onChange={(event, email) => this.setState({ email })}
-            value={this.state.email}
-          />
-          {/* Phone number */}
-          <TextField
-            fullWidth
-            hintText="กรุณากรอกหมายเลขโทรศัพท์ของคุณ"
-            floatingLabelText="หมายเลขโทรศัพท์"
-            underlineShow={false}
-            // required
-            onChange={(event, phone) => this.setState({ phone })}
-            value={this.state.phone}
-          />
 
           {/* Edu Info */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               marginTop: 20,
               alignSelf: "flex-start",
               color: "#505050"
@@ -156,7 +51,7 @@ class ToBeTutor extends Component {
           {/* Teaching Info */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               marginTop: 20,
               alignSelf: "flex-start",
               color: "#505050"
@@ -168,7 +63,7 @@ class ToBeTutor extends Component {
           {/* Exp Info */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               marginTop: 20,
               alignSelf: "flex-start",
               color: "#505050"
@@ -180,7 +75,7 @@ class ToBeTutor extends Component {
           {/* Place Info */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               marginTop: 20,
               alignSelf: "flex-start",
               color: "#505050"
@@ -192,25 +87,29 @@ class ToBeTutor extends Component {
           {/* Evidence */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               marginTop: 20,
               alignSelf: "flex-start",
               color: "#505050"
             }}
           >
             หลักฐานการยืนยันตัวตน
+            <span style={{ color: "#606060", fontSize: 20, marginLeft: 10 }}>
+              (ฟังก์ชันยังไม่พร้อมใช้งานในขณะนี้)
+            </span>
           </div>
 
           {/* Bank Info */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               marginTop: 20,
               alignSelf: "flex-start",
               color: "#505050"
             }}
           >
             บัญชีสำหรับรับค่าบริการ
+            <UserPayment />
           </div>
 
           {/* I've read it */}
@@ -250,8 +149,7 @@ const howto = () => {
           alignSelf: "flex-start"
         }}
       >
-        1. ตรวจสอบข้อมูลส่วนตัว<br />
-        2. กรอกข้อมูลเพิ่มเติม* และอัปโหลดหลักฐานการยืนยันตัวตน<br />
+        1. กรอกข้อมูล* และอัปโหลดหลักฐานการยืนยันตัวตน<br />
         <div
           style={{
             fontSize: 15,
@@ -262,8 +160,8 @@ const howto = () => {
           (บัตรประจำตัวประชาชน หรือ บัตรประจำตัวนักเรียน / นักศึกษา หรือ
           พาสปอร์ต)<br />
         </div>
-        3. เลือกบัญชีธนาคารสำหรับรับค่าบริการ<br />
-        4. ยืนยันและรอการตอบรับจากผู้ดูแลระบบ<br />
+        2. เลือกบัญชีธนาคารสำหรับรับค่าบริการ<br />
+        3. ยืนยันและรอการตอบรับจากผู้ดูแลระบบ<br />
         <div
           style={{
             fontSize: 15,

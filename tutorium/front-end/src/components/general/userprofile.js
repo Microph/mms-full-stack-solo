@@ -27,7 +27,7 @@ class Profile extends Component {
           }}
         />
         {/* Payment */}
-        <UserPayment />
+        <UserPayment topic="การชำระเงิน" />
         <Divider
           style={{
             backgroundColor: "#505050",
