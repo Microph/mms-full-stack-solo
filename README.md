@@ -93,20 +93,6 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="faceAuth"></a>
-
-### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
-* On success saving SESSION to cookies and redirect to homepage
-* Access session data on '/api/current-login-session'
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="lineAuth"></a>
-
-### Line Authentication ( Access via GET method on '/api/auth/line' )
-* On success saving SESSION to cookies and redirect to homepage
-* Access session data on '/api/current-login-session'
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
 <a name="currLog"></a> 
 
 ### Current Login Session Data ( Access via GET method on '/api/current-login-session' )
@@ -133,6 +119,43 @@
 | success | Bool | false | |
 | msg | String | 'User is not login, yet' |  |
 
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="deleteAccount"></a>
+
+### Delete Account ( Access via DELETE method on '/api/account/delete' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| confirm | Bool | true or false for confirm to delete | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'Delete Account Complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="faceAuth"></a>
+
+### Facebook Authentication ( Access via GET method on '/api/auth/facebook' )
+* On success saving SESSION to cookies and redirect to homepage
+* Access session data on '/api/current-login-session'
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="lineAuth"></a>
+
+### Line Authentication ( Access via GET method on '/api/auth/line' )
+* On success saving SESSION to cookies and redirect to homepage
+* Access session data on '/api/current-login-session'
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="logout"></a>
@@ -514,29 +537,6 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated credit card incomplete |
 | msg | String | 'Credit card hasn\'t been delete, please correct your input',<br> 'You should login before delete your credit card' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="deleteAccount"></a>
-
-### Remove Account ( Access via DELETE method on '/api/account/delete' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| confirm | Bool | true or false for confirm to delete | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | deleted account complete |
-| msg | String | 'Delete Account Complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | delete account incomplete |
-| msg | String | 'Account hasn\'t been delete or already been delete, please correct your input',<br> 'You need to confirm for delete account',<br> 'You need to authenticate before delete account' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
