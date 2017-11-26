@@ -182,6 +182,17 @@ module.exports = (app, passport, options) => {
         }
     })
 
+    //----------------------------------------------------------------------------------------------------------EXTRA---
+    app.get('/api/get-student-info-by-id', (req, res, next) => {
+        let qry = require('../repository/admin')
+        qry.getStudentInfoByID(req.headers.id).then((result) => {
+            res.status(200).send({ 
+                success: true,
+                result: result
+            })
+        })
+    })
+
     //---------------------------------------------------------------------------------------query-all-delete-request---
     app.get('/api/admin/delete-request-management', (req, res, next) => {
         if (isAdmin(req) === false) {

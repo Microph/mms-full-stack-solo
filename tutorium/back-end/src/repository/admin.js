@@ -53,8 +53,21 @@ function adminSearchAllReport() {
     return new Promise((resolve, reject) => {
         Schema.Report.findAndCountAll({
             include: [{
-                model: Schema.Student
+                model: Schema.Student,
+                as: 'reporter'
             }]
+        }).then(result => {
+            resolve(result)
+        })
+    })
+}
+
+function getStudentInfoByID(SID) {
+    return new Promise((resolve, reject) => {
+        Schema.Student.findOne({
+            where: {
+                studentID: SID
+            }
         }).then(result => {
             resolve(result)
         })
@@ -104,5 +117,6 @@ module.exports = {
     adminSearchAllReport: adminSearchAllReport,
     adminSuspendStudent: adminSuspendStudent,
     adminSearchSuspendedAccount: adminSearchSuspendedAccount,
-    adminUnsuspendAccount: adminUnsuspendAccount
+    adminUnsuspendAccount: adminUnsuspendAccount,
+    getStudentInfoByID: getStudentInfoByID
 }

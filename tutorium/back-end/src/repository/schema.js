@@ -231,6 +231,14 @@ Suspended.belongsTo(Student,{
 })
 
 Report.belongsTo(Student, {
+    as: 'reported',
+    foreignKey: 'reportedStudentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Report.belongsTo(Student, {
+    as: 'reporter',
     foreignKey: 'reporterStudentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
