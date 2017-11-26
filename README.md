@@ -60,7 +60,7 @@
   1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
   2. [Get Course Offer By a Student](#getCourseStudent)<br>
   3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
-  4. [Student Accep Course Offer](#accepCourse)<br>
+  4. [Student Accept Course Offer](#acceptCourse)<br>
   5. [Student Request for a Tutor](#tutorRequest)<br>
   6. [Tutor Offer Course to a Student](#offerCourse)<br>
 * Search
@@ -196,7 +196,7 @@
 <p align="center">.................................................</p>
 <a name="addCreditCard"></a>
 
-### Add New Credit Card Time ( Access via POST method on '/api/payment/card/add' )
+### Add Credit Card ( Access via POST method on '/api/payment/card/add' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -223,7 +223,7 @@
 <p align="center">.................................................</p>
 <a name="deleteCreditCard"></a>
 
-### Remove Credit Card Time ( Access via DELETE method on '/api/payment/card/delete' )
+### Delete Credit Card ( Access via DELETE method on '/api/payment/card/delete' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -267,7 +267,7 @@
 <p align="center">.................................................</p>
 <a name="updateCreditCard"></a>
 
-### Update New Credit Card Time ( Access via PUT method on '/api/payment/card/update' )
+### Update Credit Card ( Access via PUT method on '/api/payment/card/update' )
 #### Pre-required
 * Authentication
 * Has StudentID (already register)
@@ -293,6 +293,149 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
+<a name="delTutorRequest"></a>
+
+### Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete' )
+#### Pre-required
+* Authentication
+* Is a tutor
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | Integer | student id you want to delete the request | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'The request has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="getCourseStudent"></a>
+
+### Get Course Offer by a Student ( Access via GET method on '/api/match/bystudent' )
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
+| count | Number |  | Amount of offer |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should login to get the match' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="getCourseTutor"></a>
+
+### Get Course Offer by a Tutor ( Access via GET method on '/api/match/bytutor' )
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
+| count | Number |  | Amount of offer |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should be a tutor to get tutor offer' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="acceptCourse"></a>
+
+### Student Accept Course Offer ( Access via POST method on '/api/match/offer/accept' )
+#### Pre-required
+* Authentication
+* Is student
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | whose tutor do you want to accept offer | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| msg | String | 'Confirm complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false |  |
+| msg | String | 'There is no any offers',<br> 'You should be a student to accept course offer' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="tutorRequest"></a>
+
+### Student request for a Tutor ( Access via POST method on '/api/match/request' )
+#### Pre-required
+* Authentication
+* Has StudentID (already register)
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | student id of a tutor is tutorID | Yes |
+| subject | String(100) | subject that you want to study | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'Request for a tutor complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="offerCourse"></a>
+
+### Tutor Offer Course to a Student ( Access via POST method on '/api/match/offer' )
+#### Pre-required
+* Authentication
+* Is tutor
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | Integer | send offer to whose student | Yes |
+| subject | String(100) | subject that you want to teach | Yes |
+| price | Integer |  | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| msg | String | 'Offer to a student complete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false |  |
+| msg | String | 'You used to send an offer to this student',<br> 'You should be a tutor to send offer to student' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <a name="stSearch"></a>
 
 ### Student Search ( Access via GET method on '/api/search/student' )
@@ -537,135 +680,6 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | updated incomplete |
 | msg | String | 'Place hasn't been update, please correct your input',<br> 'You should login before update your place'  |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="tutorRequest"></a>
-
-### Student request for a Tutor ( Access via POST method on '/api/match/request' )
-#### Pre-required
-* Authentication
-* Has StudentID (already register)
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| tutorID | Integer | student id of a tutor is tutorID | Yes |
-| subject | String(100) | subject that you want to study | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | deleted account complete |
-| msg | String | 'Request for a tutor complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | delete account incomplete |
-| msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="delTutorRequest"></a>
-
-### Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete' )
-#### Pre-required
-* Authentication
-* Is a tutor
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| studentID | Integer | student id you want to delete the request | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | deleted account complete |
-| msg | String | 'The request has already been delete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | delete account incomplete |
-| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="offerCourse"></a>
-
-### Offer Course to a Student ( Access via POST method on '/api/match/offer' )
-#### Pre-required
-* Authentication
-* Is tutor
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| studentID | Integer | send offer to whose student | Yes |
-| subject | String(100) | subject that you want to teach | Yes |
-| price | Integer |  | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true |  |
-| msg | String | 'Offer to a student complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false |  |
-| msg | String | 'You used to send an offer to this student',<br> 'You should be a tutor to send offer to student' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="accepCourse"></a>
-
-### Offer Course to a Student ( Access via POST method on '/api/match/offer/accept' )
-#### Pre-required
-* Authentication
-* Is student
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| tutorID | Integer | whose tutor do you want to accept offer | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true |  |
-| msg | String | 'Confirm complete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false |  |
-| msg | String | 'There is no any offers',<br> 'You should be a student to accept course offer' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="getCourseStudent"></a>
-
-### Get Course Offer by Student ( Access via GET method on '/api/match/bystudent' )
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true |  |
-| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
-| count | Number |  | Amount of offer |
-#### Return value on incomplete (HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | search incomplete |
-| msg | String | 'You should login to get the match' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
-<a name="getCourseTutor"></a>
-
-### Get Course Offer by Tutor ( Access via GET method on '/api/match/bytutor' )
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true |  |
-| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
-| count | Number |  | Amount of offer |
-#### Return value on incomplete (HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | search incomplete |
-| msg | String | 'You should be a tutor to get tutor offer' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
