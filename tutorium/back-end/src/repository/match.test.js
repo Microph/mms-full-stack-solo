@@ -119,19 +119,120 @@ describe('test tutor request', () => {
     });
 });
 
-describe('test delete tutor request', () => {
+describe('test get tutor request by student id', () => {
+    test('get dummy tutor request', async () => {
+        const tutorRequest = await match.getOfferByStudentID(1);
+        // should get one request
+        expect(tutorRequest.count).toEqual(1);       
+    });
+
+    test('get invalid id', () => {
+        // should be undefined
+        return expect(match.getTutorRequestByStudentID(0)).resolves.toBeUndefined();
+    });
+});
+
+describe('test get tutor request by tutor id', () => {
+    test('get dummy tutor request', async () => {
+        const tutorRequest = await match.getTutorRequestByTutorID(2);
+        // should get one request
+        expect(tutorRequest.count).toEqual(1);       
+    });
+
+    test('get invalid id', () => {
+        // should be undefined
+        return expect(match.getTutorRequestByTutorID(0)).resolves.toBeUndefined();
+    });
+});
+// describe('test delete tutor request', () => {
+//     test('delete dummy request', () => {
+//         // should success
+//         return expect(match.deleteTutorRequest(1, 2)).resolves.toEqual(1);
+//     });
+
+//     test('delete non-exist request', () => {
+//         // should fail
+//         return expect(match.deleteTutorRequest(1, 1)).resolves.toEqual(0);
+//     });
+
+//     test('delete invalid student id', () => {
+//         // should be undefined
+//         return expect(match.acceptOffer(0, 0)).resolves.toBeUndefined();
+//     });
+// });
+
+describe('test delete tutor request by student', () => {
     test('delete dummy request', () => {
         // should success
-        return expect(match.deleteTutorRequest(1, 2)).resolves.toEqual(1);
+        const userInput = {
+            tutorID: 2,
+            subject: JSON.stringify([{
+                subject: 'math',
+                level: 'bachelor'
+            }])
+        }
+        return expect(match.deleteTutorRequestByStudent(1, userInput)).resolves.toEqual(1);
     });
 
-    test('delete non-exist request', () => {
-        // should fail
-        return expect(match.deleteTutorRequest(1, 1)).resolves.toEqual(0);
+    test('delete invalid request', () => {
+        // should success
+        const userInput = {
+            tutorID: 0,
+            subject: JSON.stringify([{
+                subject: 'math',
+                level: 'bachelor'
+            }])
+        }
+        return expect(match.deleteTutorRequestByStudent(0, userInput)).resolves.toBeUndefined();
+    });
+});
+
+describe('test delete tutor request by tutor', () => {
+    test('delete dummy request', () => {
+        // should success
+        const userInput = {
+            studentID: 1,
+            subject: JSON.stringify([{
+                subject: 'math',
+                level: 'bachelor'
+            }])
+        }
+        return expect(match.deleteTutorRequestByTutor(2, userInput)).resolves.toEqual(1);
     });
 
-    test('delete invalid student id', () => {
-        // should be undefined
-        return expect(match.acceptOffer(0, 0)).resolves.toBeUndefined();
+    test('delete invalid request', () => {
+        // should success
+        const userInput = {
+            studentID: 0,
+            subject: JSON.stringify([{
+                subject: 'math',
+                level: 'bachelor'
+            }])
+        }
+        return expect(match.deleteTutorRequestByTutor(0, userInput)).resolves.toBeUndefined();
+    });
+});
+
+describe('test decline offer', () => {
+    test('decline dummy offer', () => {
+        const userInput = {
+            tutorID: 2,
+            subject: JSON.stringify([{
+                subject: 'math',
+                level: 'bachelor'
+            }])
+        };
+        return expect(match.declineOffer(1, userInput)).resolves.toEqual(1);
+    });
+
+    test('decline invalid id', () => {
+        const userInput = {
+            tutorID: 0,
+            subject: JSON.stringify([{
+                subject: 'math',
+                level: 'bachelor'
+            }])
+        };
+        return expect(match.declineOffer(0, userInput)).resolves.toBeUndefined();
     });
 });

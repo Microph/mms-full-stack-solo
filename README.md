@@ -89,6 +89,7 @@
   6. [Admin search all suspended accounts](#adminSearchAllSuspendedAccount)<br>
   7. [Admin unsuspend an account](#adminUnsuspentAnAccount)<br>
   8. [Admin get a student info by using ID](#adminGetAStudentInfoByID)<br>
+  9. [Admin get a student report count](#adminGetStudentReportCount)<br>
 <a name="adminAuth"></a>
 
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -547,7 +548,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Object}] | found student |
+| students | Objects | [{<br>&nbsp;&nbsp;studentID: String, <br>&nbsp;&nbsp;name: String, <br>&nbsp;&nbsp;surname: String, <br>&nbsp;&nbsp;gender: String, <br>&nbsp;&nbsp;educationLevel: String, <br>&nbsp;&nbsp;facebookUrl: String, <br>&nbsp;&nbsp;lineID: String, <br>&nbsp;&nbsp;email:String, <br>&nbsp;&nbsp;mobile: String, <br>&nbsp;&nbsp;wantList: Object, <br>&nbsp;&nbsp;place: Object, <br>&nbsp;&nbsp;time: Object,<br>&nbsp;&nbsp;account:{<br>&nbsp;&nbsp;&nbsp;&nbsp;isTutor: Bool<br>&nbsp;&nbsp;}<br>}] | found student |
 | count | Number |  | Amount of student |
 #### Return value on incomplete (HTTP 403 Forbidden, HTTP 200 No Content)
 | Field Name | Type | Value | Description |
@@ -915,9 +916,13 @@
 <p align="center">.................................................</p>
 <a name="adminGetAStudentInfoByID"></a>
 
-### Admin find  a student info by using ID ( Access via GET method on '/api/get-student-info-by-id' )
+### Admin find a student info by using ID ( Access via GET method on '/api/get-student-info-by-id' )
 #### Pre-required
 * Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
 #### Return value on hit (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -926,7 +931,28 @@
 #### Return value on Not found (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | An account doesn't exist |
+| success | Bool | false | The account doesn't exist |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminGetStudentReportCount"></a>
+
+### Admin get a student report count ( Access via GET method on '/api/admin/get-student-report-count' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| result | Int |  | The number of how many times the student has been reported |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The account doesn't exist |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
