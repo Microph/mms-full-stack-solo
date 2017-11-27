@@ -52,6 +52,7 @@ class Home extends Component {
       var tList = [];
       this.props.tutors.tutors.map(tutor => {
         if (!tutor.isApproved) return;
+        if(tutor.teachList === "" || tutor.place === "" || tutor.time === "") return;
         var teaching = "";
         JSON.parse(tutor.teachList).map(subject => {
           teaching =
