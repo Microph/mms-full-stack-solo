@@ -67,8 +67,22 @@ class ReportsManage extends Component {
     this.setState({cards: [...this.state.cards, newCard]});
   }
 
-  handleButtonSubmit (studentID) {
-    alert('Suspend Student ID: ' + studentID);
+  async handleButtonSubmit (studentID) {
+    const res = await axios({
+      method: "POST",
+      url: "/api/admin/report-management",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      },
+      data: querystring.stringify({
+        id: studentID,
+      })
+    });
+
+    if(res.data.success)
+      alert('Suspended Student ID: ' + studentID);
+    else
+      alert('Error: operation failed');
   }
 
   render() {
