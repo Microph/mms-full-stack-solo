@@ -37,6 +37,20 @@ function adminAcceptTutorRequest(SID) {
     })
 }
 
+function adminAcceptTutorRequestToAccount(SID) {
+    return new Promise((resolve, reject) => {
+        Schema.Account.update({
+            isTutor: 1
+        }, {
+            where: {
+                studentID: SID
+            }
+        }).then(result => {
+            resolve(result[0])
+        })
+    })
+}
+
 function adminDeleteTutorRequest(SID) {
     return new Promise((resolve, reject) => {
         Schema.Tutor.destroy({
@@ -144,5 +158,6 @@ module.exports = {
     adminUnsuspendAccount: adminUnsuspendAccount,
     getStudentInfoByID: getStudentInfoByID,
     getStudentReportCount :getStudentReportCount,
-    countApprovedTutor: countApprovedTutor
+    countApprovedTutor: countApprovedTutor,
+    adminAcceptTutorRequestToAccount: adminAcceptTutorRequestToAccount
 }
