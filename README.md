@@ -87,6 +87,8 @@
   4. [Admin search all report](#adminSearchAllReport)<br>
   5. [Admin suspend an account](#adminSuspentAnAccount)<br>
   6. [Admin search all suspended accounts](#adminSearchAllSuspendedAccount)<br>
+  7. [Admin unsuspend an account](#adminUnsuspentAnAccount)<br>
+  8. [Admin get a student info by using ID](#adminGetAStudentInfoByID)<br>
 <a name="adminAuth"></a>
 
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -876,7 +878,7 @@
 <p align="center">.................................................</p>
 <a name="adminSearchAllSuspendedAccount"></a>
 
-### Admin search all suspended accounts ( Access via POST method on '/api/admin/suspended-user-management' )
+### Admin search all suspended accounts ( Access via GET method on '/api/admin/suspended-user-management' )
 #### Pre-required
 * Authentication
 #### Return value on hit (HTTP 200 Success)
@@ -888,6 +890,43 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | There is no suspended account |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminUnsuspentAnAccount"></a>
+
+### Admin unsuspend an account ( Access via POST method on '/api/admin/suspended-user-management' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | The account has been unsuspended |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The account is not suspended |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminGetAStudentInfoByID"></a>
+
+### Admin find  a student info by using ID ( Access via GET method on '/api/get-student-info-by-id' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | "student": {<br>"studentID": INT,<br>"name": String,<br>"surname": String,<br>"gender": String,<br>"educationLevel": String,<br>"facebookURL": String,<br>"lineID": String,<br>"email": String,<br>"mobile": String,<br>"wantList": String,<br>"place": String,<br>"time": String,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME<br>}|  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | An account doesn't exist |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
