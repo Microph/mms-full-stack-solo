@@ -63,7 +63,7 @@ class SentRequests extends Component {
     return (
       <div>
         <div style={{ fontSize: 25, marginTop: 20 }}>คำขอที่ส่งไปแล้ว</div>
-        {renderList}
+        {renderList.length === 0 ? "คุณไม่มีคำขอที่ส่งไปแล้ว" : renderList}
       </div>
     );
   }

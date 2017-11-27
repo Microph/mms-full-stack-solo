@@ -20,7 +20,7 @@ import axios from "axios";
 const querystring = require("querystring");
 window.axios = axios;
 
-class CurrentCourses extends Component {
+class MatchedCourses extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,7 @@ class CurrentCourses extends Component {
   }
 
   async loadCourses() {
-    var res = await axios.get("/api/match/offer/bystudent");
+    var res = await axios.get("/api/match/offer/bytutor");
     if (res.data.success) {
       var l = [];
       res.data.offers.map(o => {
@@ -51,14 +51,13 @@ class CurrentCourses extends Component {
     this.loadCourses();
     this.loadUsers();
   }
-
   render() {
     var renderList = [];
     this.state.courses.map(o => {
-      const sbj = JSON.parse(o.subject);
-      const tutorid = o.tutorID;
-      var tutorinfo = this.state.users[tutorid - 1];
-      var tutor = o.tutor.student.name + " " + o.tutor.student.surname;
+      var sbj = JSON.parse(o.subject);
+      var studentid = o.studentID;
+      var studentinfo = this.state.users[studentid - 1];
+      var student = o.student.name + " " + o.student.surname;
       renderList.push(
         <Card key={o.studentID} style={{ marginTop: 10, marginBottom: 5 }}>
           <CardHeader
@@ -66,28 +65,29 @@ class CurrentCourses extends Component {
               parseSubject(sbj.subject) +
               parseLevel(sbj.level) +
               " ( " +
-              tutor +
+              student +
               " ) " +
               o.price +
               " บาท / ชั่วโมง"
             }
             subtitle={
               "โทร " +
-              (tutorinfo === undefined ? "" : tutorinfo.mobile) +
+              (studentinfo === undefined ? "" : studentinfo.mobile) +
               ", อีเมลล์ " +
-              (tutorinfo === undefined ? "" : tutorinfo.email) +
+              (studentinfo === undefined ? "" : studentinfo.email) +
               ", Facebook " +
-              (tutorinfo === undefined
+              (studentinfo === undefined
                 ? ""
-                : tutorinfo.facebookURL == null || tutorinfo.facebookURL === ""
+                : studentinfo.facebookURL == null ||
+                  studentinfo.facebookURL === ""
                   ? "-"
-                  : tutorinfo.facebookURL) +
+                  : studentinfo.facebookURL) +
               ", LINE " +
-              (tutorinfo === undefined
+              (studentinfo === undefined
                 ? ""
-                : tutorinfo.lineID === "" || tutorinfo.lineID == null
+                : studentinfo.lineID === "" || studentinfo.lineID == null
                   ? "-"
-                  : tutorinfo.lineID)
+                  : studentinfo.lineID)
             }
           />
         </Card>
@@ -95,11 +95,11 @@ class CurrentCourses extends Component {
     });
     return (
       <div>
-        <div style={{ fontSize: 25, marginTop: 20 }}>คอร์สเรียนของฉัน</div>
-        {renderList.length === 0 ? "คุณไม่คอร์สเรียนในปัจจุบัน" : renderList}
+        <div style={{ fontSize: 25, marginTop: 20 }}>คอร์สปัจจุบัน</div>
+        {renderList.length === 0 ? "คุณไม่คอร์สในปัจจุบัน" : renderList}
       </div>
     );
   }
 }
 
-export default CurrentCourses;
+export default MatchedCourses;

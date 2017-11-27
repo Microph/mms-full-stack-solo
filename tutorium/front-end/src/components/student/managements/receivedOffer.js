@@ -113,7 +113,7 @@ class RecievedOffers extends Component {
     return (
       <div>
         <div style={{ fontSize: 25, marginTop: 20 }}>ข้อเสนอที่ได้รับ</div>
-        {renderList}
+        {renderList.length === 0 ? "คุณไม่มีข้อเสนอที่ได้รับ" : renderList}
       </div>
     );
   }

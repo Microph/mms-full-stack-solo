@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import MatchedCourses from "./management/matchedcourses";
+import ReceivedRequests from "./management/receivedrequests";
 
 class CurrentCourses extends Component {
   render() {
-    return <h1>CurrentCourses</h1>;
+    return (
+      <div>
+        <ReceivedRequests />
+        <MatchedCourses />
+      </div>
+    );
   }
 }
 
