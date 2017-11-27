@@ -60,9 +60,10 @@
   1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
   2. [Get Course Offer By a Student](#getCourseStudent)<br>
   3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
-  4. [Get Course Request By a Student](#getCourseReqStudent)<br>
-  5. [Get Course Request By a Tutor](#getCourseReqTutor)<br>
+  4. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
+  5. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
   6. [Student Accept Course Offer](#acceptCourse)<br>
+  7. [Student Decline Course Offer](#declineCourse)<br>
   7. [Student Request for a Tutor](#tutorRequest)<br>
   8. [Tutor Offer Course to a Student](#offerCourse)<br>
 * Search
@@ -326,7 +327,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}] | found offers |
+| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}, <br>tutor:{<br>education: Objects,<br>teachList: List,<br>place: Objects,<br>time: Objects,<br>info:{<br>name: String,<br>surname: String,<br>gender: String}}] | found offers |
 | count | Number |  | Amount of offer |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
@@ -353,9 +354,9 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="getCourseReqStudent"></a>
+<a name="getTutorReqStudent"></a>
 
-### Get Course Request by a Student ( Access via GET method on '/api/match/request/bystudent' )
+### Get Tutor Request by a Student ( Access via GET method on '/api/match/request/bystudent' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -370,9 +371,9 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="getCourseReqTutor"></a>
+<a name="getTutorReqTutor"></a>
 
-### Get Course Request by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
+### Get Tutor Request by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -397,6 +398,7 @@
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | tutorID | Integer | whose tutor do you want to accept offer | Yes |
+| subject | String(100) | which subject do you want to accept offer | Yes |
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -407,6 +409,31 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false |  |
 | msg | String | 'There is no any offers',<br> 'You should be a student to accept course offer' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="declineCourse"></a>
+
+### Student Decline Course Offer ( Access via POST method on '/api/match/offer/decline' )
+#### Pre-required
+* Authentication
+* Is student
+* Course offer doesn't been accept
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | whose tutor do you want to decline offer | Yes |
+| subject | String(100) | which subject do you want to decline offer | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| msg | String | 'The offer has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false |  |
+| msg | String | There is no row affected',<br> 'You should login first to decline your course offer' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>

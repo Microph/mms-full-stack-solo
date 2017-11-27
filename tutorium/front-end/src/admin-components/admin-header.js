@@ -69,11 +69,6 @@ class AdminHeader extends Component {
                         />
                         <ListItem
                             style={{ color: "#fff" }}
-                            onClick={() => this.handleMenuNavClicked('/admin/deleterequests')}
-                            primaryText="User Deletion Requests"
-                        />
-                        <ListItem
-                            style={{ color: "#fff" }}
                             onClick={() => this.handleMenuNavClicked('/admin/suspendedusers')}
                             primaryText="Suspended Users"
                         />
