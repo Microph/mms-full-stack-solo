@@ -361,7 +361,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| requests | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, }] | found requests |
+| requests | Objects | [{<br>&nbsp;&nbsp;studentID: Int, <br>&nbsp;&nbsp;tutorID: Int, <br>&nbsp;&nbsp;subject: String, <br>&nbsp;&nbsp;student: {<br>&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;gender: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;educationLevel: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: List,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;tutor:{<br>&nbsp;&nbsp;&nbsp;&nbsp;education: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;info:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}] | found requests |
 | count | Number |  | Amount of request |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
@@ -378,7 +378,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| requests | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String}] | found requests |
+| requests | Objects | [{<br>&nbsp;&nbsp;studentID: Int, <br>&nbsp;&nbsp;tutorID: Int, <br>&nbsp;&nbsp;subject: String, <br>&nbsp;&nbsp;student: {<br>&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;gender: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;educationLevel: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: List,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;tutor:{<br>&nbsp;&nbsp;&nbsp;&nbsp;education: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;info:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}] | found requests |
 | count | Number |  | Amount of request |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
