@@ -169,16 +169,7 @@ class RequestCard extends Component {
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <h4><b>หลักฐานการยืนยันตัวตน</b></h4>
-                        <h4>{this.displayJSON(this.props.uploadEvidence).split('\n').map(
-                          function(item) {
-                            return (
-                              <span>
-                                {item}
-                                <br/>
-                              </span>
-                            )
-                            })}
-                        </h4>
+                        <h4>-</h4>
                     </div>
                   </div>
                   

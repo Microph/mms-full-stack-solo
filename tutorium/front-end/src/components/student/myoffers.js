@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 
+
+import ReceivedOffers from "./managements/receivedOffer";
+import SentRequests from "./managements/sentRequest";
+
 class MyOffers extends Component {
   render() {
-    return <h1>MyOffers</h1>;
+    return (
+      <div>
+        <ReceivedOffers />
+        <SentRequests />
+      </div>
+    );
   }
 }
 
