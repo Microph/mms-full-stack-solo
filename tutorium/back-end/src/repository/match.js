@@ -7,7 +7,17 @@ module.exports = {
             Schema.Match.findAndCountAll({
                 where: {
                     studentID: studentID
-                }
+                },
+                include: [{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'teachList', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'info',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
             }).then(result => {
                 resolve(result)
             })

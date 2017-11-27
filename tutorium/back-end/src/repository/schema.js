@@ -219,6 +219,7 @@ Account.belongsTo(Student, {
 })
 
 Tutor.belongsTo(Student, {
+    as: 'info',
     foreignKey: 'studentID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
@@ -226,6 +227,20 @@ Tutor.belongsTo(Student, {
 
 Suspended.belongsTo(Student,{
     foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Match.belongsTo(Student, {
+    as: 'student',
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Match.belongsTo(Tutor, {
+    as: 'tutor',
+    foreignKey: 'tutorID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
