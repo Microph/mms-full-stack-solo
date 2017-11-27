@@ -235,7 +235,6 @@ module.exports = (app, passport, options) => {
 //------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------check-if-the-user-is-an-admin---
 function isAdmin (req) {
-    return true;
     if (req.user.accountType === 'admin') {
         return true;
     } else return false;
