@@ -138,7 +138,7 @@ class RequestCard extends Component {
           case 'level': attrName='ระดับ'; attrValue = parseLevel(attrValue); break;
           case 'university': attrName='มหาวิทยาลัย'; break;
           case 'faculty': attrName='ภาควิชา'; break;
-          case 'major': attrName='สาชา'; break;
+          case 'major': attrName='สาขา'; break;
           default: ;
         }
 
