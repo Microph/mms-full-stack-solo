@@ -55,7 +55,7 @@ class RecievedOffers extends Component {
 
   async declineOffer(id, sbj) {
     var res = await axios({
-      method: "POST",
+      method: "DELETE",
       url: "/api/match/offer/decline",
       headers: {
         "Content-type": "application/x-www-form-urlencoded"
@@ -113,7 +113,7 @@ class RecievedOffers extends Component {
     return (
       <div>
         <div style={{ fontSize: 25, marginTop: 20 }}>ข้อเสนอที่ได้รับ</div>
-        {renderList}
+        {renderList.length === 0 ? "คุณไม่มีข้อเสนอที่ได้รับ" : renderList}
       </div>
     );
   }

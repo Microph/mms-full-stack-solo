@@ -43,7 +43,7 @@ module.exports = {
                     attributes: ['education', 'place', 'time'],
                     include: [{
                         model: Schema.Student,
-                        as: 'info',
+                        as: 'student',
                         attributes: ['name', 'surname', 'gender']
                     }]
                 }]
