@@ -71,7 +71,15 @@ class RequestsManage extends Component {
         return (Object.entries(card)[4][1]).studentID != studentID;
       });
       this.setState({cards: newCards});
+
+      if(isAccepted)
+        alert('Accepted User ID: ' + studentID + ' as a tutor.');
+      else
+        alert('Declined User ID: ' + studentID + ' request.');
     } 
+    else{
+      alert('Error: operation failed');
+    }
   }
 
   render() {
