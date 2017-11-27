@@ -19,7 +19,7 @@ class Dashboard extends Component {
     async componentDidMount(){
         let a = 0, b = 0, c = 0, d = 0, e = 0;
         a = await this.getNumFromAPI('/api/search/student');
-        b = await this.getNumFromAPI('/api/search/tutor');
+        b = await this.getNumFromAPI('/api/admin/count-approved-tutor');
         c = await this.getNumFromAPI('/api/admin/tutor-request-management');
         d = await this.getNumFromAPI('/api/admin/report-management');
         e = await this.getNumFromAPI('/api/admin/suspended-user-management');
@@ -42,7 +42,7 @@ class Dashboard extends Component {
         if(res.data.success) {
             switch(apiURL){
                 case '/api/search/student': out = res.data.students.length; break;
-                case '/api/search/tutor': out = res.data.tutors.length; break;
+                case '/api/admin/count-approved-tutor': out = res.data.result; break;
                 case '/api/admin/tutor-request-management': out = res.data.students.length; break;
                 case '/api/admin/report-management': out = res.data.report.length; break;
                 case '/api/admin/suspended-user-management': out = res.data.result.length; break;

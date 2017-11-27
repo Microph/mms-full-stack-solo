@@ -28,13 +28,13 @@ class UsersManage extends Component {
 
     const res2 = await axios({
       method: "GET",
-      url: "/api/search/tutor"
+      url: "/api/admin/count-approved-tutor"
     });
 
     if(res.data.success && res2.data.success) {
       this.setState({
         totalStudents: res.data.students.length,
-        totalTutors: res2.data.tutors.length
+        totalTutors: res2.data.result
       });
       this.prepareCard(res.data.students);
     }
@@ -42,26 +42,44 @@ class UsersManage extends Component {
   }
 
   async prepareCard(studentData){
-    studentData.map(studentOb => {
+    for(let i=0; i<studentData.length; i++){
+      let res = await axios({
+        method: "GET",
+        url: "/api/admin/get-student-report-count",
+        headers: {
+          "id": studentData[i].studentID
+        },
+      });
+
+      let reportCount = '';
+      if(res.data.success){
+        reportCount = res.data.result;
+      }
+      else{
+        reportCount = '(failed to get data)';
+      }
+
       this.genCard(
-        studentOb.name + ' ' + studentOb.surname,
-        studentOb.studentID,
-        parseGender(studentOb.gender),
-        parseLevel(studentOb.educationLevel),
-        studentOb.facebookURL,
-        studentOb.lineID,
-        studentOb.email,
-        studentOb.mobile,
-        studentOb.account.isTutor
+        studentData[i].name + ' ' + studentData[i].surname,
+        studentData[i].studentID,
+        reportCount,
+        parseGender(studentData[i].gender),
+        parseLevel(studentData[i].educationLevel),
+        studentData[i].facebookURL,
+        studentData[i].lineID,
+        studentData[i].email,
+        studentData[i].mobile,
+        studentData[i].account.isTutor
       );
-    });
+    }
   }
 
-  genCard(name, id, gender, level, fb, line, email, tel, isTutor){
+  genCard(name, id, reportCount, gender, level, fb, line, email, tel, isTutor){
     console.log(isTutor);
     const newCard = (<UserDetailCard 
       name = {name}
       id = {id}
+      reportCount = {reportCount}
       gender = {gender}
       level = {level}
       fb = {fb}
@@ -150,7 +168,7 @@ class UserDetailCard extends Component {
 
                 <div class="row">
                   <div class="col-sm-12 col-md-12">
-                      <h4><u>ถูกรายงาน 0 ครั้ง</u></h4>
+                      <h4><u>ถูกรายงาน {this.props.reportCount} ครั้ง</u></h4>
                   </div>
                 </div>
 
