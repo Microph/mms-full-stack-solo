@@ -90,7 +90,7 @@ const Match = sequelize.define('match', {
     },
     subject: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        primaryKey: true
     },
     price: {
         type: Sequelize.INTEGER,

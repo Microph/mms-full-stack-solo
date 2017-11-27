@@ -24,14 +24,15 @@ module.exports = {
             })
         })
     },
-    acceptOffer: (studentID, tutorID) => {
+    acceptOffer: (studentID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.Match.update({
                 studentConfirm: true
             }, {
                 where: {
                     studentID: studentID,
-                    tutorID: tutorID
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
                 }
             }).then(result => {
                 resolve(result[0])
@@ -43,7 +44,8 @@ module.exports = {
             Schema.Match.findOrCreate({
                 where: {
                     tutorID: tutorID,
-                    studentID: userInput.studentID
+                    studentID: userInput.studentID,
+                    subject: userInput.subject
                 },
                 defaults: {
                     tutorID: tutorID,

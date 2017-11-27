@@ -397,6 +397,7 @@
 | Field Name | Type | Description | Required? |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | tutorID | Integer | whose tutor do you want to accept offer | Yes |
+| subject | String(100) | which subject do you want to accept offer | Yes |
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |

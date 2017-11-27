@@ -134,9 +134,9 @@ module.exports = (app, passport, options) => {
     app.post('/api/match/offer/accept', (req, res, next) => {
         if(req.user && req.user.studentID) {
             let studentID = req.user.studentID
-            let tutorID = req.body.tutorID
+            let userInput = req.body
 
-            match.acceptOffer(studentID, tutorID).then(result => {
+            match.acceptOffer(studentID, userInput).then(result => {
                 if(result) {
                     res.status(200).send({
                         success: true,
