@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import {
   TextField,
   FlatButton,
@@ -6,6 +7,8 @@ import {
   SelectField,
   MenuItem
 } from "material-ui";
+
+const querystring = require("querystring");
 
 class UserReport extends Component {
   constructor(props) {
@@ -16,11 +19,62 @@ class UserReport extends Component {
       reportedUser: "",
       details: ""
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit = () => {
-    return;
-  };
+  async onSubmit () {
+    console.log('send');
+    const res = await axios({
+      method: "GET",
+      url: "/api/current-login-session"
+    });
+
+    if(!res.data.success){
+      alert('Error: operation failed. (cannot get current login session)');
+      return;
+    }
+
+    const reporterID = res.data.user.studentID;
+    let res2 = null;
+    if(this.state.problemType == "user"){
+      res2 = await axios({
+        method: "POST",
+        url: "/api/user-write-report",
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded"
+        },
+        data: querystring.stringify({
+          reporterStudentID: reporterID,
+          reportedStudentID: this.state.reportedUser,
+          topic: this.state.topic,
+          detail: this.state.details
+        })
+      });
+    }
+    else{
+      res2 = await axios({
+        method: "POST",
+        url: "/api/user-write-report",
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded"
+        },
+        data: querystring.stringify({
+          reporterStudentID: reporterID,
+          topic: this.state.topic,
+          detail: this.state.details
+        })
+      });
+    }
+
+    if(res2.data.success){
+      alert('Send report successfully');
+      window.location.href = "/report";
+    }
+    else{
+      alert('Error: operation failed. (cannot send report)');
+    }
+  }
 
   render() {
     return (
@@ -77,8 +131,8 @@ class UserReport extends Component {
         {/* User */}
         <TextField
           fullWidth
-          hintText="ชื่อผู้ใช้ที่ต้องการรายงาน"
-          floatingLabelText="ชื่อผู้ใช้ที่ต้องการรายงาน"
+          hintText="ID ผู้ใช้ที่ต้องการรายงาน"
+          floatingLabelText="ID ผู้ใช้ที่ต้องการรายงาน"
           className={this.state.problemType === "user" ? "" : "hidden"}
           underlineShow
           // required
