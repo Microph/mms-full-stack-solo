@@ -7,7 +7,21 @@ module.exports = {
             Schema.Match.findAndCountAll({
                 where: {
                     studentID: studentID
-                }
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'student',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
             }).then(result => {
                 resolve(result)
             })
@@ -18,20 +32,35 @@ module.exports = {
             Schema.Match.findAndCountAll({
                 where: {
                     tutorID: tutorID
-                }
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'info',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
             }).then(result => {
                 resolve(result)
             })
         })
     },
-    acceptOffer: (studentID, tutorID) => {
+    acceptOffer: (studentID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.Match.update({
                 studentConfirm: true
             }, {
                 where: {
                     studentID: studentID,
-                    tutorID: tutorID
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
                 }
             }).then(result => {
                 resolve(result[0])
@@ -43,7 +72,8 @@ module.exports = {
             Schema.Match.findOrCreate({
                 where: {
                     tutorID: tutorID,
-                    studentID: userInput.studentID
+                    studentID: userInput.studentID,
+                    subject: userInput.subject
                 },
                 defaults: {
                     tutorID: tutorID,
@@ -59,13 +89,64 @@ module.exports = {
                 })
             })
         })
-    },    
+    },
+    getTutorRequestByStudentID: (studentID) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.findAndCountAll({
+                where: {
+                    studentID: studentID
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'student',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    getTutorRequestByTutorID: (tutorID) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.findAndCountAll({
+                where: {
+                    tutorID: tutorID
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'student',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
     tutorRequest: (studentID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.TutorRequest.findOrCreate({
                 where: {
                     studentID: studentID,
-                    tutorID: userInput.tutorID
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
                 },
                 defaults: {
                     studentID: studentID,
@@ -80,12 +161,40 @@ module.exports = {
             })
         })
     },
-    deleteTutorRequest: (tutorID, studentID) => {
+    deleteTutorRequestByStudent: (studentID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.destroy({
+                where: {
+                    studentID: studentID,
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    deleteTutorRequestByTutor: (tutorID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.TutorRequest.destroy({
                 where: {
                     tutorID: tutorID,
-                    studentID: studentID
+                    studentID: userInput.studentID,
+                    subject: userInput.subject
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    declineOffer: (studentID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.destroy({
+                where: {
+                    studentID: studentID,
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject,
+                    studentConfirm: false
                 }
             }).then(result => {
                 resolve(result)

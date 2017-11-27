@@ -136,7 +136,7 @@ class UserPayment extends Component {
         expireYear: y
       })
     });
-    window.location.href = "/myprofile";
+    this.setState({ credits: null, dialogOn: false });
   };
 
   render() {
@@ -145,11 +145,11 @@ class UserPayment extends Component {
     return (
       <div>
         <span style={{ fontSize: 25 }}>
-          การชำระเงิน
+          {this.props.topic}
           <FlatButton
             onClick={() => this.setState({ dialogOn: true })}
             style={{ borderColor: "#505050", borderWidth: "1px" }}
-            label="+ เพิ่มวิธีการชำระเงิน"
+            label="+ เพิ่มบัญชี"
           />
         </span>
         {cards}

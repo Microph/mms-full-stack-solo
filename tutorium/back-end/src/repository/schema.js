@@ -90,7 +90,7 @@ const Match = sequelize.define('match', {
     },
     subject: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        primaryKey: true
     },
     price: {
         type: Sequelize.INTEGER,
@@ -207,7 +207,7 @@ const TutorRequest = sequelize.define('tutorRequest', {
     },
     subject: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        primaryKey: true
     }
 })
 
@@ -226,6 +226,20 @@ Tutor.belongsTo(Student, {
 
 Suspended.belongsTo(Student,{
     foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Match.belongsTo(Student, {
+    as: 'student',
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Match.belongsTo(Tutor, {
+    as: 'tutor',
+    foreignKey: 'tutorID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
@@ -274,6 +288,8 @@ Student.hasMany(Report, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
+
+sequelize.sync()
 
 module.exports = {
     Account: Account,

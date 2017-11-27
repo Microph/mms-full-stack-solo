@@ -7,7 +7,7 @@ class DeleteRequests extends Component {
     render() {
         return (
           <div>
-            <h1>DeleteRequests</h1>
+            <h1>User Deletion Requests</h1>
             {<DeleteRequestCard />}
             {<DeleteRequestCard />}
             {<DeleteRequestCard />}

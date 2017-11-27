@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import CurrentCourses from "./managements/currentCourses";
 
 class MyCourses extends Component {
   render() {
-    return <h1>MyCourses</h1>;
+    return <CurrentCourses />;
   }
 }
 

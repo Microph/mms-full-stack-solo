@@ -1,12 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FlatButton, Card, CardHeader, CardText } from "material-ui";
+import {
+  FlatButton,
+  Card,
+  CardHeader,
+  CardText,
+  Dialog,
+  SelectField,
+  MenuItem
+} from "material-ui";
 import {
   parseLevel,
   parseGender,
   parseSubject,
   parseDay
 } from "../util/parser";
+import axios from "axios";
+
+const querystring = require("querystring");
+window.axios = axios;
 
 var preparedTutor = []; //derived tutor data for searching
 var tutorToRender = []; //list of tutors to be rendered
@@ -15,13 +27,62 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchphrase: ""
+      searchphrase: "",
+      openDialog: false,
+      tutorToReq: null,
+      tutorIDToReq: null,
+      subjectToReq: null,
+      selSubjectToReq: ""
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.doFilter = this.doFilter.bind(this);
     this.prepareTutor = this.prepareTutor.bind(this);
     this.renderTutor = this.renderTutor.bind(this);
   }
+
+  reqActions = [
+    <FlatButton
+      label="ยกเลิก"
+      primary={true}
+      onClick={() =>
+        this.setState({
+          openDialog: false,
+          tutorToReq: null,
+          tutorIDToReq: null,
+          subjectToReq: null,
+          selSubjectToReq: ""
+        })
+      }
+    />,
+    <FlatButton
+      label="ตกลง"
+      primary={true}
+      onClick={async () => {
+        // /api/match/request
+        var res = await axios({
+          method: "POST",
+          url: "/api/match/request",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded"
+          },
+          data: querystring.stringify({
+            tutorID: this.state.tutorIDToReq,
+            subject: JSON.stringify(this.state.selSubjectToReq)
+          })
+        });
+        if (res.data.success) alert("Request for a tutor completed.");
+        else if (!res.data.success)
+          alert("Request failed, please try again later.");
+        this.setState({
+          openDialog: false,
+          tutorToReq: null,
+          tutorIDToReq: null,
+          subjectToReq: null,
+          selSubjectToReq: ""
+        });
+      }}
+    />
+  ];
 
   // Filter out some tutors
   doFilter(filters) {
@@ -46,11 +107,34 @@ class Home extends Component {
     return trList;
   }
 
+  renderSubjectList() {
+    var l = [];
+    if (this.state.subjectToReq != null) {
+      this.state.subjectToReq.map(s => {
+        l.push(
+          <MenuItem
+            value={s}
+            primaryText={parseSubject(s.subject) + parseLevel(s.level)}
+          />
+        );
+      });
+    }
+    return l;
+  }
+
   prepareTutor() {
     if (this.props.tutors == null) return [];
     if (this.props.tutors.success) {
       var tList = [];
       this.props.tutors.tutors.map(tutor => {
+        if (!tutor.isApproved) return;
+        if (tutor.teachList === "" || tutor.place === "" || tutor.time === "")
+          return;
+        if (
+          this.props.auth != null &&
+          this.props.auth.user.studentID === tutor.studentID
+        )
+          return;
         var teaching = "";
         JSON.parse(tutor.teachList).map(subject => {
           teaching =
@@ -83,8 +167,11 @@ class Home extends Component {
             places +
             " " +
             day,
-          render: (
-            <Card key={tutor.studentID} style={{ marginTop: 10, marginBottom: 5 }}>
+          render: [
+            <Card
+              key={tutor.studentID}
+              style={{ marginTop: 10, marginBottom: 5 }}
+            >
               <CardHeader
                 title={tutor.student.name + " " + tutor.student.surname}
                 subtitle={teaching}
@@ -97,9 +184,50 @@ class Home extends Component {
                 <span>สถานที่ที่สามารถสอน: {places}</span>
                 <br />
                 <span>เวลาที่สามารถสอน: {daytime}</span>
+                <div>
+                  <FlatButton
+                    onClick={() =>
+                      this.setState({
+                        openDialog: true,
+                        tutorIDToReq: tutor.studentID,
+                        tutorToReq:
+                          tutor.student.name + " " + tutor.student.surname,
+                        subjectToReq: JSON.parse(tutor.teachList)
+                      })
+                    }
+                    style={{
+                      marginTop: 5
+                    }}
+                    label="ส่งคำขอเรียน"
+                  />
+                </div>
               </CardText>
-            </Card>
-          )
+            </Card>,
+            <Dialog
+              title={"ส่งคำขอไปยัง " + this.state.tutorToReq}
+              actions={this.reqActions}
+              open={this.state.openDialog}
+              onRequestClose={() =>
+                this.setState({
+                  openDialog: false
+                })
+              }
+            >
+              {/* Subject */}
+              <SelectField
+                fullWidth
+                floatingLabelText="เลือกวิชาที่ต้องการเรียน"
+                value={this.state.selSubjectToReq}
+                required
+                onChange={(event, key, selSubjectToReq) =>
+                  this.setState({ selSubjectToReq })
+                }
+              >
+                {this.renderSubjectList()}
+              </SelectField>
+            </Dialog>
+          ],
+          id: tutor.studentID
         });
       });
       return tList;
@@ -136,7 +264,7 @@ class Home extends Component {
               />
               <span className="input-group-addon">
                 <button>
-                  <span class="glyphicon glyphicon-search" />
+                  <span className="glyphicon glyphicon-search" />
                 </button>
               </span>
             </div>

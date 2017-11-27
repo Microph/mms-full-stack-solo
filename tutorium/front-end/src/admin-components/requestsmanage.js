@@ -3,6 +3,12 @@ import axios from "axios";
 import {
   FlatButton,  
 } from "material-ui";
+import {
+  parseLevel,
+  parseGender,
+  parseSubject,
+  parseDay
+} from "../util/parser";
 
 const querystring = require("querystring");
 
@@ -10,8 +16,6 @@ class RequestsManage extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          querySuccess: false,
-          requests: [],
           cards: []
       };
   }
@@ -22,17 +26,12 @@ class RequestsManage extends Component {
       url: "/api/admin/tutor-request-management"
     });
 
-    this.setState({
-      querySuccess: res.data.success,
-      requests: res.data.students
-    });
-
-    if(this.state.querySuccess) this.prepareCard();
+    if(res.data.success) this.prepareCard(res.data.students);
   }
 
   //call if tutor-request-management return success
-  prepareCard(){
-    this.state.requests.map(studentOb => {
+  prepareCard(studentData){
+    studentData.map(studentOb => {
       this.genCard(
         studentOb.student.name + ' ' + studentOb.student.surname, 
         studentOb.studentID,
@@ -78,7 +77,15 @@ class RequestsManage extends Component {
         return (Object.entries(card)[4][1]).studentID != studentID;
       });
       this.setState({cards: newCards});
+
+      if(isAccepted)
+        alert('Accepted User ID: ' + studentID + ' as a tutor.');
+      else
+        alert('Declined User ID: ' + studentID + ' request.');
     } 
+    else{
+      alert('Error: operation failed');
+    }
   }
 
   render() {
@@ -113,6 +120,37 @@ class RequestCard extends Component {
       return 'แสดงรายละเอียดเต็ม'
   }
 
+  displayJSON(jsonObIn){
+    if(jsonObIn == null) return '-';
+
+    const jsonOb = JSON.parse(jsonObIn);
+
+    let out = '';
+    for (let i = 0; i < jsonOb.length; i++){
+      let obj = jsonOb[i];
+      for (let key in obj){
+        let attrName = key;
+        let attrValue = obj[key];
+
+        //string parsing
+        switch(attrName){
+          case 'subject': attrName='วิชา'; attrValue = parseSubject(attrValue); break;
+          case 'level': attrName='ระดับ'; attrValue = parseLevel(attrValue); break;
+          case 'university': attrName='มหาวิทยาลัย'; break;
+          case 'faculty': attrName='ภาควิชา'; break;
+          case 'major': attrName='สาขา'; break;
+          default: ;
+        }
+
+        if(attrValue != ''){
+          out += attrName + ': ' + attrValue + '\n';
+        }
+      }
+      out += '\n';
+    }
+    return out;
+  }
+
   render() {
     return (
       <div>
@@ -130,19 +168,40 @@ class RequestCard extends Component {
                 <div hidden={!this.state.showFullDetail}>
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>หลักฐานการยืนยันตัวตน: {this.props.uploadEvidence}</h4>
+                        <h4><b>หลักฐานการยืนยันตัวตน</b></h4>
+                        <h4>-</h4>
                     </div>
                   </div>
                   
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>ข้อมูลด้านการศึกษา: {this.props.education}</h4>
+                        <h4><b>ข้อมูลด้านการศึกษา</b></h4>
+                        <h4>{this.displayJSON(this.props.education).split('\n').map(
+                          function(item) {
+                            return (
+                              <span>
+                                {item}
+                                <br/>
+                              </span>
+                            )
+                            })}
+                        </h4>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>วิชาที่สอน: {this.props.teachList}</h4>
+                        <h4><b>วิชาที่สอน</b></h4>
+                        <h4>{this.displayJSON(this.props.teachList).split('\n').map(
+                          function(item) {
+                            return (
+                              <span>
+                                {item}
+                                <br/>
+                              </span>
+                            )
+                            })}
+                        </h4>
                     </div>
                   </div>
                 </div>
@@ -190,7 +249,6 @@ class RequestCard extends Component {
                     />
                   </div>
                 </div>
-
 
             </div>
           </div>
