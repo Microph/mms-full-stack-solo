@@ -60,8 +60,8 @@
   1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
   2. [Get Course Offer By a Student](#getCourseStudent)<br>
   3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
-  4. [Get Course Request By a Student](#getCourseReqStudent)<br>
-  5. [Get Course Request By a Tutor](#getCourseReqTutor)<br>
+  4. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
+  5. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
   6. [Student Accept Course Offer](#acceptCourse)<br>
   7. [Student Request for a Tutor](#tutorRequest)<br>
   8. [Tutor Offer Course to a Student](#offerCourse)<br>
@@ -353,9 +353,9 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="getCourseReqStudent"></a>
+<a name="getTutorReqStudent"></a>
 
-### Get Course Request by a Student ( Access via GET method on '/api/match/request/bystudent' )
+### Get Tutor Request by a Student ( Access via GET method on '/api/match/request/bystudent' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -370,9 +370,9 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="getCourseReqTutor"></a>
+<a name="getTutorReqTutor"></a>
 
-### Get Course Request by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
+### Get Tutor Request by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
