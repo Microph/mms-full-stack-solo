@@ -78,7 +78,7 @@ class AdminHeader extends Component {
                             primaryText="Suspended Users"
                         />
                         <MenuItem
-                        onClick={this.handleClose}
+                        onClick={() => this.handleMenuNavClicked('/api/admin/logout')}
                         style={{ fontSize: 20, color: "#fff", margin: 20 }}
                         >
                         <b>logout</b>

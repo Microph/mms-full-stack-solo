@@ -46,12 +46,13 @@ class ReportsManage extends Component {
         reports[i].reporterStudentID, 
         reportedName, 
         reports[i].reportedStudentID, 
-        reports[i].detail
+        reports[i].detail,
+        reports[i].updatedAt
       );
     }
   }
 
-  genCard(topic, reporterName, reporterID, reportedName, reportedID, detail){
+  genCard(topic, reporterName, reporterID, reportedName, reportedID, detail, updateTime){
     const newCard = (<ReportCard 
       isUserReportUser={!(reportedName === null)}
       topic = {topic}
@@ -60,6 +61,7 @@ class ReportsManage extends Component {
       reportedName = {reportedName}
       reportedID = {reportedID}
       detail = {detail}
+      updateTime = {updateTime}
       onClickSuspend = {() => this.handleButtonSubmit(reportedID)}
     />);
     this.setState({cards: [...this.state.cards, newCard]});
@@ -110,7 +112,8 @@ class ReportCard extends Component {
                 <div class="row">
                   <div class="col-sm-12 col-md-12">
                     <h2 style={{display: "inline-block", marginRight: 10}}><b>{this.props.topic}</b></h2>
-                    <h5 style={{display: "inline-block"}}>- {this.props.reporterName} ({this.props.reporterID})</h5>
+                    <h5 style={{display: "inline-block", marginRight: 10}}>- {this.props.reporterName} ({this.props.reporterID})</h5>
+                    <h5 style={{display: "inline-block"}}>- {this.props.updateTime}</h5>
                   </div>
                 </div>
 
