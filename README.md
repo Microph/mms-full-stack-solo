@@ -319,7 +319,7 @@
 <p align="center">.................................................</p>
 <a name="getCourseStudent"></a>
 
-### Get Course Offer by a Student ( Access via GET method on '/api/match/bystudent' )
+### Get Course Offer by a Student ( Access via GET method on '/api/match/request/bystudent' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -336,7 +336,7 @@
 <p align="center">.................................................</p>
 <a name="getCourseTutor"></a>
 
-### Get Course Offer by a Tutor ( Access via GET method on '/api/match/bytutor' )
+### Get Course Offer by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
