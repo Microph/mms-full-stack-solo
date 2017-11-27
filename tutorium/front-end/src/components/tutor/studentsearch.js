@@ -51,6 +51,7 @@ class StudentSearch extends Component {
       var sList = [];
       this.props.students.students.map(student => {
         if (student.wantList == null) return;
+        if(student.wantList === "" || student.time === "" || student.place === "") return;
         var wannastudy = "";
         JSON.parse(student.wantList).map(subject => {
           wannastudy +=
