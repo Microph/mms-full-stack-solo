@@ -86,6 +86,18 @@ function getStudentReportCount(SID) {
     })
 }
 
+function countApprovedTutor() {
+    return new Promise((resolve, reject) => {
+        Schema.Tutor.count({
+            where: {
+                isApproved: 1
+            }
+        }).then(result => {
+            resolve(result)
+        })
+    })
+}
+
 function adminSuspendStudent(SID) {
     return new Promise((resolve, reject) => {
         Schema.Suspended.findOrCreate({
@@ -131,5 +143,6 @@ module.exports = {
     adminSearchSuspendedAccount: adminSearchSuspendedAccount,
     adminUnsuspendAccount: adminUnsuspendAccount,
     getStudentInfoByID: getStudentInfoByID,
-    getStudentReportCount :getStudentReportCount
+    getStudentReportCount :getStudentReportCount,
+    countApprovedTutor: countApprovedTutor
 }

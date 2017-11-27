@@ -90,6 +90,7 @@
   7. [Admin unsuspend an account](#adminUnsuspentAnAccount)<br>
   8. [Admin get a student info by using ID](#adminGetAStudentInfoByID)<br>
   9. [Admin get a student report count](#adminGetStudentReportCount)<br>
+  10. [Admin get the number of approved tutors](#adminCountApprovedTutor)<br>
 <a name="adminAuth"></a>
 
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -953,6 +954,19 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | The account doesn't exist |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminCountApprovedTutor"></a>
+
+### Admin get the number of approved tutors ( Access via GET method on '/api/admin/count-approved-tutor' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| result | Int |  | The number of approved tutor |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
