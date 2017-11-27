@@ -2,7 +2,22 @@
 let match = require('../repository/match')
 
 module.exports = (app, passport, options) => {
-    app.get('/api/match/bystudent', (req, res, next) => {
+    // app.get('/api/match/request/bystudent', (req, res, next) => {
+    //     if(req.user && req.user.studentID) {
+
+    //     } else {
+    //         res.status(403).send({
+    //             success: false,
+    //             msg: 'You should login to get the request'
+    //         })
+    //     }
+    // })
+
+    // app.get('api/match/request/bytutor', (req, res, next) => {
+
+    // })
+
+    app.get('/api/match/offer/bystudent', (req, res, next) => {
         if(req.user && req.user.studentID) {
             let studentID = req.user.studentID
 
@@ -23,12 +38,12 @@ module.exports = (app, passport, options) => {
         } else {
             res.status(403).send({ 
                 success: false, 
-                msg: 'You should login to get the match' 
+                msg: 'You should login to get the offer' 
             })
         }
     })
 
-    app.get('/api/match/bytutor', (req, res, next) => {
+    app.get('/api/match/offer/bytutor', (req, res, next) => {
         if(req.user && req.user.isTutor) {
             let tutorID = req.user.studentID
 

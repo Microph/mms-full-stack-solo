@@ -59,7 +59,29 @@ module.exports = {
                 })
             })
         })
-    },    
+    },
+    getTutorRequestByStudentID: (studentID) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.findAndCountAll({
+                where: {
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    getTutorRequestByTutorID: (tutorID) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.findAndCountAll({
+                where: {
+                    tutorID: tutorID
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
     tutorRequest: (studentID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.TutorRequest.findOrCreate({
