@@ -83,7 +83,9 @@
   1. [user write report](#userWriteReport)<br>
   2. [Admin search all tutor requests](#adminTutorRequestManagement)<br>
   3. [Admin response to a tutor request](#adminResponseToATutorRequest)<br>
-
+  4. [Admin search all report](#adminSearchAllReport)<br>
+  5. [Admin suspend an account](#adminSuspentAnAccount)<br>
+  6. [Admin search all suspended accounts](#adminSearchAllSuspendedAccount)<br>
 <a name="adminAuth"></a>
 
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -806,6 +808,60 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | the id doesn't existed |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminSearchAllReport"></a>
+
+### Admin search all report ( Access via POST method on '/api/admin/report-management' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | "report": [<br>{<br>"reportID": INT,<br>"reporterStudentID": INT,<br>"reportedStudentID": INT,<br>"topic": String,<br>"detail": String,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME,<br>"reporter": {<br> "studentID": INT,<br> "name": String,<br> "surname": String,<br> "gender": String,<br> "educationLevel": String,<br> "facebookURL": String,<br> "lineID": String,<br> "email": String,<br> "mobile": String,<br> "wantList": String,<br> "place": String,<br> "time": String,<br> "createdAt": DATETIME,<br> "updatedAt": DATETIME<br>}<br>}<br>] |  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | no report found |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminSuspentAnAccount"></a>
+
+### Admin suspend an account ( Access via POST method on '/api/admin/report-management' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | The account has been suspended |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The id doesn't existed |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminSearchAllSuspendedAccount"></a>
+
+### Admin search all suspended accounts ( Access via POST method on '/api/admin/suspended-user-management' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | "result": [<br>{<br>"studentID": INT,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME,<br>"student": {<br>"studentID": INT,<br>"name": String,<br>"surname": String,<br>"gender": String,<br>"educationLevel": String,<br>"facebookURL": String,<br>"lineID": String,<br>"email": String,<br>"mobile": String,<br>"wantList": String,<br>"place": String,<br>"time": String,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME<br>}<br>}]|  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | There is no suspended account |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
