@@ -89,6 +89,7 @@
   6. [Admin search all suspended accounts](#adminSearchAllSuspendedAccount)<br>
   7. [Admin unsuspend an account](#adminUnsuspentAnAccount)<br>
   8. [Admin get a student info by using ID](#adminGetAStudentInfoByID)<br>
+  9. [Admin get a student report count](#adminGetStudentReportCount)<br>
 <a name="adminAuth"></a>
 
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -915,9 +916,13 @@
 <p align="center">.................................................</p>
 <a name="adminGetAStudentInfoByID"></a>
 
-### Admin find  a student info by using ID ( Access via GET method on '/api/get-student-info-by-id' )
+### Admin find a student info by using ID ( Access via GET method on '/api/get-student-info-by-id' )
 #### Pre-required
 * Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
 #### Return value on hit (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -926,7 +931,28 @@
 #### Return value on Not found (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | An account doesn't exist |
+| success | Bool | false | The account doesn't exist |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminGetStudentReportCount"></a>
+
+### Admin get a student report count ( Access via GET method on '/api/get-student-report-count' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| result | Int |  | The number of how many times the student has been reported |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The account doesn't exist |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
