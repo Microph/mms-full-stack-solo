@@ -398,7 +398,7 @@
 <p align="center">.................................................</p>
 <a name="declineCourse"></a>
 
-### Student Decline Course Offer ( Access via POST method on '/api/match/offer/decline' )
+### Student Decline Course Offer ( Access via DELETE method on '/api/match/offer/decline' )
 #### Pre-required
 * Authentication
 * Is student

@@ -55,7 +55,7 @@ class RecievedOffers extends Component {
 
   async declineOffer(id, sbj) {
     var res = await axios({
-      method: "POST",
+      method: "DELETE",
       url: "/api/match/offer/decline",
       headers: {
         "Content-type": "application/x-www-form-urlencoded"
