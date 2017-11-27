@@ -72,6 +72,7 @@
 [Get Course Offer By a Tutor](#getCourseTutor)<br>
 [user write report](#userWriteReport)<br>
 [Admin search all tutor requests](#adminTutorRequestManagement)<br>
+[Admin response to a tutor request](#adminResponseToATutorRequest)<br>
 
 <a name="adminAuth"></a>
 
@@ -695,5 +696,21 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | the id doesn't existed |
+
+<p align="center">.................................................</p>
+<a name="adminSearchAllReport"></a>
+
+### Admin response to a tutor request ( Access via GET method on '/api/admin/report-management' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | {} |  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | no tutor request found |
 
 <p align="center">.................................................</p>
