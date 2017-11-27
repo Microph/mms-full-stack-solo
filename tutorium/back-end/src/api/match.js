@@ -208,4 +208,30 @@ module.exports = (app, passport, options) => {
             })
         }
     })
+
+    app.delete('/api/match/offer/decline', (req, res, next) => {
+        if(req.user && req.user.studentID) {
+            let studentID = req.user.studentID
+            let userInput = req.body
+
+            match.declineOffer(studentID, userInput).then(result => {
+                if(result) {
+                    res.status(200).send({
+                        success: true,
+                        msg: 'The offer has already been delete'
+                    })
+                } else {
+                    res.status(400).send({
+                        success: false,
+                        msg: 'There is no row affected'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({
+                success: false,
+                msg: 'You should login first to decline your course offer'
+            })
+        }
+    })
 }

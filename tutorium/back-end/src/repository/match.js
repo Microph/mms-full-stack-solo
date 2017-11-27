@@ -116,5 +116,19 @@ module.exports = {
                 resolve(result)
             })
         })
+    },
+    declineOffer: (studentID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.Match.destroy({
+                where: {
+                    studentID: studentID,
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject,
+                    studentConfirm: false
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
     }
 }

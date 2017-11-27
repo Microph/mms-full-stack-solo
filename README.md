@@ -63,6 +63,7 @@
   4. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
   5. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
   6. [Student Accept Course Offer](#acceptCourse)<br>
+  7. [Student Decline Course Offer](#declineCourse)<br>
   7. [Student Request for a Tutor](#tutorRequest)<br>
   8. [Tutor Offer Course to a Student](#offerCourse)<br>
 * Search
@@ -408,6 +409,31 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false |  |
 | msg | String | 'There is no any offers',<br> 'You should be a student to accept course offer' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="declineCourse"></a>
+
+### Student Decline Course Offer ( Access via POST method on '/api/match/offer/decline' )
+#### Pre-required
+* Authentication
+* Is student
+* Course offer doesn't been accept
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | whose tutor do you want to decline offer | Yes |
+| subject | String(100) | which subject do you want to decline offer | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| msg | String | 'The offer has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false |  |
+| msg | String | There is no row affected',<br> 'You should login first to decline your course offer' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
