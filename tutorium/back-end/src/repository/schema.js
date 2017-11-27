@@ -218,6 +218,12 @@ Account.belongsTo(Student, {
     onUpdate: 'CASCADE'
 })
 
+Student.hasOne(Account, {
+    foreignKey: 'studentID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
 Tutor.belongsTo(Student, {
     foreignKey: 'studentID',
     onDelete: 'CASCADE',
