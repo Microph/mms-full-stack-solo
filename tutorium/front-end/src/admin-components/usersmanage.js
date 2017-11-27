@@ -10,6 +10,8 @@ import {
   parseDay
 } from "../util/parser";
 
+let forFilter = [];
+
 class UsersManage extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +20,8 @@ class UsersManage extends Component {
         totalTutors: 0,
         cards: []
     };
+
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   async componentDidMount() {
@@ -75,7 +79,6 @@ class UsersManage extends Component {
   }
 
   genCard(name, id, reportCount, gender, level, fb, line, email, tel, isTutor){
-    console.log(isTutor);
     const newCard = (<UserDetailCard 
       name = {name}
       id = {id}
@@ -89,11 +92,50 @@ class UsersManage extends Component {
       isTutor = {isTutor? ' (ติวเตอร์)':''}
     />);
     this.setState({cards: [...this.state.cards, newCard]});
+    
+    let inputFilter = '';
+    inputFilter += (String(name).trim()=='')? '' : String(name).trim().toLowerCase() + ' ';
+    inputFilter += (String(id).trim()=='')? '' : String(id).trim().toLowerCase() + ' ';
+    inputFilter += (String(reportCount).trim()=='')? '' : String(reportCount).trim().toLowerCase() + ' ';
+    inputFilter += (String(gender).trim()=='')? '' : String(gender).trim().toLowerCase() + ' ';
+    inputFilter += (String(level).trim()=='')? '' : String(level).trim().toLowerCase() + ' ';
+    inputFilter += (String(fb).trim()=='')? '' : String(fb).trim().toLowerCase() + ' ';
+    inputFilter += (String(line).trim()=='')? '' : String(line).trim().toLowerCase() + ' ';
+    inputFilter += (String(email).trim()=='')? '' : String(email).trim().toLowerCase() + ' ';
+    inputFilter += (String(tel).trim()=='')? '' : String(tel).trim().toLowerCase() + ' ';
+    forFilter.push(inputFilter);
   }
 
   handleFieldChange(value) {
-    /*To be implemented*/
-    console.log(value);
+    let newCards = [];
+    let clonedElement = null;
+    const filterWord = String(value).trim().toLowerCase();
+    let studentCount=0, tutorCount=0;
+    for(let i=0; i<forFilter.length; i++){
+      if(forFilter[i].search(filterWord) == -1){
+        clonedElement = React.cloneElement(
+          this.state.cards[i], 
+          { isHidden: true }
+        );
+      }
+      else{
+        clonedElement = React.cloneElement(
+          this.state.cards[i], 
+          { isHidden: false }
+        );
+
+        studentCount++;
+        if(Object.entries(clonedElement)[4][1].isTutor != '')
+          tutorCount++;
+      }
+      newCards.push(clonedElement);
+    }
+    
+    this.setState({
+      totalStudents: studentCount,
+      totalTutors: tutorCount,
+      cards: newCards
+    });
   }
 
   render() {
@@ -153,7 +195,7 @@ class UserDetailCard extends Component {
 
   render() {
     return (
-      <div>
+      <div hidden={this.props.isHidden}>
         <div class="row">
           <div class="thumbnail clearfix">
             <div class="container">
