@@ -87,7 +87,8 @@ module.exports = {
             Schema.TutorRequest.findOrCreate({
                 where: {
                     studentID: studentID,
-                    tutorID: userInput.tutorID
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
                 },
                 defaults: {
                     studentID: studentID,

@@ -207,7 +207,7 @@ const TutorRequest = sequelize.define('tutorRequest', {
     },
     subject: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        primaryKey: true
     }
 })
 
@@ -274,6 +274,8 @@ Student.hasMany(Report, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
+
+sequelize.sync()
 
 module.exports = {
     Account: Account,
