@@ -95,7 +95,21 @@ module.exports = {
             Schema.TutorRequest.findAndCountAll({
                 where: {
                     studentID: studentID
-                }
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'student',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
             }).then(result => {
                 resolve(result)
             })
@@ -106,7 +120,21 @@ module.exports = {
             Schema.TutorRequest.findAndCountAll({
                 where: {
                     tutorID: tutorID
-                }
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'student',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
             }).then(result => {
                 resolve(result)
             })
