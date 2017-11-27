@@ -327,7 +327,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool}, <br>tutor:{<br>&nbsp;education: Objects,<br>&nbsp;teachList: List,<br>&nbsp;place: Objects,<br>&nbsp;time: Objects,<br>&nbsp;info:{<br>&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;gender: String}}] | found offers |
+| offers | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, <br>price: Int, <br>studentConfirm: Bool,<br>student: {<br>&nbsp;name: String,<br>&nbsp;surname: String,<br>&nbsp;gender: String,<br>educationLevel: String,<br>&nbsp;place: List,<br>&nbsp;time: Objects},<br>tutor:{<br>&nbsp;education: Objects,<br>&nbsp;place: Objects,<br>&nbsp;time: Objects,<br>&nbsp;info:{<br>&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;}<br>&nbsp;}<br>}] | found offers |
 | count | Number |  | Amount of offer |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
