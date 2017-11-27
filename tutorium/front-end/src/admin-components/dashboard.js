@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Card,  
+  FlatButton,  
 } from "material-ui";
 
 class Dashboard extends Component {
@@ -23,7 +23,6 @@ class Dashboard extends Component {
                 <div class="row">
                     {genDashboardNumberDetail('report')}
                     {genDashboardNumberDetail('suspenedAccounts')}
-                    {genDashboardNumberDetail('deleteRequest')}
                 </div>
             </div>
         );
@@ -34,8 +33,10 @@ class DashboardNumberDetail extends Component {
     render() {
         return (
             <div class="col-sm-4 col-md-4">
-                <Card 
+                <FlatButton 
+                    onClick={this.props.onClick}
                   style = {{
+                    backgroundColor: 'white',
                     height: 120,
                     width: 220,
                     margin: 30,
@@ -47,29 +48,31 @@ class DashboardNumberDetail extends Component {
                       paddingBottom: 10,
                   }}>{this.props.number}</h1>
                   <h4>{this.props.text}</h4>
-                </Card>
+                </FlatButton>
             </div>
         );
     }
 }
 
+function handleMenuClicked (url) {(window.location.href = url);}
+
 function genDashboardNumberDetail(DashboardNumberDetailType) {
-    let num = 0, text = '';
+    let num = 0, text = '', url = '';
     switch(DashboardNumberDetailType)
     {
-      case 'student': num = 1; text = 'student'; break;
-      case 'tutor': num = 2; text = 'tutor';break;
-      case 'tutorRequest': num = 3; text = 'tutorRequest';break;
-      case 'report': num = 4; text = 'report';break;
-      case 'suspenedAccounts': num = 5; text = 'suspenedAccounts';break;
-      case 'deleteRequest': num = 6; text = 'deleteRequest';break;
+      case 'student': num = 1; text = 'Students'; url = '/admin/usersmanage'; break;
+      case 'tutor': num = 2; text = 'Tutors'; url = '/admin/usersmanage'; break;
+      case 'tutorRequest': num = 3; text = 'Tutor Requests'; url = '/admin/requestsmanage'; break;
+      case 'report': num = 4; text = 'Reports'; url = '/admin/reportsmanage'; break;
+      case 'suspenedAccounts': num = 5; text = 'Suspeneded Accounts'; url = '/admin/suspendedusers'; break;
       default: ;
     }
 
     return (
       <DashboardNumberDetail 
-      number={num} 
-      text={text}
+        onClick = {() => handleMenuClicked(url)}
+        number={num} 
+        text={text}
     />);
 }
 
