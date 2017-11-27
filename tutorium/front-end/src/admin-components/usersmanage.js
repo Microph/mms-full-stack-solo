@@ -1,15 +1,99 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import {
   FlatButton,  
 } from "material-ui";
+import {
+  parseLevel,
+  parseGender,
+  parseSubject,
+  parseDay
+} from "../util/parser";
 
 class UsersManage extends Component {
-  genCard(){
-      return(<UserDetailCard />);
+  constructor(props) {
+    super(props);
+    this.state = {
+        totalStudents: 0,
+        totalTutors: 0,
+        cards: []
+    };
   }
 
-  handleFieldChange() {
+  async componentDidMount() {
+    const res = await axios({
+      method: "GET",
+      url: "/api/search/student"
+    });
+
+    const res2 = await axios({
+      method: "GET",
+      url: "/api/admin/count-approved-tutor"
+    });
+
+    if(res.data.success && res2.data.success) {
+      this.setState({
+        totalStudents: res.data.students.length,
+        totalTutors: res2.data.result
+      });
+      this.prepareCard(res.data.students);
+    }
+    
+  }
+
+  async prepareCard(studentData){
+    for(let i=0; i<studentData.length; i++){
+      let res = await axios({
+        method: "GET",
+        url: "/api/admin/get-student-report-count",
+        headers: {
+          "id": studentData[i].studentID
+        },
+      });
+
+      let reportCount = '';
+      if(res.data.success){
+        reportCount = res.data.result;
+      }
+      else{
+        reportCount = '(failed to get data)';
+      }
+
+      this.genCard(
+        studentData[i].name + ' ' + studentData[i].surname,
+        studentData[i].studentID,
+        reportCount,
+        parseGender(studentData[i].gender),
+        parseLevel(studentData[i].educationLevel),
+        studentData[i].facebookURL,
+        studentData[i].lineID,
+        studentData[i].email,
+        studentData[i].mobile,
+        studentData[i].account.isTutor
+      );
+    }
+  }
+
+  genCard(name, id, reportCount, gender, level, fb, line, email, tel, isTutor){
+    console.log(isTutor);
+    const newCard = (<UserDetailCard 
+      name = {name}
+      id = {id}
+      reportCount = {reportCount}
+      gender = {gender}
+      level = {level}
+      fb = {fb}
+      line = {line}
+      email = {email}
+      tel = {tel}
+      isTutor = {isTutor? ' (ติวเตอร์)':''}
+    />);
+    this.setState({cards: [...this.state.cards, newCard]});
+  }
+
+  handleFieldChange(value) {
     /*To be implemented*/
+    console.log(value);
   }
 
   render() {
@@ -19,7 +103,7 @@ class UsersManage extends Component {
           {/* User Count and Search Field */}
           <div className="row" style={{marginBottom: 20}}>
             <div className="col-sm-7 col-md-7">
-              <h4 style={{}}>ผู้ใช้ทั้งหมด</h4>
+              <h4>กำลังแสดง นักเรียน {this.state.totalStudents} คน (เป็นติวเตอร์ {this.state.totalTutors} คน)</h4>
             </div>
             
             <div className="search-header col-sm-5 col-md-5 pull-right">
@@ -39,9 +123,7 @@ class UsersManage extends Component {
             </div>
           </div>
           {/* Cards Field */}
-          {this.genCard()}
-          {this.genCard()}
-          {this.genCard()}
+          {this.state.cards}
         </div>
       );
   }
@@ -77,32 +159,50 @@ class UserDetailCard extends Component {
             <div class="container">
                 <div class="row">
                   <div class="col-sm-7 col-md-7">
-                      <h2>เด็กดี ตั้งใจเรียน</h2>
+                      <h2>{this.props.name}{this.props.isTutor}</h2>
                   </div>
                   <div class="col-sm-5 col-md-5">
-                      <h2 align="right">ID: 000023</h2>
+                      <h2 align="right">ID: {this.props.id}</h2>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-sm-7 col-md-7">
-                      <h4>เด็กดี ตั้งใจเรียน</h4>
-                  </div>
-                  <div class="col-sm-5 col-md-5">
-                      <h4 align="right">ID: 000023</h4>
+                  <div class="col-sm-12 col-md-12">
+                      <h4><u>ถูกรายงาน {this.props.reportCount} ครั้ง</u></h4>
                   </div>
                 </div>
 
                 <div hidden={!this.state.showFullDetail}>
                   <div class="row">
-                    <div class="col-sm-12 col-md-12">
-                        <h4>เด็กดี ตั้งใจเรียน</h4>
+                    <div class="col-sm-6 col-md-6">
+                        <h4><b>เพศ:</b> {this.props.gender}</h4>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <h4 align="right"><b>ระดับการศึกษา:</b> {this.props.level}</h4>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                      <h4><b>Facebook:</b> {this.props.fb}</h4>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                      <h4 align="right"><b>Line ID:</b> {this.props.line}</h4>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                      <h4><b>อีเมล์:</b> {this.props.email}</h4>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                      <h4 align="right"><b>โทรศัพท์:</b> {this.props.tel}</h4>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>เด็กดี ตั้งใจเรียน</h4>
+                      <h4><b>หลักฐานยืนยันตัวตน:</b> -</h4>
                     </div>
                   </div>
                 </div>
