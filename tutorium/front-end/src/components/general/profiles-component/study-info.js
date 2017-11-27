@@ -160,8 +160,19 @@ class StudyInfo extends Component {
   }
 
   renderWantList() {
-    if (wantList == null) return <div />;
     var renderList = [];
+    if (wantList == null) {
+      renderList.push(
+        <Chip
+          key={-1}
+          style={{ marginTop: -4, marginLeft: 2 }}
+          onClick={() => this.setState({ openAddWantList: true })}
+        >
+          {"+"}
+        </Chip>
+      );
+      return renderList;
+    }
     for (var i = 0; i < wantList.length; i++) {
       renderList.push(
         <Chip
@@ -186,8 +197,19 @@ class StudyInfo extends Component {
   }
 
   renderPlace() {
-    if (place == null) return <div />;
     var renderList = [];
+    if (place == null) {
+      renderList.push(
+        <Chip
+          key={-1}
+          style={{ marginTop: -4, marginLeft: 2 }}
+          onClick={() => this.setState({ openAddPlace: true })}
+        >
+          {"+"}
+        </Chip>
+      );
+      return renderList;
+    }
     for (var i = 0; i < place.length; i++) {
       renderList.push(
         <Chip
@@ -212,8 +234,19 @@ class StudyInfo extends Component {
   }
 
   renderTime() {
-    if (time == null) return <div />;
     var renderList = [];
+    if (time == null) {
+      renderList.push(
+        <Chip
+          key={-1}
+          style={{ marginTop: -4, marginLeft: 2 }}
+          onClick={() => this.setState({ openAddTime: true })}
+        >
+          {"+"}
+        </Chip>
+      );
+      return renderList;
+    }
     for (var i = 0; i < time.length; i++) {
       renderList.push(
         <Chip

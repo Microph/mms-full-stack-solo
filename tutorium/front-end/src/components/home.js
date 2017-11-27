@@ -100,6 +100,7 @@ class Home extends Component {
         });
       });
     } else {
+      if (preparedTutor == undefined) return trList;
       preparedTutor.map(t => {
         trList.push(t);
       });
