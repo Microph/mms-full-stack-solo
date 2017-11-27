@@ -9,12 +9,16 @@ module.exports = {
                     studentID: studentID
                 },
                 include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
                     model: Schema.Tutor,
                     as: 'tutor',
-                    attributes: ['education', 'teachList', 'place', 'time'],
+                    attributes: ['education', 'place', 'time'],
                     include: [{
                         model: Schema.Student,
-                        as: 'info',
+                        as: 'student',
                         attributes: ['name', 'surname', 'gender']
                     }]
                 }]
@@ -28,7 +32,21 @@ module.exports = {
             Schema.Match.findAndCountAll({
                 where: {
                     tutorID: tutorID
-                }
+                },
+                include: [{
+                    model: Schema.Student,
+                    as: 'student',
+                    attributes: ['name', 'surname', 'gender', 'educationLevel', 'place', 'time']
+                },{
+                    model: Schema.Tutor,
+                    as: 'tutor',
+                    attributes: ['education', 'place', 'time'],
+                    include: [{
+                        model: Schema.Student,
+                        as: 'info',
+                        attributes: ['name', 'surname', 'gender']
+                    }]
+                }]
             }).then(result => {
                 resolve(result)
             })
