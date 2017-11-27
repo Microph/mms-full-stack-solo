@@ -937,7 +937,7 @@
 <p align="center">.................................................</p>
 <a name="adminGetStudentReportCount"></a>
 
-### Admin get a student report count ( Access via GET method on '/api/get-student-report-count' )
+### Admin get a student report count ( Access via GET method on '/api/admin/get-student-report-count' )
 #### Pre-required
 * Authentication
 #### Input Parameters
