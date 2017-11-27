@@ -74,7 +74,7 @@ class ReportsManage extends Component {
   render() {
       return (
         <div>
-          <h1>Reports Management</h1>
+          <h1>User Reports</h1>
           {this.state.cards}
         </div>
       );
