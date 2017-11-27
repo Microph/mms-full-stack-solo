@@ -51,6 +51,7 @@ class Home extends Component {
     if (this.props.tutors.success) {
       var tList = [];
       this.props.tutors.tutors.map(tutor => {
+        if (!tutor.isApproved) return;
         var teaching = "";
         JSON.parse(tutor.teachList).map(subject => {
           teaching =
@@ -84,7 +85,10 @@ class Home extends Component {
             " " +
             day,
           render: (
-            <Card key={tutor.studentID} style={{ marginTop: 10, marginBottom: 5 }}>
+            <Card
+              key={tutor.studentID}
+              style={{ marginTop: 10, marginBottom: 5 }}
+            >
               <CardHeader
                 title={tutor.student.name + " " + tutor.student.surname}
                 subtitle={teaching}
@@ -97,9 +101,19 @@ class Home extends Component {
                 <span>สถานที่ที่สามารถสอน: {places}</span>
                 <br />
                 <span>เวลาที่สามารถสอน: {daytime}</span>
+                <div>
+                  <FlatButton
+                    onClick={() => alert(tutor.studentID)}
+                    style={{
+                      marginTop: 5
+                    }}
+                    label="ส่งคำขอเรียน"
+                  />
+                </div>
               </CardText>
             </Card>
-          )
+          ),
+          id: tutor.studentID
         });
       });
       return tList;
@@ -136,7 +150,7 @@ class Home extends Component {
               />
               <span className="input-group-addon">
                 <button>
-                  <span class="glyphicon glyphicon-search" />
+                  <span className="glyphicon glyphicon-search" />
                 </button>
               </span>
             </div>
