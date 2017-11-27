@@ -14,16 +14,66 @@ class ReportsManage extends Component {
       };
   }
 
+  async componentDidMount() {
+    const res = await axios({
+      method: "GET",
+      url: "/api/admin/report-management"
+    });
+
+    if(res.data.success) 
+      this.prepareCard(res.data.report);
+    
+  }
+
+  async prepareCard(reports){
+    for(let i=0; i<reports.length; i++){
+      let reportedName = null;
+      if(reports[i].reportedStudentID != null){
+        const res2 = await axios({
+          method: "GET",
+          url: "/api/get-student-info-by-id",
+          headers: {"id": reports[i].reportedStudentID}
+        });
+
+        if(res2.data.success)
+          reportedName = res2.data.result.name + ' ' + res2.data.result.surname;
+      }
+      
+      //call genCard
+      this.genCard(
+        reports[i].topic, 
+        reports[i].reporter.name + ' ' + reports[i].reporter.surname, 
+        reports[i].reporterStudentID, 
+        reportedName, 
+        reports[i].reportedStudentID, 
+        reports[i].detail
+      );
+    }
+  }
+
+  genCard(topic, reporterName, reporterID, reportedName, reportedID, detail){
+    const newCard = (<ReportCard 
+      isUserReportUser={!(reportedName === null)}
+      topic = {topic}
+      reporterName = {reporterName}
+      reporterID = {reporterID}
+      reportedName = {reportedName}
+      reportedID = {reportedID}
+      detail = {detail}
+      onClickSuspend = {() => this.handleButtonSubmit(reportedID)}
+    />);
+    this.setState({cards: [...this.state.cards, newCard]});
+  }
+
+  handleButtonSubmit (studentID) {
+    alert('Suspend Student ID: ' + studentID);
+  }
+
   render() {
       return (
         <div>
-          <h1>ReportsManage</h1>
-          <ReportCard 
-            isUserReportUser={true}
-          />
-          <ReportCard 
-            isUserReportUser={false}
-          />
+          <h1>Reports Management</h1>
+          {this.state.cards}
         </div>
       );
   }
@@ -59,14 +109,14 @@ class ReportCard extends Component {
             <div class="container">
                 <div class="row">
                   <div class="col-sm-12 col-md-12">
-                    <h2 style={{display: "inline-block", marginRight: 10}}><b>ติวเตอร์ไม่มาสอนครับ</b></h2>
-                    <h5 style={{display: "inline-block"}}>- นักเรียน หาคนติว (00026)</h5>
+                    <h2 style={{display: "inline-block", marginRight: 10}}><b>{this.props.topic}</b></h2>
+                    <h5 style={{display: "inline-block"}}>- {this.props.reporterName} ({this.props.reporterID})</h5>
                   </div>
                 </div>
 
                 <div class="row" hidden={!this.props.isUserReportUser}>
                   <div class="col-sm-12 col-md-12">
-                      <h3>ผู้ใช้ที่ถูกรายงาน: เก่ง ไปหมด</h3>
+                      <h3>ผู้ใช้ที่ถูกรายงาน: {this.props.reportedName} ({this.props.reportedID})</h3>
                   </div>
                 </div>  
 
@@ -79,7 +129,7 @@ class ReportCard extends Component {
 
                   <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h4>รายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียดรายละเอียด</h4>
+                        <h4>{this.props.detail}</h4>
                     </div>
                   </div>
                 </div>
@@ -103,7 +153,7 @@ class ReportCard extends Component {
                 <div class="row" hidden={!this.props.isUserReportUser}>
                   <div class="col-sm-12 col-md-12" align="left">
                     <FlatButton
-                      onClick= {this.props.onClickDecline}
+                      onClick= {this.props.onClickSuspend}
                       style={{
                         display: "inline-block",
                         margin: "auto",
@@ -111,11 +161,9 @@ class ReportCard extends Component {
                         backgroundColor: "#f00"
                       }}
                       labelStyle={{ fontSize: 15, fontWeight: 700 }}
-                      label="งับบัญชีผู้ใช้ เก่ง ไปหมด (ID: 000025) (โปรดใช้อย่างระมัดระวัง)"
-                    />
+                      label={'ระงับบัญชีผู้ใช้ ' + this.props.reportedName + ' (' + this.props.reportedID + ') ' + '(โปรดใช้อย่างระมัดระวัง)'}                    />
                   </div>
                 </div>
-
 
             </div>
           </div>
