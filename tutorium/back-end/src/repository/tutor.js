@@ -6,12 +6,23 @@ module.exports = {
         return new Promise((resolve, reject) => {
             if(filter) {
                 Schema.Student.findAndCountAll({
-                    where: filter
+                    where: filter,
+                    include: [{
+                        model: Schema.Account,
+                        as: 'account',
+                        attributes: ['isTutor']
+                    }]
                 }).then(result => {
                     resolve(result)
                 })
             } else {
-                Schema.Student.findAndCountAll().then(result => {
+                Schema.Student.findAndCountAll({
+                    include: [{
+                        model: Schema.Account,
+                        as: 'account',
+                        attributes: ['isTutor']
+                    }]
+                }).then(result => {
                     resolve(result)
                 })
             }

@@ -57,15 +57,16 @@
   3. [Get Credit Card](#getCreditCard)<br>
   4. [Update Credit Card](#updateCreditCard)<br>
 * Matching
-  1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
-  2. [Get Course Offer By a Student](#getCourseStudent)<br>
-  3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
-  4. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
-  5. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
-  6. [Student Accept Course Offer](#acceptCourse)<br>
-  7. [Student Decline Course Offer](#declineCourse)<br>
-  7. [Student Request for a Tutor](#tutorRequest)<br>
-  8. [Tutor Offer Course to a Student](#offerCourse)<br>
+  1. [Get Course Offer By a Student](#getCourseStudent)<br>
+  2. [Get Course Offer By a Tutor](#getCourseTutor)<br>
+  3. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
+  4. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
+  5. [Student Accept Course Offer](#acceptCourse)<br>
+  6. [Student Decline Course Offer](#declineCourse)<br>
+  7. [Student Delete Tutor Request](#stuDelTutorRequest)<br>
+  8. [Student Request for a Tutor](#tutorRequest)<br>
+  9. [Tutor Delete Tutor Request](#tuDelTutorRequest)<br>
+  10. [Tutor Offer Course to a Student](#offerCourse)<br>
 * Search
   1. [Student Search](#stSearch)<br>
   2. [Tutor Search](#tutorSearch)<br>
@@ -82,7 +83,13 @@
 * Admin
   1. [user write report](#userWriteReport)<br>
   2. [Admin search all tutor requests](#adminTutorRequestManagement)<br>
-
+  3. [Admin response to a tutor request](#adminResponseToATutorRequest)<br>
+  4. [Admin search all report](#adminSearchAllReport)<br>
+  5. [Admin suspend an account](#adminSuspentAnAccount)<br>
+  6. [Admin search all suspended accounts](#adminSearchAllSuspendedAccount)<br>
+  7. [Admin unsuspend an account](#adminUnsuspentAnAccount)<br>
+  8. [Admin get a student info by using ID](#adminGetAStudentInfoByID)<br>
+  9. [Admin get a student report count](#adminGetStudentReportCount)<br>
 <a name="adminAuth"></a>
 
 ### Admin Authentication ( Access via POST method on '/api/auth/admin' )
@@ -297,29 +304,6 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="delTutorRequest"></a>
-
-### Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete' )
-#### Pre-required
-* Authentication
-* Is a tutor
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| studentID | Integer | student id you want to delete the request | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | deleted account complete |
-| msg | String | 'The request has already been delete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | delete account incomplete |
-| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
 <a name="getCourseStudent"></a>
 
 ### Get Course Offer by a Student ( Access via GET method on '/api/match/offer/bystudent' )
@@ -327,7 +311,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| offers | Objects | [{<br>&nbsp;&nbsp;studentID: Int, <br>&nbsp;&nbsp;tutorID: Int, <br>&nbsp;&nbsp;subject: String, <br>&nbsp;&nbsp;price: Int, <br>&nbsp;&nbsp;studentConfirm: Bool,<br>&nbsp;&nbsp;student: {<br>&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;gender: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;educationLevel: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: List,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;tutor:{<br>&nbsp;&nbsp;&nbsp;&nbsp;education: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;info:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}] | found offers |
+| offers | Objects | [{<br>&nbsp;&nbsp;studentID: Int, <br>&nbsp;&nbsp;tutorID: Int, <br>&nbsp;&nbsp;subject: String, <br>&nbsp;&nbsp;price: Int, <br>&nbsp;&nbsp;studentConfirm: Bool,<br>&nbsp;&nbsp;student: {<br>&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;gender: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;educationLevel: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: List,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;tutor:{<br>&nbsp;&nbsp;&nbsp;&nbsp;education: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;student:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}] | found offers |
 | count | Number |  | Amount of offer |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
@@ -344,7 +328,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| offers | Objects | [{<br>&nbsp;&nbsp;studentID: Int, <br>&nbsp;&nbsp;tutorID: Int, <br>&nbsp;&nbsp;subject: String, <br>&nbsp;&nbsp;price: Int, <br>&nbsp;&nbsp;studentConfirm: Bool,<br>&nbsp;&nbsp;student: {<br>&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;gender: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;educationLevel: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: List,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;tutor:{<br>&nbsp;&nbsp;&nbsp;&nbsp;education: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;info:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}] | found offers |
+| offers | Objects | [{<br>&nbsp;&nbsp;studentID: Int, <br>&nbsp;&nbsp;tutorID: Int, <br>&nbsp;&nbsp;subject: String, <br>&nbsp;&nbsp;price: Int, <br>&nbsp;&nbsp;studentConfirm: Bool,<br>&nbsp;&nbsp;student: {<br>&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;gender: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;educationLevel: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: List,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;tutor:{<br>&nbsp;&nbsp;&nbsp;&nbsp;education: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;place: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;time: Objects,<br>&nbsp;&nbsp;&nbsp;&nbsp;student:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surname: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gender: String<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}] | found offers |
 | count | Number |  | Amount of offer |
 #### Return value on incomplete (HTTP 403 Forbidden)
 | Field Name | Type | Value | Description |
@@ -437,6 +421,30 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
+<a name="stuDelTutorRequest"></a>
+
+### Student Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete/bystudent' )
+#### Pre-required
+* Authentication
+* Is a student
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | tutor id you want to delete the request | Yes |
+| subject | Integer | subject you want to delete the request | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'The request has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
 <a name="tutorRequest"></a>
 
 ### Student request for a Tutor ( Access via POST method on '/api/match/request' )
@@ -458,6 +466,30 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | delete account incomplete |
 | msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="tuDelTutorRequest"></a>
+
+### Tutor Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete/bytutor' )
+#### Pre-required
+* Authentication
+* Is a tutor
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | Integer | studentID id you want to delete the request | Yes |
+| subject | Integer | subject you want to delete the request | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'The request has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
@@ -516,7 +548,7 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | true |  |
-| students | Objects | [{ studentID: String, <br>name: String, <br> surname: String, <br>gender: String, <br>educationLevel: String, <br>facebookUrl: String, <br>lineID: String, <br>email:String, <br>mobile: String, <br> wantList: Object, <br> place: Object, <br> time: Object}] | found student |
+| students | Objects | [{<br>&nbsp;&nbsp;studentID: String, <br>&nbsp;&nbsp;name: String, <br>&nbsp;&nbsp;surname: String, <br>&nbsp;&nbsp;gender: String, <br>&nbsp;&nbsp;educationLevel: String, <br>&nbsp;&nbsp;facebookUrl: String, <br>&nbsp;&nbsp;lineID: String, <br>&nbsp;&nbsp;email:String, <br>&nbsp;&nbsp;mobile: String, <br>&nbsp;&nbsp;wantList: Object, <br>&nbsp;&nbsp;place: Object, <br>&nbsp;&nbsp;time: Object,<br>&nbsp;&nbsp;account:{<br>&nbsp;&nbsp;&nbsp;&nbsp;isTutor: Bool<br>&nbsp;&nbsp;}<br>}] | found student |
 | count | Number |  | Amount of student |
 #### Return value on incomplete (HTTP 403 Forbidden, HTTP 200 No Content)
 | Field Name | Type | Value | Description |
@@ -805,6 +837,122 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | the id doesn't existed |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminSearchAllReport"></a>
+
+### Admin search all report ( Access via POST method on '/api/admin/report-management' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | "report": [<br>{<br>"reportID": INT,<br>"reporterStudentID": INT,<br>"reportedStudentID": INT,<br>"topic": String,<br>"detail": String,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME,<br>"reporter": {<br> "studentID": INT,<br> "name": String,<br> "surname": String,<br> "gender": String,<br> "educationLevel": String,<br> "facebookURL": String,<br> "lineID": String,<br> "email": String,<br> "mobile": String,<br> "wantList": String,<br> "place": String,<br> "time": String,<br> "createdAt": DATETIME,<br> "updatedAt": DATETIME<br>}<br>}<br>] |  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | no report found |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminSuspentAnAccount"></a>
+
+### Admin suspend an account ( Access via POST method on '/api/admin/report-management' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | The account has been suspended |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The id doesn't existed |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminSearchAllSuspendedAccount"></a>
+
+### Admin search all suspended accounts ( Access via GET method on '/api/admin/suspended-user-management' )
+#### Pre-required
+* Authentication
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | "result": [<br>{<br>"studentID": INT,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME,<br>"student": {<br>"studentID": INT,<br>"name": String,<br>"surname": String,<br>"gender": String,<br>"educationLevel": String,<br>"facebookURL": String,<br>"lineID": String,<br>"email": String,<br>"mobile": String,<br>"wantList": String,<br>"place": String,<br>"time": String,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME<br>}<br>}]|  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | There is no suspended account |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminUnsuspentAnAccount"></a>
+
+### Admin unsuspend an account ( Access via POST method on '/api/admin/suspended-user-management' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | The account has been unsuspended |
+#### Return value on incomplete (HTTP 500 Internal server error)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The account is not suspended |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminGetAStudentInfoByID"></a>
+
+### Admin find a student info by using ID ( Access via GET method on '/api/get-student-info-by-id' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| report | Object | "student": {<br>"studentID": INT,<br>"name": String,<br>"surname": String,<br>"gender": String,<br>"educationLevel": String,<br>"facebookURL": String,<br>"lineID": String,<br>"email": String,<br>"mobile": String,<br>"wantList": String,<br>"place": String,<br>"time": String,<br>"createdAt": DATETIME,<br>"updatedAt": DATETIME<br>}|  |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The account doesn't exist |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="adminGetStudentReportCount"></a>
+
+### Admin get a student report count ( Access via GET method on '/api/admin/get-student-report-count' )
+#### Pre-required
+* Authentication
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| id | Int | the student's id | Yes |
+#### Return value on hit (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | query success |
+| result | Int |  | The number of how many times the student has been reported |
+#### Return value on Not found (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | The account doesn't exist |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>

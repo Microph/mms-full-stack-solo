@@ -43,7 +43,7 @@ module.exports = {
                     attributes: ['education', 'place', 'time'],
                     include: [{
                         model: Schema.Student,
-                        as: 'info',
+                        as: 'student',
                         attributes: ['name', 'surname', 'gender']
                     }]
                 }]
@@ -161,12 +161,26 @@ module.exports = {
             })
         })
     },
-    deleteTutorRequest: (tutorID, studentID) => {
+    deleteTutorRequestByStudent: (studentID, userInput) => {
+        return new Promise((resolve, reject) => {
+            Schema.TutorRequest.destroy({
+                where: {
+                    studentID: studentID,
+                    tutorID: userInput.tutorID,
+                    subject: userInput.subject
+                }
+            }).then(result => {
+                resolve(result)
+            })
+        })
+    },
+    deleteTutorRequestByTutor: (tutorID, userInput) => {
         return new Promise((resolve, reject) => {
             Schema.TutorRequest.destroy({
                 where: {
                     tutorID: tutorID,
-                    studentID: studentID
+                    studentID: userInput.studentID,
+                    subject: userInput.subject
                 }
             }).then(result => {
                 resolve(result)
