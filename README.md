@@ -57,15 +57,16 @@
   3. [Get Credit Card](#getCreditCard)<br>
   4. [Update Credit Card](#updateCreditCard)<br>
 * Matching
-  1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
-  2. [Get Course Offer By a Student](#getCourseStudent)<br>
-  3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
-  4. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
-  5. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
-  6. [Student Accept Course Offer](#acceptCourse)<br>
-  7. [Student Decline Course Offer](#declineCourse)<br>
-  7. [Student Request for a Tutor](#tutorRequest)<br>
-  8. [Tutor Offer Course to a Student](#offerCourse)<br>
+  1. [Get Course Offer By a Student](#getCourseStudent)<br>
+  2. [Get Course Offer By a Tutor](#getCourseTutor)<br>
+  3. [Get Tutor Request By a Student](#getTutorReqStudent)<br>
+  4. [Get Tutor Request By a Tutor](#getTutorReqTutor)<br>
+  5. [Student Accept Course Offer](#acceptCourse)<br>
+  6. [Student Decline Course Offer](#declineCourse)<br>
+  7. [Student Delete Tutor Request](#stuDelTutorRequest)<br>
+  8. [Student Request for a Tutor](#tutorRequest)<br>
+  9. [Tutor Delete Tutor Request](#tuDelTutorRequest)<br>
+  10. [Tutor Offer Course to a Student](#offerCourse)<br>
 * Search
   1. [Student Search](#stSearch)<br>
   2. [Tutor Search](#tutorSearch)<br>
@@ -300,29 +301,6 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
-<a name="delTutorRequest"></a>
-
-### Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete' )
-#### Pre-required
-* Authentication
-* Is a tutor
-#### Input Parameters
-| Field Name | Type | Description | Required? |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| studentID | Integer | student id you want to delete the request | Yes |
-#### Return value on complete (HTTP 200 Success)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | true | deleted account complete |
-| msg | String | 'The request has already been delete' |  |
-#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
-| Field Name | Type | Value | Description |
-| :------------: | --------------------------------- | ------------------ | ------------------ |
-| success | Bool | false | delete account incomplete |
-| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
-
-<br>[Back To Table Of Content](#tableOfContent)
-<p align="center">.................................................</p>
 <a name="getCourseStudent"></a>
 
 ### Get Course Offer by a Student ( Access via GET method on '/api/match/offer/bystudent' )
@@ -440,6 +418,30 @@
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
+<a name="stuDelTutorRequest"></a>
+
+### Student Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete/bystudent' )
+#### Pre-required
+* Authentication
+* Is a student
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| tutorID | Integer | tutor id you want to delete the request | Yes |
+| subject | Integer | subject you want to delete the request | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'The request has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
 <a name="tutorRequest"></a>
 
 ### Student request for a Tutor ( Access via POST method on '/api/match/request' )
@@ -461,6 +463,30 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | delete account incomplete |
 | msg | String | 'You used to send a request to this tutor',<br> 'You should login to request tutor' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="tuDelTutorRequest"></a>
+
+### Tutor Delete Tutor Request ( Access via DELETE method on '/api/match/request/delete/bytutor' )
+#### Pre-required
+* Authentication
+* Is a tutor
+#### Input Parameters
+| Field Name | Type | Description | Required? |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| studentID | Integer | studentID id you want to delete the request | Yes |
+| subject | Integer | subject you want to delete the request | Yes |
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true | deleted account complete |
+| msg | String | 'The request has already been delete' |  |
+#### Return value on incomplete (HTTP 400 Bad Request, HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | delete account incomplete |
+| msg | String | 'There is no row affected',<br> 'You should be a tutor to delete the request' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
