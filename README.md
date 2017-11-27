@@ -60,9 +60,11 @@
   1. [Delete Student Request for a Tutor](#delTutorRequest)<br>
   2. [Get Course Offer By a Student](#getCourseStudent)<br>
   3. [Get Course Offer By a Tutor](#getCourseTutor)<br>
-  4. [Student Accept Course Offer](#acceptCourse)<br>
-  5. [Student Request for a Tutor](#tutorRequest)<br>
-  6. [Tutor Offer Course to a Student](#offerCourse)<br>
+  4. [Get Course Request By a Student](#getCourseReqStudent)<br>
+  5. [Get Course Request By a Tutor](#getCourseReqTutor)<br>
+  6. [Student Accept Course Offer](#acceptCourse)<br>
+  7. [Student Request for a Tutor](#tutorRequest)<br>
+  8. [Tutor Offer Course to a Student](#offerCourse)<br>
 * Search
   1. [Student Search](#stSearch)<br>
   2. [Tutor Search](#tutorSearch)<br>
@@ -319,7 +321,7 @@
 <p align="center">.................................................</p>
 <a name="getCourseStudent"></a>
 
-### Get Course Offer by a Student ( Access via GET method on '/api/match/request/bystudent' )
+### Get Course Offer by a Student ( Access via GET method on '/api/match/offer/bystudent' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -330,13 +332,13 @@
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
-| msg | String | 'You should login to get the match' |  |
+| msg | String | 'You should login to get the offer' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>
 <a name="getCourseTutor"></a>
 
-### Get Course Offer by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
+### Get Course Offer by a Tutor ( Access via GET method on '/api/match/offer/bytutor' )
 #### Return value on complete (HTTP 200 Success)
 | Field Name | Type | Value | Description |
 | :------------: | --------------------------------- | ------------------ | ------------------ |
@@ -348,6 +350,40 @@
 | :------------: | --------------------------------- | ------------------ | ------------------ |
 | success | Bool | false | search incomplete |
 | msg | String | 'You should be a tutor to get tutor offer' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="getCourseReqStudent"></a>
+
+### Get Course Request by a Student ( Access via GET method on '/api/match/request/bystudent' )
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| requests | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String, }] | found requests |
+| count | Number |  | Amount of request |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should login to get your request' |  |
+
+<br>[Back To Table Of Content](#tableOfContent)
+<p align="center">.................................................</p>
+<a name="getCourseReqTutor"></a>
+
+### Get Course Request by a Tutor ( Access via GET method on '/api/match/request/bytutor' )
+#### Return value on complete (HTTP 200 Success)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | true |  |
+| requests | Objects | [{ studentID: Int, <br>tutorID: Int, <br>subject: String}] | found requests |
+| count | Number |  | Amount of request |
+#### Return value on incomplete (HTTP 403 Forbidden)
+| Field Name | Type | Value | Description |
+| :------------: | --------------------------------- | ------------------ | ------------------ |
+| success | Bool | false | search incomplete |
+| msg | String | 'You should be a tutor to get your request' |  |
 
 <br>[Back To Table Of Content](#tableOfContent)
 <p align="center">.................................................</p>

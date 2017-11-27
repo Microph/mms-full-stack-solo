@@ -2,20 +2,57 @@
 let match = require('../repository/match')
 
 module.exports = (app, passport, options) => {
-    // app.get('/api/match/request/bystudent', (req, res, next) => {
-    //     if(req.user && req.user.studentID) {
+    app.get('/api/match/request/bystudent', (req, res, next) => {
+        if(req.user && req.user.studentID) {
+            let studentID = req.user.studentID
 
-    //     } else {
-    //         res.status(403).send({
-    //             success: false,
-    //             msg: 'You should login to get the request'
-    //         })
-    //     }
-    // })
+            match.getTutorRequestByStudentID(studentID).then(result => {
+                if(result.count > 0) {
+                    res.status(200).send({ 
+                        success: true, 
+                        requests: result.rows, 
+                        count: result.count
+                    })
+                } else {
+                    res.status(200).send({ 
+                        success: false,
+                        msg: 'Request not found'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({
+                success: false,
+                msg: 'You should login to get your request'
+            })
+        }
+    })
 
-    // app.get('api/match/request/bytutor', (req, res, next) => {
+    app.get('/api/match/request/bytutor', (req, res, next) => {
+        if(req.user && req.user.isTutor) {
+            let tutorID = req.user.studentID
 
-    // })
+            match.getTutorRequestByTutorID(tutorID).then(result => {
+                if(result.count > 0) {
+                    res.status(200).send({ 
+                        success: true, 
+                        requests: result.rows, 
+                        count: result.count
+                    })
+                } else {
+                    res.status(200).send({ 
+                        success: false,
+                        msg: 'Request not found'
+                    })
+                }
+            })
+        } else {
+            res.status(403).send({
+                success: false,
+                msg: 'You should be a tutor to get your request'
+            })
+        }
+    })
 
     app.get('/api/match/offer/bystudent', (req, res, next) => {
         if(req.user && req.user.studentID) {
